@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -26,6 +27,9 @@
 </head>
 
 <body>
+<%
+
+%>
 <%@ include file="common_m_header.jsp" %>
 <%@ include file="common_desktop_header.jsp" %>
 
@@ -105,7 +109,7 @@
             </div>
             <div class="swiper-container2">
                 <div class="swiper-wrapper">
-
+				<%-- <c:forEach> --%>
                     <div class="swiper-slide" style="width:285px !important;">
                         <a href="desc_spot.jsp?bo_table=gallery&amp;wr_id=9">
                             <img src="../front_util/images/thumb-b592950d84858733b19ce958b7aa1e61_1571968104_0715_285x220.jpg"
@@ -116,56 +120,9 @@
                                 <span class="date">2019-10-25</span>
                             </p>
                         </a>
+				<%-- </c:forEach> --%>
                     </div>
 
-
-                    <div class="swiper-slide" style="width:285px !important;">
-                        <a href="desc_spot.jsp?bo_table=gallery&amp;wr_id=9">
-                            <img src="../front_util/images/thumb-b592950d84858733b19ce958b7aa1e61_1571968085_2893_285x220.jpg"
-                                 alt="&nbsp;">
-                            <p class="txtBox">
-                                <span class="tit">월정교</span>
-                                <span class="txt">&nbsp;</span>
-                                <span class="date">2019-10-25</span>
-                            </p>
-                        </a>
-                    </div>
-
-                    <div class="swiper-slide" style="width:285px !important;">
-                        <a href="desc_spot.jsp?bo_table=gallery&amp;wr_id=9">
-                            <img src="../front_util/images/thumb-b592950d84858733b19ce958b7aa1e61_1571968027_3237_285x220.jpg"
-                                 alt="&nbsp;">
-                            <p class="txtBox">
-                                <span class="tit">안압지</span>
-                                <span class="txt">&nbsp;</span>
-                                <span class="date">2019-10-25</span>
-                            </p>
-                        </a>
-                    </div>
-
-                    <div class="swiper-slide" style="width:285px !important;">
-                        <a href="desc_spot.jsp?bo_table=gallery&amp;wr_id=9">
-                            <img src="../front_util/images/thumb-b592950d84858733b19ce958b7aa1e61_1571967995_9657_285x220.jpg"
-                                 alt="&nbsp;">
-                            <p class="txtBox">
-                                <span class="tit">문무대왕릉</span>
-                                <span class="txt">&nbsp;</span>
-                                <span class="date">2019-10-25</span>
-                            </p>
-                        </a>
-                    </div>
-
-                    <div class="swiper-slide" style="width:285px !important;">
-                        <a href="desc_spot.jsp?bo_table=gallery&amp;wr_id=9">
-                            <img src="../front_util/images/thumb-b592950d84858733b19ce958b7aa1e61_1571967966_297_285x220.jpg"
-                                 alt="&nbsp;">
-                            <p class="txtBox">
-                                <span class="tit">불국사</span>
-                                <span class="txt">&nbsp;</span>
-                                <span class="date">2019-10-25</span>
-                            </p>
-                        </a>
-                    </div>
                 </div>
             </div>
         </section>
