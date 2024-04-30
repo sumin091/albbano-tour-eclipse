@@ -5,7 +5,10 @@
   Time: 오전 11:11
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@page import="vo.SpotListVO"%>
+<%@page import="java.util.List"%>
+<%@page import="dao.SpotDAO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -28,7 +31,9 @@
 
 <body>
 <%
-
+SpotDAO sDAO =SpotDAO.getInstance();
+List<SpotListVO> list =sDAO.selectAlSpot();
+pageContext.setAttribute("list", list);
 %>
 <%@ include file="common_m_header.jsp" %>
 <%@ include file="common_desktop_header.jsp" %>
@@ -109,19 +114,19 @@
             </div>
             <div class="swiper-container2">
                 <div class="swiper-wrapper">
-				<%-- <c:forEach> --%>
+				<c:forEach var="spt" items="${ list }">
                     <div class="swiper-slide" style="width:285px !important;">
                         <a href="desc_spot.jsp?bo_table=gallery&amp;wr_id=9">
                             <img src="../front_util/images/thumb-b592950d84858733b19ce958b7aa1e61_1571968104_0715_285x220.jpg"
                                  alt="&nbsp;">
                             <p class="txtBox">
-                                <span class="tit">감은사지삼층석탑</span>
+                                <span class="tit"><c:out value="${ spt.spot_name}" /></span>
                                 <span class="txt">&nbsp;</span>
                                 <span class="date">2019-10-25</span>
                             </p>
                         </a>
-				<%-- </c:forEach> --%>
                     </div>
+				 </c:forEach>
 
                 </div>
             </div>
