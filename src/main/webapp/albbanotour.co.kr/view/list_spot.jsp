@@ -5,6 +5,9 @@
   Time: 오전 11:11
   To change this template use File | Settings | File Templates.
 --%>
+<%@page import="vo.SpotListVO"%>
+<%@page import="java.util.List"%>
+<%@page import="dao.SpotDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -28,7 +31,10 @@
 
 <body>
 <%
-
+SpotDAO sDAO =SpotDAO.getInstance();
+List<SpotListVO> list =sDAO.selectAlSpot();
+pageContext.setAttribute("list", list);
+out.print(list);
 %>
 <%@ include file="common_m_header.jsp" %>
 <%@ include file="common_desktop_header.jsp" %>
