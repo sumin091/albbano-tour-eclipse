@@ -5,8 +5,14 @@
   Time: 오후 04:57
   To change this template use File | Settings | File Templates.
 --%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="vo.ResListVO"%>
+<%@page import="java.util.List"%>
+<%@page import="dao.ResListDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
 <!DOCTYPE html>
+
 <html lang="ko">
 <head>
     <title>맛집리스트 | 알빠노관광</title>
@@ -25,6 +31,16 @@
 </head>
 
 <body>
+
+<%
+	ResListDAO rDAO= ResListDAO.getInstance() ;
+	//이름꼭바꿔라!!!!!!!!!!!!!!!!!!!!!
+	List<ResListVO> list = new ArrayList<ResListVO>();
+	list = rDAO.matjipList();
+	pageContext.setAttribute("list", list);
+
+
+%>
 <%@ include file="common_m_header.jsp" %>
 <%@ include file="common_desktop_header.jsp" %>
 
@@ -84,6 +100,7 @@
 
     <script src="../front_util/js/g_slide.js"></script>
 
+
     <div id="container">
         <section id="rolling_box" class="clearfix">
             <div class="con_title wow fadeInUp" id="unique_con_title">
@@ -102,23 +119,27 @@
             </div>
             <div class="swiper-container2">
                 <div class="swiper-wrapper">
+<c:forEach var="matjip" items="${ list }" varStatus="i">
                     <div class="swiper-slide" style="width:285px !important;">
                         <a href="desc_spot.jsp?bo_table=gallery&amp;wr_id=9">
                             <img src="../front_util/images/thumb-b592950d84858733b19ce958b7aa1e61_1571968104_0715_285x220.jpg"
                                  alt="&nbsp;">
                             <p class="txtBox">
-                                <span class="tit">감은사지삼층석탑</span>
+                                <span class="tit"><c:out value="${matjip.res_name }"/></span>
                                 <span class="txt">&nbsp;</span>
                                 <span class="date">2019-10-25</span>
                             </p>
                         </a>
                     </div>
 
+   </c:forEach>
                 </div>
             </div>
         </section>
 
     </div>
+    
+   
 </section>
 
 <%--footer_jsp_적용_시작--%>
