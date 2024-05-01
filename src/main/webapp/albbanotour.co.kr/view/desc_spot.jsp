@@ -52,7 +52,7 @@ pageContext.setAttribute("sVO", sVO);
                 </div>
                 <ul class="">
                     <li>
-                        <span>고객센터</span>
+                        <span>관광지</span>
                         <ul>
                             <li><a href="tour_course.jsp" target="_self">관광지</a></li>
                             <li><a href="booking.jsp?bo_table=booking" target="_self">맛집</a></li>
@@ -63,24 +63,12 @@ pageContext.setAttribute("sVO", sVO);
                 </ul>
                 <ul class="dep2">
                     <li>
-                        <span>탑승정보</span>
+                        <span>관광지 상세</span>
                         <ul>
-                            <li><a href="main_notice.jsp?bo_table=notice" target="_self">공지사항</a></li>
-
-
-                            <li><a href="faq.jsp?fm_id=1" target="_self">자주 묻는 질문</a></li>
-
-
-                            <li><a href="qna.jsp?bo_table=qa" target="_self">질문답변</a></li>
-
-
-                            <li><a href="question.jsp" target="_self">1:1문의</a></li>
-
-
+                            <li><a href="main_notice.jsp?bo_table=notice" target="_self">관광지 상세</a></li>
                         </ul>
                     </li>
                 </ul>
-
             </div>
         </div>
     </div>
@@ -89,10 +77,10 @@ pageContext.setAttribute("sVO", sVO);
     <div id="sub_tit">
         <div class="path">
             <li><a href="index_user.jsp"><span class="ic-home"><i></i></span></a></li>
-            <li>고객센터</li>
-            <li>탑승정보</li>
+            <li>관광지</li>
+            <li>관광지 상세</li>
         </div>
-        <div class="title">고객센터</div>
+        <div class="title">관광지</div>
         <p class="normal_txt">
             홈페이지를 방문해주셔서 감사합니다.
         </p>
@@ -101,11 +89,14 @@ pageContext.setAttribute("sVO", sVO);
     <section class="scontents">
         <div class="bg_vline"></div>
         <p class="eng"><em>${ sVO.spot_name }</em></p>
-        <p class="all_map"><a href="map_info_01.html">전체보기</a></p>
+        <p class="all_map" style="float: right;"><a href="review_spot.jsp">리뷰 보기</a></p>
+        
     </section>
     <div>
+    <div id ="desc" style="width:50%; float: left; margin-left: 150px;">
+    ${sVO.spot_desc }
     </div>
-    <div id="map" style="width:25%;height:450px; margin: 0 auto;"></div>
+    <div id="map" style="width:35%;height:450px; margin: 0 auto ; float: right; margin-right: 100px"></div>
     <!--<p><em>지도를 확대 또는 축소 해주세요!</em></p> -->
     <p id="result" style="display: none"></p>
 
@@ -154,6 +145,7 @@ pageContext.setAttribute("sVO", sVO);
         // 마커가 지도 위에 표시되도록 설정합니다
         marker.setMap(map);
     </script>
+    </div>
 
 
 </section>
