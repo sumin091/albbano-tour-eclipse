@@ -5,7 +5,19 @@ Date: 2024-04-17
 Time: 오전 11:17
 To change this template use File | Settings | File Templates.
 --%>
+<%@page import="dao.LoginDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%
+	String id = (String)session.getAttribute("idKey");
+	if(id!=null){
+%>
+	<script>
+	alert("로그인 되었습니다.");
+	location.href = "login_ok.jsp";
+	</script>
+	
+<% } %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -26,7 +38,6 @@ To change this template use File | Settings | File Templates.
 </head>
 
 <body>
-
 <!-- 로그인 시작 { -->
 <div id="mb_login" class="mbskin">
     <div class="mbskin_box">
@@ -38,9 +49,10 @@ To change this template use File | Settings | File Templates.
             <h2>로그인 </h2>
             <a href="register.jsp" class="join">회원가입 </a>
         </div>
-        <form name="flogin" action="https://cmtour.co.kr/bbs/login_check.php" onsubmit="return flogin_submit(this);"
+        <!-- <form name="flogin" action="https://cmtour.co.kr/bbs/login_check.php" onsubmit="return flogin_submit(this);"
               method="post">
-            <input type="hidden" name="url" value="https%3A%2F%2Fcmtour.co.kr">
+            <input type="hidden" name="url" value="https%3A%2F%2Fcmtour.co.kr"> -->
+            <form action="login_proc.jsp" method="post">
 
             <fieldset id="login_fs">
                 <legend>회원로그인</legend>
@@ -61,7 +73,7 @@ To change this template use File | Settings | File Templates.
                     </div>
                 </div>
             </fieldset>
-        </form>
+            </form>
     </div>
 </div>
 
