@@ -5,7 +5,17 @@ Date: 2024-04-17
 Time: 오후 12:33
 To change this template use File | Settings | File Templates.
 --%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="vo.NoticeVO"%>
+<%@page import="java.util.List"%>
+<%@page import="dao.NoticeDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+NoticeDAO noticeDAO= NoticeDAO.getInstance();
+List<NoticeVO> list=noticeDAO.selectAll();
+pageContext.setAttribute("list", list);
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -14,7 +24,7 @@ To change this template use File | Settings | File Templates.
     <script>
         // 자바스크립트에서 사용하는 전역변수 선언
         var g5_url = "../index.html";
-        var g5_bbs_url = "index.html";
+        var g5_bbs_url = "index.html"; 
         var g5_is_member = "";
         var g5_is_admin = "";
         var g5_is_mobile = "";
@@ -158,20 +168,21 @@ To change this template use File | Settings | File Templates.
                             <td class="td_subject" style="padding-left:0px">
 
                                 <div class="bo_tit">
-
-                                    <a href="notice05.html?bo_table=notice&amp;wr_id=37">
-                                        [제휴할인] 인터폴커피 20%할인
+									<c:forEach var="notice" items="${ list }">
+                                    <a href="desc_notice.jsp?docNO=${notice.doc_No }&title=${notice.title}&img_Name=${notice.img_Name}$doc_cont=${notice.doc_Cont}">
+                                        ${notice.title }
                                     </a>
+								</c:forEach>
                                     <i class="fa fa-heart" aria-hidden="true"></i></div>
                                 <div class="mview">
                                     <div class="gall_info">
-                                        <span class="sv_member">관리자</span></div>
+                                        <span class="sv_member">${notice.id}</span></div>
                                     <div class="gall_info">
                                         <span class="sound_only">조회 </span>Hit 1842 <span class="gall_date"><span
-                                            class="sound_only">작성일 </span>Date  2022-11-22</span>
+                                            class="sound_only">작성일 </span>${notice.create_Date}</span>
                                     </div>
+                                    
                                 </div>
-
                             </td>
                             <td class="td_name sv_use lview"><span class="sv_member">관리자</span></td>
                             <td class="td_num lview">1842</td>
