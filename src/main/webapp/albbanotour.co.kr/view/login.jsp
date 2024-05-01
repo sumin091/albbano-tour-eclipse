@@ -31,7 +31,6 @@ To change this template use File | Settings | File Templates.
 <div id="mb_login" class="mbskin">
     <div class="mbskin_box">
         <h1>로그인</h1>
-
         <div><a href="index_user.jsp"><h2 style="font-size: 2rem; margin: 20px auto"><img
                 src="../front_util/images/top_logo.png" alt="처음으로 "></h2></a></div>
 
@@ -52,7 +51,6 @@ To change this template use File | Settings | File Templates.
                 <input type="password" name="mb_password" id="login_pw" required class="frm_input required" size="20"
                        maxLength="20" placeholder="PASSWORD">
                 <button type="submit" class="btn_submit">로그인</button>
-
                 <div id="login_info">
                     <div class="login_if_auto chk_box">
                         <input type="checkbox" name="auto_login" id="login_auto_login" class="selec_chk">
