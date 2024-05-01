@@ -5,7 +5,15 @@ Date: 2024-04-17
 Time: 오후 12:24
 To change this template use File | Settings | File Templates.
 --%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@page import="vo.SpotListVO"%>
+<%@page import="dao.SpotDAO"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%
+String sptCode = request.getParameter("spot_code");
+SpotDAO sDAO = SpotDAO.getInstance();
+SpotListVO sVO= sDAO.selectSpot(sptCode);
+pageContext.setAttribute("sVO", sVO);
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -92,11 +100,12 @@ To change this template use File | Settings | File Templates.
 
     <section class="scontents">
         <div class="bg_vline"></div>
-        <p class="eng"><em>경주역 </em></p>
+        <p class="eng"><em>${ sVO.spot_name }</em></p>
         <p class="all_map"><a href="map_info_01.html">전체보기</a></p>
-
     </section>
-    <div id="map" style="width:70%;height:450px; margin: 0 auto;"></div>
+    <div>
+    </div>
+    <div id="map" style="width:25%;height:450px; margin: 0 auto;"></div>
     <!--<p><em>지도를 확대 또는 축소 해주세요!</em></p> -->
     <p id="result" style="display: none"></p>
 
@@ -106,8 +115,8 @@ To change this template use File | Settings | File Templates.
     <script>
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div
             mapOption = {
-                center: new kakao.maps.LatLng(35.7994909, 129.1402033), // 지도의 중심좌표
-                level: 3 // 지도의 확대 레벨
+                center: new kakao.maps.LatLng(${sVO.latitude}, ${sVO.longitude}), // 지도의 중심좌표
+                level: 4 // 지도의 확대 레벨
             };
 
         var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
