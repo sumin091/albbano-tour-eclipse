@@ -59,21 +59,13 @@ To change this template use File | Settings | File Templates.
                     <li>
                         <span>관광지 리뷰</span>
                         <ul>
-                            <li><a href="/bbs/board.php?bo_table=notice" target="_self">공지사항</a></li>
-
+                            <li><a href="/bbs/board.php?bo_table=notice" target="_self">관광지 리스트</a></li>
 
                             <li><a href="/bbs/faq.php?fm_id=1" target="_self">관광지 리뷰</a></li>
-
-
-                            <li><a href="/bbs/board.php?bo_table=qa" target="_self">질문답변</a></li>
-
-
-                            <li><a href="/bbs/qalist.php" target="_self">1:1문의</a></li>
 
                         </ul>
                     </li>
                 </ul>
-
             </div>
         </div>
     </div>

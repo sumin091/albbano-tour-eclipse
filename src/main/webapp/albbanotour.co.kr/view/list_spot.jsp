@@ -53,7 +53,7 @@ pageContext.setAttribute("list", list);
                 <div class="cen"><a href="index_user.jsp"><i class="fa fa-home" aria-hidden="true"></i></a></div>
                 <ul class="">
                     <li>
-                        <span>고객센터</span>
+                        <span>관광지</span>
                         <ul>
                             <li><a href="tour_course.jsp" target="_self">관광지</a></li>
                             <li><a href="booking.jsp?bo_table=booking" target="_self">맛집</a></li>
@@ -66,15 +66,9 @@ pageContext.setAttribute("list", list);
                 </ul>
                 <ul class="dep2">
                     <li>
-                        <span>공지사항</span>
+                        <span>관광지 리스트</span>
                         <ul>
-                            <li><a href="main_notice.jsp?bo_table=notice" target="_self">공지사항</a></li>
-
-                            <li><a href="faq.jsp?fm_id=1" target="_self">자주 묻는 질문</a></li>
-
-                            <li><a href="qna.jsp?bo_table=qa" target="_self">질문답변</a></li>
-
-                            <li><a href="question.jsp" target="_self">1:1문의</a></li>
+                            <li><a href="main_notice.jsp?bo_table=notice" target="_self">관광지 리스트</a></li>
 
                         </ul>
                     </li>
@@ -87,9 +81,9 @@ pageContext.setAttribute("list", list);
     <div id="sub_tit">
         <div class="path">
             <li><a href="index_user.jsp"><span class="ic-home"><i></i></span></a></li>
-            <li>고객센터</li>
+            <li>관광지</li>
             <li></li>
-            <li>공지사항</li>
+            <li>관광지 리스트</li>
         </div>
         <div class="title">고객센터</div>
         <p class="normal_txt"></p>
