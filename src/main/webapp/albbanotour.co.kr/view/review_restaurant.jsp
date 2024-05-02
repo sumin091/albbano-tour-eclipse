@@ -154,7 +154,14 @@ pageContext.setAttribute("list", list);
      
                     <li>
                         <h3>
-                            <img src=" ${review.img_name }">
+                        	<c:if test="${empty review.img_name }">
+								이미지 없다.<br/>
+							</c:if>
+                        	
+                        	<c:if test="${not empty review.img_name }">
+                            	<img src=" ${review.img_name }">
+                            </c:if>
+                            
                             <a href="#none" onclick="return faq_open(this);" style="display: block;">
                                 <span class="tit_bg" style="position: static">제목</span>
                                 <p style="    display: inline;">

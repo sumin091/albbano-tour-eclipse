@@ -118,7 +118,7 @@ pageContext.setAttribute("list", list);
 				<c:forEach var="spt" items="${ list }">
                     <div class="swiper-slide" style="width:285px !important;">
                         <a href="desc_spot.jsp?spot_code=${ spt.spot_code }">
-                            <img src="../front_util/images/thumb-b592950d84858733b19ce958b7aa1e61_1571968104_0715_285x220.jpg"
+                            <img src="${ spt.img_name}"
                                  alt="&nbsp;">
                             <p class="txtBox">
                                 <span class="tit"><c:out value="${ spt.spot_name}" /></span>

@@ -137,10 +137,7 @@ public class ResListDAO {
 		
 	}
 		
-	
-	
-	
-	
+
 
 }
 
