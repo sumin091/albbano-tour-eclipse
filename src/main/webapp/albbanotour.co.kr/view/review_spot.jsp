@@ -5,7 +5,21 @@ Date: 2024-04-17
 Time: 오후 02:43
 To change this template use File | Settings | File Templates.
 --%>
+<%@page import="vo.SpotListVO"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="dao.SpotDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%
+	String sptCode = request.getParameter("spt_code");
+	SpotDAO sDAO = SpotDAO.getInstance();
+	List<SpotListVO> list = new ArrayList<SpotListVO>();
+	list = sDAO.selectSptAllReview(sptCode);
+	pageContext.setAttribute("list", list);
+%>
+
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -39,6 +53,7 @@ To change this template use File | Settings | File Templates.
 
 <section id="sub_wrapper">
     <div id="sub_menu">
+ 
         <div class="sub_location">
             <div>
                 <div class="cen"><a href="index_user.jsp"><i class="fa fa-home" aria-hidden="true"></i></a>
@@ -59,21 +74,13 @@ To change this template use File | Settings | File Templates.
                     <li>
                         <span>관광지 리뷰</span>
                         <ul>
-                            <li><a href="/bbs/board.php?bo_table=notice" target="_self">공지사항</a></li>
-
+                            <li><a href="/bbs/board.php?bo_table=notice" target="_self">관광지 리스트</a></li>
 
                             <li><a href="/bbs/faq.php?fm_id=1" target="_self">관광지 리뷰</a></li>
-
-
-                            <li><a href="/bbs/board.php?bo_table=qa" target="_self">질문답변</a></li>
-
-
-                            <li><a href="/bbs/qalist.php" target="_self">1:1문의</a></li>
 
                         </ul>
                     </li>
                 </ul>
-
             </div>
         </div>
     </div>
@@ -121,98 +128,31 @@ To change this template use File | Settings | File Templates.
             <section id="faq_con">
                 <h2>관광지 목록</h2>
                 <ol>
+                  <c:forEach var="review" items="${ list }" varStatus="i">
                     <li>
                         <h3>
-                            <img src="../front_util/images/thumb-b592950d84858733b19ce958b7aa1e61_1571967966_297_285x220.jpg">
+                            <img src="${review.img_name }">
                             <a href="#none" onclick="return faq_open(this);" style="
     display: block;
 ">
                                 <span class="tit_bg" style="position: static">제목</span>
                                 <p style="
     display: inline;
-">
-                                    불국사 명작<br>
+">											
+                                    <c:out value=" ${review.spot_title }"/><br>
                                 </p>
                             </a>
                         </h3>
                         <div class="con_inner">
                             <span class="tit_bg">내용</span>
-                            <p>그림판으로 그리면</p>
-                            <p><br/></p>
-                            <p>손가락은 작살나지만</p>
-                            <p><br/></p>
-                            <p>멋진 그림이 그려집니다.</p>
-                            <p><br/></p>
-                            <p>윈도우는</p>
-                            <p><br/></p>
-                            <p>아주 멋진 os 입니다.</p>
+                           		   <c:out value="${review.spot_contents }"/>
                             <div class="con_closer">
                                 <button type="button" class="closer_btn btn_b03">닫기</button>
                             </div>
                         </div>
                     </li>
 
-                    <li>
-                        <h3>
-                            <img src="../front_util/images/thumb-b592950d84858733b19ce958b7aa1e61_1571967966_297_285x220.jpg">
-                            <a href="#none" onclick="return faq_open(this);" style="
-    display: block;
-">
-                                <span class="tit_bg" style="position: static">제목</span>
-                                <p style="
-    display: inline;
-">
-                                    불국사 명작<br>
-                                </p>
-                            </a>
-                        </h3>
-                        <div class="con_inner">
-                            <span class="tit_bg">내용</span>
-                            <p>그림판으로 그리면</p>
-                            <p><br/></p>
-                            <p>손가락은 작살나지만</p>
-                            <p><br/></p>
-                            <p>멋진 그림이 그려집니다.</p>
-                            <p><br/></p>
-                            <p>윈도우는</p>
-                            <p><br/></p>
-                            <p>아주 멋진 os 입니다.</p>
-                            <div class="con_closer">
-                                <button type="button" class="closer_btn btn_b03">닫기</button>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li>
-                        <h3>
-                            <img src="../front_util/images/thumb-b592950d84858733b19ce958b7aa1e61_1571967966_297_285x220.jpg">
-                            <a href="#none" onclick="return faq_open(this);" style="
-    display: block;
-">
-                                <span class="tit_bg" style="position: static">제목</span>
-                                <p style="
-    display: inline;
-">
-                                    불국사 명작<br>
-                                </p>
-                            </a>
-                        </h3>
-                        <div class="con_inner">
-                            <span class="tit_bg">내용</span>
-                            <p>그림판으로 그리면</p>
-                            <p><br/></p>
-                            <p>손가락은 작살나지만</p>
-                            <p><br/></p>
-                            <p>멋진 그림이 그려집니다.</p>
-                            <p><br/></p>
-                            <p>윈도우는</p>
-                            <p><br/></p>
-                            <p>아주 멋진 os 입니다.</p>
-                            <div class="con_closer">
-                                <button type="button" class="closer_btn btn_b03">닫기</button>
-                            </div>
-                        </div>
-                    </li>
+                      </c:forEach>
 
                 </ol>
             </section>

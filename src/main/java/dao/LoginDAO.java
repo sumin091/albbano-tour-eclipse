@@ -43,8 +43,10 @@ public class LoginDAO {
 			pstmt.setString(2, password);
 			rs = pstmt.executeQuery();
 			
-			if(rs.next()&&rs.getInt(1)>0)
-				loginCon = true;
+			//if(rs.next())
+				//loginCon = true;
+			
+			loginCon=rs.next();//true-조회결과 있음, false-조회결과 없음
 		}catch(Exception ex) {
 			System.out.println("Exception" + ex);
 		}finally {

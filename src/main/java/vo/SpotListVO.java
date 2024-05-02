@@ -7,6 +7,9 @@ public class SpotListVO {
 	private Date create_date;
 	private Double longitude, latitude;
 	
+	private String spot_doc_no, spot_title, id, spot_contents;
+	private Date edit_date;
+	
 	public SpotListVO() {
 		
 	}
@@ -21,6 +24,52 @@ public class SpotListVO {
 		this.create_date = create_date;
 		this.longitude = longitude;
 		this.latitude = latitude;
+	}
+	
+
+	public SpotListVO(String spot_code, String img_name, Date create_date, String spot_doc_no, String spot_title, String id,
+			String spot_contents, Date edit_date) {
+		super();
+		this.spot_code = spot_code;
+		this.img_name = img_name;
+		this.create_date = create_date;
+		this.spot_doc_no = spot_doc_no;
+		this.spot_title = spot_title;
+		this.id = id;
+		this.spot_contents = spot_contents;
+		this.edit_date = edit_date;
+	}
+	
+	
+	public String getSpot_doc_no() {
+		return spot_doc_no;
+	}
+	public void setSpot_doc_no(String spot_doc_no) {
+		this.spot_doc_no = spot_doc_no;
+	}
+	public String getSpot_title() {
+		return spot_title;
+	}
+	public void setSpot_title(String spot_title) {
+		this.spot_title = spot_title;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getSpot_contents() {
+		return spot_contents;
+	}
+	public void setSpot_contents(String spot_contents) {
+		this.spot_contents = spot_contents;
+	}
+	public Date getEdit_date() {
+		return edit_date;
+	}
+	public void setEdit_date(Date edit_date) {
+		this.edit_date = edit_date;
 	}
 	public String getSpot_code() {
 		return spot_code;
@@ -74,7 +123,8 @@ public class SpotListVO {
 	public String toString() {
 		return "SpotListVO [spot_code=" + spot_code + ", spot_name=" + spot_name + ", spot_desc=" + spot_desc
 				+ ", img_name=" + img_name + ", spt_loc=" + spt_loc + ", create_date=" + create_date + ", longitude="
-				+ longitude + ", latitude=" + latitude + "]";
+				+ longitude + ", latitude=" + latitude + ", spot_doc_no=" + spot_doc_no + ", spot_title=" + spot_title
+				+ ", id=" + id + ", spot_contents=" + spot_contents + ", edit_date=" + edit_date + "]";
 	}
 	
 
