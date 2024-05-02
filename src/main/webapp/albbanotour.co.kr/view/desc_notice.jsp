@@ -5,7 +5,16 @@
   Time: 오후 01:16
   To change this template use File | Settings | File Templates.
 --%>
+<%@page import="java.util.List"%>
+<%@page import="dao.NoticeDAO"%>
+<%@page import="vo.NoticeVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+NoticeDAO noticeDAO= NoticeDAO.getInstance();
+List<NoticeVO> list=noticeDAO.selectAll();
+pageContext.setAttribute("list", list);
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -104,20 +113,22 @@
         <!-- 게시물 읽기 시작 { -->
 
         <article id="bo_v" style="width:100%">
+        <c:forEach var="notice" items="${ list }">
             <header>
+            
                 <h2 id="bo_v_title">
                         <span class="bo_v_tit">
-            2022년 투어요금 변경안내</span>
+            ${notice.title }</span>
                 </h2>
             </header>
 
             <section id="bo_v_info">
                 <h2>페이지 정보</h2>
-                <span class="sound_only">작성자</span> <strong><span class="sv_member">관리자</span></strong>
+                <span class="sound_only">작성자</span> <strong><span class="sv_member">${notice.id }</span></strong>
                 <span class="sound_only">댓글</span><strong><a href="#bo_vc"> <i class="fas fa-comment-dots"></i>
                 0건</a></strong>
                 <span class="sound_only">조회</span><strong>Hit 16,503회</strong>
-                <strong class="if_date"><span class="sound_only">작성일</span>Date 22-01-04 11:19</strong>
+                <strong class="if_date"><span class="sound_only">작성일</span>${notice.create_date }</strong>
 
             </section>
 
@@ -128,16 +139,20 @@
                 </div>
 
                 <!-- 본문 내용 시작 { -->
-                <div id="bo_v_con"><p style="text-align:center;" align="center"><img
+                <div id="bo_v_con"><p style="text-align:center;" align="center">
+                <!--  <span>${notice.doc_cont }</span> -->
+                  <img
                         src="../front_util/images/0449aab71f1d097bc30b6175e80ea92d_1640851081_4495.jpg"
-                        alt="0449aab71f1d097bc30b6175e80ea92d_1640851081_4495.jpg"/> </p></div>
+                        alt="0449aab71f1d097bc30b6175e80ea92d_1640851081_4495.jpg"/> 
+                        
+                        </p></div>
                 <!-- } 본문 내용 끝 -->
 
 
                 <!--  추천 비추천 시작 { -->
                 <!-- }  추천 비추천 끝 -->
             </section>
-
+			</c:forEach>
             <div id="bo_v_share">
 
             </div>
