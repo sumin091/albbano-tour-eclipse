@@ -36,7 +36,7 @@
 	ResListDAO rDAO= ResListDAO.getInstance() ;
 	//이름꼭바꿔라!!!!!!!!!!!!!!!!!!!!!
 	List<ResListVO> list = new ArrayList<ResListVO>();
-	list = rDAO.matjipList();
+	list = rDAO.selectAllRes();
 	pageContext.setAttribute("list", list);
 
 
@@ -117,24 +117,26 @@
                 </div>
                 <div class="swiper-pagination2"></div>
             </div>
+        <form>
             <div class="swiper-container2">
                 <div class="swiper-wrapper">
-<c:forEach var="matjip" items="${ list }" varStatus="i">
+		<c:forEach var="matjip" items="${ list }" varStatus="i">
                     <div class="swiper-slide" style="width:285px !important;">
-                        <a href="desc_spot.jsp?bo_table=gallery&amp;wr_id=9">
-                            <img src="../front_util/images/thumb-b592950d84858733b19ce958b7aa1e61_1571968104_0715_285x220.jpg"
+                        <a href="desc_restaurant.jsp?res_code=${ matjip.res_code }">
+                            <img src="${matjip.img_name }"
                                  alt="&nbsp;">
                             <p class="txtBox">
                                 <span class="tit"><c:out value="${matjip.res_name }"/></span>
                                 <span class="txt">&nbsp;</span>
-                                <span class="date">2019-10-25</span>
+                                <span class="date">${matjip.create_date }</span>
                             </p>
                         </a>
                     </div>
 
-   </c:forEach>
+  		 </c:forEach>
                 </div>
             </div>
+           </form> 
         </section>
 
     </div>
