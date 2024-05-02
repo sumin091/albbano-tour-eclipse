@@ -12,11 +12,17 @@
 
 <%
 String resCode = request.getParameter("res_code");
+
+ if( resCode==null){
+ 	response.sendRedirect("http://localhost/albbano-tour-eclipse/albbanotour.co.kr/view/list_restaurant.jsp");
+ 	return;
+ }
+
 ResListDAO rDAO = ResListDAO.getInstance();
 ResListVO rVO = rDAO.selectRes(resCode);
 pageContext.setAttribute("rVO", rVO);
-
 %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -105,7 +111,7 @@ pageContext.setAttribute("rVO", rVO);
     <section class="scontents">
         <div class="bg_vline"></div>
         <p class="eng"><em>    ${rVO.res_name }    </em></p>
-        <p class="all_map"><a href="map_info_01.html">리뷰 보기</a></p>
+        <p class="all_map" ><a href="review_restaurant.jsp?res_code=<%=resCode %>&res_name=${rVO.res_name}" >리뷰 보기</a></p>
 
     </section>
     
@@ -157,7 +163,7 @@ pageContext.setAttribute("rVO", rVO);
 
         // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
         var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
-            markerPosition = new kakao.maps.LatLng(35.7994909, 129.1402033); // 마커가 표시될 위치입니다
+            markerPosition = new kakao.maps.LatLng(${rVO.latitude}, ${rVO.longitude}); // 마커가 표시될 위치입니다
 
         // 마커를 생성합니다
         var marker = new kakao.maps.Marker({
