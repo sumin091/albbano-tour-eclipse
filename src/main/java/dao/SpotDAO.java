@@ -102,5 +102,41 @@ public class SpotDAO {
 		return sVO;
 
 	}
+	
+	public List<SpotListVO> selectSptAllReview(String spotcode)throws SQLException {
+		List<SpotListVO> list = new ArrayList<SpotListVO>();
+		SpotListVO sVO = null;
+		DbConnection dbCon = DbConnection.getInstance();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try{
+		
+		con =dbCon.getConn("jdbc/abn");
+		String selectspot =
+		"select * from SPOT_REVIEW where spot_code = ? ";
+		pstmt= con.prepareStatement(selectspot);
+		pstmt.setString(1, spotcode);
+		rs = pstmt.executeQuery();
+		while(rs.next()) {
+			sVO = new SpotListVO();
+        	sVO.setSpot_doc_no(rs.getString("spot_doc_no"));
+        	sVO.setImg_name(rs.getString("img_name"));
+        	sVO.setCreate_date(rs.getDate("create_date"));
+        	sVO.setSpot_title(rs.getString("spot_title"));
+        	sVO.setSpot_doc_no(rs.getString("spot_doc_no"));
+        	sVO.setSpot_contents(rs.getString("spot_contents"));
+        	sVO.setId(rs.getString("id"));
+        	
+        	list.add(sVO);
+		}
+		}finally {
+			dbCon.closeCon(rs, pstmt, con);
+		}
+		return list;
+		
+	}
+	
 
 }

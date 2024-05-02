@@ -89,12 +89,15 @@ pageContext.setAttribute("sVO", sVO);
     <section class="scontents">
         <div class="bg_vline"></div>
         <p class="eng"><em>${ sVO.spot_name }</em></p>
-        <p class="all_map" style="float: right;"><a href="review_spot.jsp">리뷰 보기</a></p>
+        <p class="all_map" style="float: right;"><a href="review_spot.jsp?spt_code=<%=sptCode %>">리뷰 보기</a></p>
         
     </section>
     <div>
     <div id ="desc" style="width:50%; float: left; margin-left: 150px;">
-    ${sVO.spot_desc }
+    <img src="${sVO.img_name }">
+     ${sVO.spot_desc }
+     <br>
+     주소 : ${sVO.spt_loc } <%-- 위치위치 주소주소주소 --%>
     </div>
     <div id="map" style="width:35%;height:450px; margin: 0 auto ; float: right; margin-right: 100px"></div>
     <!--<p><em>지도를 확대 또는 축소 해주세요!</em></p> -->

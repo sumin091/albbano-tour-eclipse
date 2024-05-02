@@ -112,7 +112,11 @@ pageContext.setAttribute("rVO", rVO);
         <div class="bg_vline"></div>
         <p class="eng"><em>    ${rVO.res_name }    </em></p>
         <p class="all_map" ><a href="review_restaurant.jsp?res_code=<%=resCode %>&res_name=${rVO.res_name}" >리뷰 보기</a></p>
-
+	                                                      	<%--수정필요!!!!!!!!!!!!!!!!!!!!!!!!!!! --%>
+	                                                      	<%--수정필요!!!!!!!!!!!!!!!!!!!!!!!!!!! --%>
+	                                                      	<%--수정필요!!!!!!!!!!!!!!!!!!!!!!!!!!! --%>
+	                                                      	<%--수정필요!!!!!!!!!!!!!!!!!!!!!!!!!!! --%>
+	                                                      	
     </section>
     
     <div>
