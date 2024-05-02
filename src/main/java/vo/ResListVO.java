@@ -10,6 +10,8 @@ public class ResListVO {
 	private String del_yn;
 	private String intro;
 	
+	private String res_doc_no, res_title, res_contents, id;
+	
 	public ResListVO() {
 	
 	}
@@ -31,6 +33,51 @@ public class ResListVO {
 		this.latitude = latitude;
 		this.del_yn = del_yn;
 		this.intro = intro;
+	}
+	
+	
+	public ResListVO(String res_code, String img_name, Date create_date, String res_doc_no, String res_title,
+			String res_contents, String id) {
+		super();
+		this.res_code = res_code;
+		this.img_name = img_name;
+		this.create_date = create_date;
+		this.res_doc_no = res_doc_no;
+		this.res_title = res_title;
+		this.res_contents = res_contents;
+		this.id = id;
+	}
+
+	public String getRes_doc_no() {
+		return res_doc_no;
+	}
+
+	public void setRes_doc_no(String res_doc_no) {
+		this.res_doc_no = res_doc_no;
+	}
+
+	public String getRes_title() {
+		return res_title;
+	}
+
+	public void setRes_title(String res_title) {
+		this.res_title = res_title;
+	}
+
+	public String getRes_contents() {
+		return res_contents;
+	}
+
+	public void setRes_contents(String res_contents) {
+		this.res_contents = res_contents;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getRes_code() {
@@ -135,6 +182,15 @@ public class ResListVO {
 
 	public void setIntro(String intro) {
 		this.intro = intro;
+	}
+
+	@Override
+	public String toString() {
+		return "ResListVO [res_code=" + res_code + ", res_cat=" + res_cat + ", res_name=" + res_name + ", holiday="
+				+ holiday + ", busi_hour=" + busi_hour + ", res_loc=" + res_loc + ", img_name=" + img_name
+				+ ", create_date=" + create_date + ", edit_date=" + edit_date + ", longitude=" + longitude
+				+ ", latitude=" + latitude + ", del_yn=" + del_yn + ", intro=" + intro + ", res_doc_no=" + res_doc_no
+				+ ", res_title=" + res_title + ", res_contents=" + res_contents + ", id=" + id + "]";
 	}
 	
 	

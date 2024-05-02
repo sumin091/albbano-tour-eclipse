@@ -91,6 +91,8 @@ public class ResListDAO {
 			rVO.setRes_loc(rs.getString("res_loc"));
 			rVO.setBusi_hour(rs.getString("busi_hour"));
 			rVO.setHoliday(rs.getString("holiday"));
+			
+			
 		}
 		}finally {
 			dbCon.closeCon(rs, pstmt, con);
@@ -99,6 +101,41 @@ public class ResListDAO {
 		
 	}
 	
+	
+	
+	public List<ResListVO> selectResAllReview(String rescode)throws SQLException {
+		List<ResListVO> list = new ArrayList<ResListVO>();
+		ResListVO rVO = null;
+		DbConnection dbCon = DbConnection.getInstance();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try{
+		
+		con =dbCon.getConn("jdbc/abn");
+		String selectspot =
+		"select * from RESTAURANT_REVIEW where res_code = ? ";
+		pstmt= con.prepareStatement(selectspot);
+		pstmt.setString(1, rescode);
+		rs = pstmt.executeQuery();
+		while(rs.next()) {
+			rVO = new ResListVO();
+        	rVO.setRes_doc_no(rs.getString("res_doc_no"));
+        	rVO.setImg_name(rs.getString("img_name"));
+        	rVO.setCreate_date(rs.getDate("create_date"));
+        	rVO.setRes_title(rs.getString("res_title"));
+        	rVO.setRes_contents(rs.getString("res_contents"));
+        	rVO.setId(rs.getString("id"));
+        	
+        	list.add(rVO);
+		}
+		}finally {
+			dbCon.closeCon(rs, pstmt, con);
+		}
+		return list;
+		
+	}
 		
 	
 	
