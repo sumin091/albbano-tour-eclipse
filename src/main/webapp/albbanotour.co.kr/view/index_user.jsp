@@ -10,7 +10,6 @@
 <html lang="ko">
 <head>
     <title>알빠노관광</title>
-
     <script>
         var g5_url = "index.html";
         var g5_bbs_url = "bbs/index.html";
@@ -27,8 +26,9 @@
 
 <body>
 <%@ include file="common_m_header.jsp" %>
-<%@ include file="common_desktop_header.jsp" %>
+<%-- <%@ include file="common_desktop_header.jsp" %> --%>
 
+<jsp:include page="common_desktop_header.jsp"/>
 <div id="container">
     <section id="main_visual" class="clearfix">
         <div class="swiper-container swiper1">
