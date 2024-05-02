@@ -5,7 +5,18 @@
   Time: 오후 01:01
   To change this template use File | Settings | File Templates.
 --%>
+<%@page import="vo.ResListVO"%>
+<%@page import="dao.ResListDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
+
+<%
+String resCode = request.getParameter("res_code");
+ResListDAO rDAO = ResListDAO.getInstance();
+ResListVO rVO = rDAO.selectRes(resCode);
+pageContext.setAttribute("rVO", rVO);
+
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -45,7 +56,7 @@
                 </div>
                 <ul class="">
                     <li>
-                        <span>고객센터</span>
+                        <span>맛집</span>
                         <ul>
                             <li><a href="tour_course.jsp" target="_self">관광지</a></li>
                             <li><a href="booking.jsp?bo_table=booking" target="_self">맛집</a></li>
@@ -56,7 +67,7 @@
                 </ul>
                 <ul class="dep2">
                     <li>
-                        <span>탑승정보</span>
+                        <span>맛집 상세</span>
                         <ul>
                             <li><a href="main_notice.jsp?bo_table=notice" target="_self">공지사항</a></li>
 
@@ -85,7 +96,7 @@
             <li>고객센터</li>
             <li>탑승정보</li>
         </div>
-        <div class="title">고객센터</div>
+        <div class="title">맛집</div>
         <p class="normal_txt">
             홈페이지를 방문해주셔서 감사합니다.
         </p>
@@ -93,11 +104,22 @@
 
     <section class="scontents">
         <div class="bg_vline"></div>
-        <p class="eng"><em>경주역 </em></p>
-        <p class="all_map"><a href="map_info_01.html">전체보기</a></p>
+        <p class="eng"><em>    ${rVO.res_name }    </em></p>
+        <p class="all_map"><a href="map_info_01.html">리뷰 보기</a></p>
 
     </section>
-    <div id="map" style="width:70%;height:450px; margin: 0 auto;"></div>
+    
+    <div>
+     <div id ="desc" style="width:50%; float: left; margin-left: 150px;">
+       <img src="${rVO.img_name }">
+       ${rVO.res_loc }
+       ${rVO.intro}
+       ${rVO.busi_hour}
+       ${rVO.holiday}
+       ${rVO.del_yn}
+       
+    </div>
+    <div id="map" style="width:35%;height:450px; margin: 0 auto ; float: right; margin-right: 100px"></div>
     <!--<p><em>지도를 확대 또는 축소 해주세요!</em></p> -->
     <p id="result" style="display: none"></p>
 
@@ -107,7 +129,7 @@
     <script>
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div
             mapOption = {
-                center: new kakao.maps.LatLng(35.7994909, 129.1402033), // 지도의 중심좌표
+                center: new kakao.maps.LatLng(${rVO.latitude}, ${rVO.longitude}), // 지도의 중심좌표
                 level: 3 // 지도의 확대 레벨
             };
 
@@ -146,7 +168,7 @@
         // 마커가 지도 위에 표시되도록 설정합니다
         marker.setMap(map);
     </script>
-
+	 </div>
 
 </section>
 
