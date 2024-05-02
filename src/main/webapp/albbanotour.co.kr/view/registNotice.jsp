@@ -15,5 +15,5 @@ String doc_cont= request.getParameter("doc_cont");
 String del_yn= request.getParameter("del_Yn");
 
 NoticeVO ntVO= new NoticeVO();
-/* NoticeDAO ntDAO= new NoticeDAO(); */
+NoticeDAO ntDAO= NoticeDAO.getInstance();
 %>
