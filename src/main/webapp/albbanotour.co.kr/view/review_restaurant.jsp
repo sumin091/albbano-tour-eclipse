@@ -5,7 +5,30 @@
   Time: 오후 02:41
   To change this template use File | Settings | File Templates.
 --%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="vo.ResListVO"%>
+<%@page import="dao.ResListDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
+
+
+<%
+String resCode = request.getParameter("res_code");
+String resName = request.getParameter("res_name");
+
+if( resCode==null){
+ 	response.sendRedirect("http://localhost/albbano-tour-eclipse/albbanotour.co.kr/view/list_restaurant.jsp");
+ 	return;
+ }
+
+ResListDAO rDAO = ResListDAO.getInstance();
+List<ResListVO> list = new ArrayList<ResListVO>();
+list = rDAO.selectResAllReview(resCode);
+pageContext.setAttribute("list", list);
+
+
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -40,7 +63,11 @@
 
 <section id="sub_wrapper">
     <div id="sub_menu">
+   
         <div class="sub_location">
+        
+        
+        
             <div>
                 <div class="cen"><a href="index_user.jsp"><i class="fa fa-home" aria-hidden="true"></i></a>
                 </div>
@@ -95,7 +122,7 @@
 
 
         <div class="bg_vline"></div>
-        <p class="eng"><em></em> 맛집 리뷰</p>
+        <p class="eng"><em></em> <%=resName %> 리뷰</p>
         <p class="stitle"></p>
 
 
@@ -115,7 +142,7 @@
             <h2>맛집 분류</h2>
             <ul id="bo_cate_ul">
                 <li><a href="review_restaurant.jsp?fm_id=1" id="bo_cate_on" style="background-color: white"><span
-                        class="sound_only">열린 분류 </span>맛집 리뷰</a></li>
+                        class="sound_only">열린 분류 </span>리뷰 작성</a></li>
             </ul>
         </nav>
 
@@ -123,37 +150,32 @@
             <section id="faq_con">
                 <h2>맛집 목록</h2>
                 <ol>
+                 <c:forEach var="review" items="${ list }" varStatus="i">
+     
                     <li>
                         <h3>
-                            <img src="../front_util/images/restaurant01_285x220.jpg">
-                            <a href="#none" onclick="return faq_open(this);" style="
-    display: block;
-">
+                            <img src=" ${review.img_name }">
+                            <a href="#none" onclick="return faq_open(this);" style="display: block;">
                                 <span class="tit_bg" style="position: static">제목</span>
-                                <p style="
-    display: inline;
-">
-                                    맛있는 식당<br>
+                                <p style="    display: inline;">
+                                   <c:out value=" ${review.res_title }"/><br>
                                 </p>
                             </a>
                         </h3>
                         <div class="con_inner">
                             <span class="tit_bg">내용</span>
-                            <p>점심을</p>
-                            <p><br/></p>
-                            <p>먹었는데</p>
-                            <p><br/></p>
-                            <p>배가 고픈</p>
-                            <p><br/></p>
-                            <p>이유는</p>
-                            <p><br/></p>
-                            <p>무엇일까요?</p>
+                             <c:out value="${review.res_contents }"/>
                             <div class="con_closer">
                                 <button type="button" class="closer_btn btn_b03">닫기</button>
                             </div>
                         </div>
                     </li>
-
+                    
+                    </c:forEach>
+                    
+                    
+                    
+                    
                 </ol>
             </section>
         </div>
