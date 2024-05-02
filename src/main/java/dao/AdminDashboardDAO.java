@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 
 import util.DbConnection;
 
@@ -19,6 +21,7 @@ public class AdminDashboardDAO {
 	 private int totalResCount;
 	 private int totalResreviewCount;
 	 private int totalReservationCount;
+	 private int resultCount;
 	 
 	 
 	
@@ -260,6 +263,38 @@ public void selectReservationcnt() throws SQLException{
 		dbCon.closeCon(rs, pstmt, con);
 	}
 	}//selectReservationcnt
+
+public Map<String, Integer> selectchart() throws SQLException{
+	
+	DbConnection dbCon=DbConnection.getInstance();
+	Connection con = null;
+	PreparedStatement pstmt = null;
+	int resultCount = 0;
+	ResultSet rs = null;
+	 Map<String, Integer> chartData = new HashMap<>();
+	
+	try {
+		String selectQuery ="SELECT r.TOUR_DATE, SUM(r.PERSON) AS TOTAL_PERSON"
+				+ "FROM course c\r\n"
+				+ "INNER JOIN RESERVATION r ON c.CRS_CODE = r.CRS_CODE"
+				+ "WHERE r.TOUR_DATE >= TRUNC(SYSDATE) - INTERVAL '7' DAY "
+				+ "AND r.TOUR_DATE < TRUNC(SYSDATE) + INTERVAL '1' DAY "
+				+ "GROUP BY r.TOUR_DATE"
+				+ "ORDER BY r.TOUR_DATE DESC;";
+		con = dbCon.getConn("jdbc/abn");
+		pstmt = con.prepareStatement(selectQuery);
+		rs = pstmt.executeQuery();
+		while(rs.next()) {
+			 resultCount = rs.getInt("TOTAL_PERSON");
+			 this.resultCount = resultCount;
+		}
+	}catch(Exception e) {
+		e.printStackTrace();
+	}finally {
+		dbCon.closeCon(rs, pstmt, con);
+	}
+	return chartData;
+}//selectReservationcnt
 	
 	
 
