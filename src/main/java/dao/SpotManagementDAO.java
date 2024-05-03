@@ -26,6 +26,7 @@ private static SpotManagementDAO smDAO;
 	
 	/**
 	 * 관광지를 추가하는 method
+	 * 24.05.02 김일신
 	 * @param sVO
 	 * @return
 	 * @throws SQLException
@@ -133,5 +134,39 @@ public List<SpotListVO> selectAlSpot() throws SQLException{
 		}
 		return sVO;
 		
+	}
+	
+	/**
+	 * 관리자 화면에서 선택 한 관광지의 정보를 수정하는 method
+	 * 24.05.03 김일신
+	 * @param sVO
+	 * @return 
+	 * @throws SQLException
+	 */
+	public int updateSpot (SpotListVO sVO) throws SQLException {
+		int cnt =0;
+		DbConnection dbCon = DbConnection.getInstance();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try{
+		con= dbCon.getConn("jdbc/abn");
+		StringBuilder update = new StringBuilder();
+			update.append("	update  SPOT	")
+			.append("	set  SPOT_NAME =? , SPOT_DESC =?, IMG_NAME =?, LONGITUDE =?, LATITUDE =?, SPT_LOC =?	")
+			.append("	where   SPOT_CODE =?	");
+			pstmt = con.prepareStatement(update.toString());
+			pstmt.setString(1,sVO.getSpot_name());
+			pstmt.setString(2,sVO.getSpot_desc());
+			pstmt.setString(3,sVO.getImg_name());
+			pstmt.setDouble(4,sVO.getLongitude());
+			pstmt.setDouble(5,sVO.getLatitude());
+			pstmt.setString(6,sVO.getSpt_loc());
+			pstmt.setString(7,sVO.getSpot_code());
+			
+			pstmt.executeUpdate();
+		}finally {
+			dbCon.closeCon(null, pstmt, con);
+		}
+		return cnt;
 	}
 }
