@@ -6,7 +6,9 @@ public class CourseManagementVO {
 	private String crsCode, crsName, crsDesc, imgName;
 	private Date createDate;
 	private int fare;
-	public CourseManagementVO(String crsCode, String crsName, String crsDesc, String imgName, Date createDate, int fare) {
+	private char delYn;
+	public CourseManagementVO(String crsCode, String crsName, String crsDesc, String imgName, Date createDate, int fare,
+			char delYn) {
 		super();
 		this.crsCode = crsCode;
 		this.crsName = crsName;
@@ -14,6 +16,7 @@ public class CourseManagementVO {
 		this.imgName = imgName;
 		this.createDate = createDate;
 		this.fare = fare;
+		this.delYn = delYn;
 	}
 	public CourseManagementVO() {
 	}
@@ -52,6 +55,12 @@ public class CourseManagementVO {
 	}
 	public void setFare(int fare) {
 		this.fare = fare;
+	}
+	public char getDelYn() {
+		return delYn;
+	}
+	public void setDelYn(char delYn) {
+		this.delYn = delYn;
 	}
 	
 }
