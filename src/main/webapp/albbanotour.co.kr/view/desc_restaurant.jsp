@@ -11,6 +11,8 @@
 
 
 <%
+
+
 String resCode = request.getParameter("res_code");
 
  if( resCode==null){
