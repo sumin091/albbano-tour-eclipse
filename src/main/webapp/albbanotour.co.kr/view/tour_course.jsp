@@ -90,7 +90,7 @@ out.print(code);
         <div class="path">
             <li><a href="index_user.jsp"><span class="ic-home"><i></i></span></a></li>
             <li>관광지</li>
-            <li>동해안투어</li>
+            <li>${ spt.spot_name }</li>
         </div>
         <div class="title">관광지</div>
         <p class="normal_txt">

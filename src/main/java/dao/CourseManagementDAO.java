@@ -27,7 +27,7 @@ public class CourseManagementDAO {
 
 	/**
 	 * 코스 소개 화면에서, 해당 코스의 관광지 리스트를 보여주는 method 현재 하나만 나오게 코딩되어있음. 수정필요
-	 * 
+	 * 24.05.02 김일신
 	 * @return List<SpotListVO>
 	 * @throws SQLException
 	 */
@@ -60,6 +60,7 @@ public class CourseManagementDAO {
 
 	/**
 	 * 해당 창에서 선택한 코스의 상세 내역을 보여주는 method
+	 * 24.05.02 김일신
 	 * @param cur_code
 	 * @return CourseManagementVO
 	 * @throws SQLException
