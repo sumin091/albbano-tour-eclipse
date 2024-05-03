@@ -21,7 +21,6 @@
 	<% //}%>
 
 
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -29,8 +28,8 @@
 
     <script>
         // 자바스크립트에서 사용하는 전역변수 선언
-        var g5_url = "https://cmtour.co.kr";
-        var g5_bbs_url = "https://cmtour.co.kr/bbs";
+        var g5_url = "";
+        var g5_bbs_url = "";
         var g5_is_member = "1";
         var g5_is_admin = "";
         var g5_is_mobile = "";
@@ -121,21 +120,8 @@
             <h2 class="sound_only">리뷰작성</h2>
 
             <!-- 게시물 작성/수정 시작 { -->
-            <form name="fwrite" id="fwrite" action="https://cmtour.co.kr/bbs/write_update.php"
-                  onsubmit="return fwrite_submit(this);" method="post" enctype="multipart/form-data" autocomplete="off"
+            <form name="fwrite" id="fwrite" action="" method="post"
                   style="width:100%">
-                <input type="hidden" name="uid" value="2024040701311876">
-                <input type="hidden" name="w" value="">
-                <input type="hidden" name="bo_table" value="qa">
-                <input type="hidden" name="wr_id" value="0">
-                <input type="hidden" name="sca" value="">
-                <input type="hidden" name="sfl" value="">
-                <input type="hidden" name="stx" value="">
-                <input type="hidden" name="spt" value="">
-                <input type="hidden" name="sst" value="">
-                <input type="hidden" name="sod" value="">
-                <input type="hidden" name="page" value="">
-                <input type="hidden" value="html1" name="html">
 
                 <div class="bo_w_info write_div">
 
@@ -149,17 +135,7 @@
                     <div id="autosave_wrapper write_div">
                         <input type="text" name="wr_subject" value="" id="wr_subject" required
                                class="frm_input full_input required" size="50" maxlength="255" placeholder="제목">
-                        <script src="https://cmtour.co.kr/js/autosave.js"></script>
-                        <script src="https://cmtour.co.kr/plugin/editor/smarteditor2/autosave.editor.js"></script>
-                        <button type="button" id="btn_autosave" class="btn_frmline">임시 저장된 글 (<span id="autosave_count">0</span>)
-                        </button>
-                        <div id="autosave_pop">
-                            <strong>임시 저장된 글 목록</strong>
-                            <ul></ul>
-                            <div>
-                                <button type="button" class="autosave_close">닫기</button>
-                            </div>
-                        </div>
+
                     </div>
 
                 </div>
@@ -193,8 +169,8 @@
 
 
                 <div class="btn_confirm write_div" style="text-align:center;">
-                    <a href="./board.php?bo_table=qa" class="btn_cancel btn">취소</a>
-                    <input type="submit" value="작성완료" id="btn_submit" accesskey="s" class="btn_submit btn">
+                    <a href="review.jsp" class="btn_cancel btn">취소</a>
+                    <input type="button" value="작성완료" id="btn_submit" class="btn_submit btn" onclick="alert()">
                 </div>
             </form>
 
