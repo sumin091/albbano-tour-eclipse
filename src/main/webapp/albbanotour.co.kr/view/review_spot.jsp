@@ -5,7 +5,8 @@ Date: 2024-04-17
 Time: 오후 02:43
 To change this template use File | Settings | File Templates.
 --%>
-<%@page import="vo.SpotListVO"%>
+<%@page import="vo.SpotReviewVO"%>
+<%@page import="dao.SpotReviewDAO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="dao.SpotDAO"%>
@@ -13,8 +14,8 @@ To change this template use File | Settings | File Templates.
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <%
 	String sptCode = request.getParameter("spt_code");
-	SpotDAO sDAO = SpotDAO.getInstance();
-	List<SpotListVO> list = new ArrayList<SpotListVO>();
+	SpotReviewDAO sDAO = SpotReviewDAO.getInstance();
+	List<SpotReviewVO> list = new ArrayList<SpotReviewVO>();
 	list = sDAO.selectSptAllReview(sptCode);
 	pageContext.setAttribute("list", list);
 %>
