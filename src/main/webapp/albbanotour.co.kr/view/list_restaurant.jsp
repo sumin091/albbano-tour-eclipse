@@ -11,6 +11,14 @@
 <%@page import="dao.ResListDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
+<%
+	ResListDAO rDAO= ResListDAO.getInstance() ;
+
+	List<ResListVO> list = new ArrayList<ResListVO>();
+	list = rDAO.selectAllRes();
+	pageContext.setAttribute("list", list);
+%>
+
 <!DOCTYPE html>
 
 <html lang="ko">
@@ -32,15 +40,6 @@
 
 <body>
 
-<%
-	ResListDAO rDAO= ResListDAO.getInstance() ;
-
-	List<ResListVO> list = new ArrayList<ResListVO>();
-	list = rDAO.selectAllRes();
-	pageContext.setAttribute("list", list);
-
-
-%>
 <%@ include file="common_m_header.jsp" %>
 <%@ include file="common_desktop_header.jsp" %>
 
@@ -60,7 +59,7 @@
                 <div class="cen"><a href="index_user.jsp"><i class="fa fa-home" aria-hidden="true"></i></a></div>
                 <ul class="">
                     <li>
-                        <span>고객센터</span>
+                        <span>맛집</span>
                         <ul>
                             <li><a href="tour_course.jsp" target="_self">관광지</a></li>
                             <li><a href="list_restaurant.jsp" target="_self">맛집</a></li>
@@ -73,12 +72,10 @@
                 </ul>
                 <ul class="dep2">
                     <li>
-                        <span>공지사항</span>
+                        <span>맛집 리스트</span>
                         <ul>
-                            <li><a href="main_notice.jsp?bo_table=notice" target="_self">공지사항</a></li>
-                            <li><a href="faq.jsp?fm_id=1" target="_self">자주 묻는 질문</a></li>
-                            <li><a href="qna.jsp?bo_table=qa" target="_self">질문답변</a></li>
-                            <li><a href="question.jsp" target="_self">1:1문의</a></li>
+                            <li><a href="void" target="_self">맛집 리스트</a></li>
+  
                         </ul>
                     </li>
                 </ul>
