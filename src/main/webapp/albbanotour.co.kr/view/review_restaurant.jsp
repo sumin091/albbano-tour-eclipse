@@ -14,21 +14,21 @@
 
 
 <%
-String resCode = request.getParameter("res_code");
-String resName = request.getParameter("res_name");
+  
+         String resCode = request.getParameter("res_code");
+         String resName = request.getParameter("res_name");
 
-if( resCode==null){
- 	response.sendRedirect("http://localhost/albbano-tour-eclipse/albbanotour.co.kr/view/list_restaurant.jsp");
- 	return;
- }
+         if( resCode==null){
+          	response.sendRedirect("http://localhost/albbano-tour-eclipse/albbanotour.co.kr/view/list_restaurant.jsp");
+          	return;
+          }
 
-ResListDAO rDAO = ResListDAO.getInstance();
-List<ResListVO> list = new ArrayList<ResListVO>();
-list = rDAO.selectResAllReview(resCode);
-pageContext.setAttribute("list", list);
-
-
-%>
+         ResListDAO rDAO = ResListDAO.getInstance();
+         List<ResListVO> list = new ArrayList<ResListVO>();
+         list = rDAO.selectResAllReview(resCode);
+         pageContext.setAttribute("list", list);
+   %>
+   
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -141,8 +141,14 @@ pageContext.setAttribute("list", list);
         <nav id="bo_cate" class="snone">
             <h2>맛집 분류</h2>
             <ul id="bo_cate_ul">
-                <li><a href="review_restaurant.jsp?fm_id=1" id="bo_cate_on" style="background-color: white"><span
-                        class="sound_only">열린 분류 </span>리뷰 작성</a></li>
+                <li>
+                
+                	<a href="review.jsp" id="bo_cate_on" style="background-color: white">
+                	
+                	<span class="sound_only">열린 분류 </span>리뷰 작성</a>
+                	
+                	
+                </li>
             </ul>
         </nav>
 

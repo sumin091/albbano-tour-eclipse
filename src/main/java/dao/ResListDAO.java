@@ -73,9 +73,9 @@ public class ResListDAO {
 		try{
 		
 		con =dbCon.getConn("jdbc/abn");
-		String selectspot =
+		String sql =
 		"select * from RESTAURANT where res_code = ? ";
-		pstmt= con.prepareStatement(selectspot);
+		pstmt= con.prepareStatement(sql);
 		pstmt.setString(1, rescode);
 		rs = pstmt.executeQuery();
 		if(rs.next()) {
@@ -114,9 +114,9 @@ public class ResListDAO {
 		try{
 		
 		con =dbCon.getConn("jdbc/abn");
-		String selectspot =
+		String sql =
 		"select * from RESTAURANT_REVIEW where res_code = ? ";
-		pstmt= con.prepareStatement(selectspot);
+		pstmt= con.prepareStatement(sql);
 		pstmt.setString(1, rescode);
 		rs = pstmt.executeQuery();
 		while(rs.next()) {
