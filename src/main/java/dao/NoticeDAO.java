@@ -77,7 +77,7 @@ public class NoticeDAO {
 		try {
 			
 			con =dbCon.getConn("jdbc/abn");			
-			String selectOne=(" select * from notice where title=? ");
+			String selectOne=(" select * from notice where doc_No=? ");
 			
 			
 			pstmt=con.prepareStatement(selectOne);

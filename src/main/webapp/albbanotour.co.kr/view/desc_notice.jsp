@@ -11,10 +11,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-String noticeNo= request.getParameter("doc_no"); 
+String noticeNo= request.getParameter("noticeNo"); 
 NoticeDAO noticeDAO= NoticeDAO.getInstance();
-List<NoticeVO> list=noticeDAO.selectAll();
-pageContext.setAttribute("list", list);
+//out.print(noticeNo);
+NoticeVO ntVO=noticeDAO.selectOne(noticeNo);
+pageContext.setAttribute("ntVO", ntVO);
+//out.print(ntVO);
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -114,46 +116,44 @@ pageContext.setAttribute("list", list);
         <!-- 게시물 읽기 시작 { -->
 
         <article id="bo_v" style="width:100%">
-        <c:forEach var="notice" items="${ list }">
             <header>
-            
                 <h2 id="bo_v_title">
                         <span class="bo_v_tit">
-            ${notice.title }</span>
+            ${ntVO.title }</span>
                 </h2>
             </header>
 
             <section id="bo_v_info">
                 <h2>페이지 정보</h2>
-                <span class="sound_only">작성자</span> <strong><span class="sv_member">${notice.id }</span></strong>
+                <span class="sound_only">작성자</span> <strong><span class="sv_member">관리자</span></strong>
                 <span class="sound_only">댓글</span><strong><a href="#bo_vc"> <i class="fas fa-comment-dots"></i>
                 0건</a></strong>
                 <span class="sound_only">조회</span><strong>Hit 16,503회</strong>
-                <strong class="if_date"><span class="sound_only">작성일</span>${notice.create_date }</strong>
+                <strong class="if_date"><span class="sound_only">작성일</span><%= ntVO.getCreate_Date() %></strong>
 
             </section>
 
             <section id="bo_v_atc">
                 <h2 id="bo_v_atc_title">본문</h2>
-
+			  	<span><%=ntVO.getDoc_Cont() %></span> 
                 <div id="bo_v_img">
                 </div>
 
                 <!-- 본문 내용 시작 { -->
                 <div id="bo_v_con"><p style="text-align:center;" align="center">
-                <!--  <span>${notice.doc_cont }</span> -->
+                  <!--  
                   <img
                         src="../front_util/images/0449aab71f1d097bc30b6175e80ea92d_1640851081_4495.jpg"
                         alt="0449aab71f1d097bc30b6175e80ea92d_1640851081_4495.jpg"/> 
-                        
-                        </p></div>
+                   -->     
+                      <!--  </p>  -->
+                        </div>
                 <!-- } 본문 내용 끝 -->
 
 
                 <!--  추천 비추천 시작 { -->
                 <!-- }  추천 비추천 끝 -->
             </section>
-			</c:forEach>
             <div id="bo_v_share">
 
             </div>

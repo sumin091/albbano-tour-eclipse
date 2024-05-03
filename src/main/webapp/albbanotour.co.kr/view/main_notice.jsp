@@ -121,9 +121,11 @@ pageContext.setAttribute("list", list);
                 </div>
 
                 <ul class="btn_bo_user">
-                    <li><a href="rss8497.php?bo_table=notice" class="btn_b01 btn"><i class="fa fa-rss"
+                   <!--   <li><a href="rss8497.php?bo_table=notice" class="btn_b01 btn"><i class="fa fa-rss"
                                                                                      aria-hidden="true"></i> RSS</a>
                     </li>
+                    -->
+                    <li><a href="registNotice.jsp" class="btn_b01 btn" >글쓰기</a></li>
                 </ul>
             </div>
             <!-- } 게시판 페이지 정보 및 버튼 끝 -->
@@ -160,6 +162,7 @@ pageContext.setAttribute("list", list);
                         </tr>
                         </thead>
                         <tbody>
+							<c:forEach var="notice" items="${ list }">
                         <tr class="bo_notice">
                             <td class="td_num2">
                                 <strong class="notice_icon"><i class="fa fa-bullhorn" aria-hidden="true"></i><span
@@ -168,11 +171,10 @@ pageContext.setAttribute("list", list);
                             <td class="td_subject" style="padding-left:0px">
 
                                 <div class="bo_tit">
-									<c:forEach var="notice" items="${ list }">
-                                    <a href="desc_notice.jsp?docNO=${notice.doc_No }&title=${notice.title}&img_Name=${notice.img_Name}$doc_cont=${notice.doc_Cont}">
+                                
+                                    <a href="desc_notice.jsp?noticeNo=${notice.doc_No }">
                                         ${notice.title }
                                     </a>
-								</c:forEach>
                                     <i class="fa fa-heart" aria-hidden="true"></i></div>
                                 <div class="mview">
                                     <div class="gall_info">
@@ -189,6 +191,8 @@ pageContext.setAttribute("list", list);
                             <td class="td_datetime lview">2022-11-22</td>
 
                         </tr>
+								</c:forEach>
+                        <!--  
                         <tr class="bo_notice">
                             <td class="td_num2">
                                 <strong class="notice_icon"><i class="fa fa-bullhorn" aria-hidden="true"></i><span
@@ -329,6 +333,7 @@ pageContext.setAttribute("list", list);
                             <td class="td_datetime lview">2022-01-04</td>
 
                         </tr>
+                        -->
                         </tbody>
                     </table>
                 </div>
