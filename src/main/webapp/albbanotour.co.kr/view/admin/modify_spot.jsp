@@ -41,7 +41,7 @@ SpotManagementDAO sDAO = SpotManagementDAO.getInstance();
 SpotListVO sVO = sDAO.selectSpot(spotcode);
 pageContext.setAttribute("sVO", sVO);
 %>
-<form >
+<form action="modify_spot_process.jsp" method="post">
 <div>
 <table>
 <thead>
@@ -50,7 +50,6 @@ pageContext.setAttribute("sVO", sVO);
 	<th style="width:100px">이름</th>
 	<th style="width:600px">설명</th>
 	<th style="width:100px">이미지이름</th>
-	<th style="width:100px">생성일</th>
 	<th style="width:100px">경도</th>
 	<th style="width:100px">위도</th>
 	<th style="width:100px">위치</th>
@@ -58,18 +57,17 @@ pageContext.setAttribute("sVO", sVO);
 </thead>
 <tbody>
 <tr>
-	<td><input type="text" value ="${ sVO.spot_code }"/></td>
-	<td><input type="text" value ="${ sVO.spot_name }"/></td>
-	<td><textarea>"${ sVO.spot_desc }"</textarea>
-	<td><input type="text" value =" ${ sVO.img_name }"/></td>
-	<td><c:out value ="${ sVO.create_date }"/></td>
-	<td><input type="text" value ="${ sVO.longitude }"/></td>
-	<td><input type="text" value ="${ sVO.latitude }"/></td>
-	<td><input type="text" value ="${ sVO.spt_loc }"/></td>
+	<td><input type="text"  name ="spot_code" value ="${ sVO.spot_code }"/></td>
+	<td><input type="text"  name ="spot_name" value ="${ sVO.spot_name }"/></td>
+	<td><textarea  name ="spot_desc">"${ sVO.spot_desc }"</textarea>
+	<td><input type="text" name ="img_name" value =" ${ sVO.img_name }"/></td>
+	<td><input type="text" name ="longitude" value ="${ sVO.longitude }"/></td>
+	<td><input type="text" name ="latitude" value ="${ sVO.latitude }"/></td>
+	<td><input type="text" name ="spt_loc" value ="${ sVO.spt_loc }"/></td>
 </tr>
 </table>
 </div>
+<input type ="submit" value ="내용 수정" />
 </form>
-<input type ="submit" value ="내용 수정"/>
 </body>
 </html>

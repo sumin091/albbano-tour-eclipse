@@ -23,7 +23,7 @@ pageContext.setAttribute("list", list);
 
     <script>
         // 자바스크립트에서 사용하는 전역변수 선언
-        var g5_url = "../index.html";
+        var g5_url = "	../index.html";
         var g5_bbs_url = "index.html"; 
         var g5_is_member = "";
         var g5_is_admin = "";

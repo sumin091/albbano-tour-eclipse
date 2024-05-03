@@ -1,3 +1,4 @@
+<%@page import="dao.SpotManagementDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
      info=""%>
@@ -30,7 +31,16 @@
 </head>
 <body>
 <div>
-
+<%
+request.setCharacterEncoding("UTF-8");
+%>
+<jsp:useBean id="SpotListVO" class="vo.SpotListVO" scope="page"/>
+<jsp:setProperty property="*" name="SpotListVO"/>
+<%
+pageContext.setAttribute("SpotListVO", SpotListVO);
+SpotManagementDAO smDAO = SpotManagementDAO.getInstance();
+smDAO.updateSpot(SpotListVO);
+%>
 </div>
 </body>
 </html>
