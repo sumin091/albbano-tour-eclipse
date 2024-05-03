@@ -5,7 +5,11 @@ Date: 2024-04-17
 Time: 오후 02:16
 To change this template use File | Settings | File Templates.
 --%>
+<%@page import="vo.QnaVO" %>
+<%@page import="java.util.List" %>
+<%@page import="dao.QnaDAO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -27,6 +31,11 @@ To change this template use File | Settings | File Templates.
 </head>
 
 <body>
+<%
+QnaDAO qDao = QnaDAO.getInstance();
+List<QnaVO> list = qDao.selectAllQna();
+pageContext.setAttribute("list", list);
+%> 
 <%@ include file="common_m_header.jsp" %>
 <%@ include file="common_desktop_header.jsp" %>
 
@@ -231,7 +240,32 @@ To change this template use File | Settings | File Templates.
                             <td class="td_num lview">5</td>
                             <td class="td_datetime lview">2024-03-31</td>
                         </tr>
-                        </tbody>
+                        
+      <c:forEach var="qna" items="${list}">
+    <tr class="">
+        <td class="td_num2">
+            <c:out value="${qna.ASK_DOC_NO}"/>
+        </td>
+        <td class="td_subject" style="padding-left:0px">
+            <div class="bo_tit">
+                <a href="ASK_CONTENTS.jsp?ASK_DOC_NO=${qna.ASK_DOC_NO}">
+                    <c:out value="${qna.ASK_TITLE}"/>
+                </a>
+            </div>
+        </td>
+        <td class="td_name sv_use lview">
+            <span class="sv_member">
+                <c:out value="${qna.ID}"/>
+            </span>
+        </td>
+        <td class="td_num lview">2</td>
+        <td class="td_datetime lview">
+            <c:out value="${qna.CREATE_DATE}"/>
+        </td>
+    </tr>
+</c:forEach>
+                        
+                   </tbody>
                     </table>
                 </div>
 
