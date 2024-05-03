@@ -95,4 +95,36 @@ public class CourseManagementDAO {
 		return cmVO;
 
 	}
+	
+	/**
+	 * 코스 추가 화면에서 DB에 입력 된 관광지 리스트를 보여주는 method
+	 * 24.05.03 김일신
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<SpotListVO> selectAllSpotNames() throws SQLException {
+		List<SpotListVO> list = new ArrayList<SpotListVO>();
+		SpotListVO sVO = null;
+		DbConnection dbCon = DbConnection.getInstance();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = dbCon.getConn("jdbc/abn");
+			String select =
+			" select SPOT_CODE, SPOT_NAME from spot order by SPOT_CODE asc";
+			pstmt= con.prepareStatement(select);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				sVO = new SpotListVO();
+				sVO.setSpot_code(rs.getString("SPOT_CODE"));
+				sVO.setSpot_name(rs.getString("SPOT_NAME"));
+				list.add(sVO);
+			}
+			
+		}finally {
+			dbCon.closeCon(rs, pstmt, con);
+		}
+		return list;
+}
 }
