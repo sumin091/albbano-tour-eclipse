@@ -5,11 +5,22 @@ Date: 2024-04-17
 Time: 오후 02:16
 To change this template use File | Settings | File Templates.
 --%>
+<%@page import="org.eclipse.jdt.internal.compiler.IDebugRequestor"%>
 <%@page import="vo.QnaVO" %>
 <%@page import="java.util.List" %>
 <%@page import="dao.QnaDAO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%String login_id =(String)session.getAttribute("idKey");
+if(login_id == null){ %>
+	<script>
+	alert("로그인이 필요한 페이지 입니다.");
+	location.href = "login.jsp";
+	</script>
+
+	<% }%>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -31,10 +42,54 @@ To change this template use File | Settings | File Templates.
 </head>
 
 <body>
+<jsp:useBean id="qsVO" class="vo.QnasearchVO" scope="page"/>
+<jsp:setProperty property="*" name="qsVO"/>
+
+	
 <%
 QnaDAO qDao = QnaDAO.getInstance();
-List<QnaVO> list = qDao.selectAllQna();
+
+
+int totalCount=qDao.selecttotalCount(qsVO);
+int pageScale=5;
+
+int totalPage=(int)Math.ceil((double)totalCount/pageScale);
+
+String tempPage=qsVO.getCurrentPage();
+int currentPage=1;
+if(tempPage != null){
+	try{
+		currentPage=Integer.parseInt(tempPage);
+	}catch(NumberFormatException nfe){
+		
+	}
+}
+int startNum=currentPage * pageScale-pageScale +1;
+int endNum=startNum+pageScale-1;
+
+qsVO.setStartNum(startNum);
+qsVO.setEndNum(endNum);
+
+List<QnaVO> list = qDao.selectQna(qsVO, login_id);
+
 pageContext.setAttribute("list", list);
+
+
+
+
+String ASK_DOC_NO = request.getParameter("ASK_DOC_NO");
+String ID = request.getParameter("ID");
+
+
+
+
+
+QnaDAO qDAO= QnaDAO.getInstance();
+QnaVO qVO = qDAO.selectmyQna(ASK_DOC_NO, ID);
+pageContext.setAttribute("qVO", qVO);
+
+
+
 %> 
 <%@ include file="common_m_header.jsp" %>
 <%@ include file="common_desktop_header.jsp" %>
@@ -241,16 +296,27 @@ pageContext.setAttribute("list", list);
                             <td class="td_datetime lview">2024-03-31</td>
                         </tr>
                         
-      <c:forEach var="qna" items="${list}">
+      <c:forEach var="qna" items="${list}" varStatus="i">
     <tr class="">
         <td class="td_num2">
             <c:out value="${qna.ASK_DOC_NO}"/>
         </td>
         <td class="td_subject" style="padding-left:0px">
             <div class="bo_tit">
-                <a href="ASK_CONTENTS.jsp?ASK_DOC_NO=${qna.ASK_DOC_NO}">
+                <a href="#none" onclick="return faq_open(this);" style="display: block;">
+                    <p style="    display: inline;">
                     <c:out value="${qna.ASK_TITLE}"/>
+                    </p>
                 </a>
+                <h3>
+                <div class="con_inner">
+                <span class="tit_bg">내용 : </span>
+                <c:out value=" ${qna.ASK_CONTENTS }"/><br>
+                <div class="con_closer">
+                <button type="button" class="closer_btn btn_b03">닫기</button>
+                </div>
+                </div>
+                </h3>   
             </div>
         </td>
         <td class="td_name sv_use lview">
@@ -264,6 +330,10 @@ pageContext.setAttribute("list", list);
         </td>
     </tr>
 </c:forEach>
+
+
+
+
                         
                    </tbody>
                     </table>
@@ -302,20 +372,45 @@ pageContext.setAttribute("list", list);
 
 
         <!-- 페이지 -->
-        <nav class="pg_wrap"><span class="pg"><span class="sound_only">열린</span><strong
-                class="pg_current">1</strong><span class="sound_only">페이지</span>
-<a href="boarda5ae.html?bo_table=qa&amp;page=2" class="pg_page">2<span class="sound_only">페이지</span></a>
-<a href="board2377.html?bo_table=qa&amp;page=3" class="pg_page">3<span class="sound_only">페이지</span></a>
-<a href="board2204.html?bo_table=qa&amp;page=4" class="pg_page">4<span class="sound_only">페이지</span></a>
-<a href="board5cdc.html?bo_table=qa&amp;page=5" class="pg_page">5<span class="sound_only">페이지</span></a>
-<a href="boardab3d.html?bo_table=qa&amp;page=6" class="pg_page">6<span class="sound_only">페이지</span></a>
-<a href="boardb242.html?bo_table=qa&amp;page=7" class="pg_page">7<span class="sound_only">페이지</span></a>
-<a href="board5f65.html?bo_table=qa&amp;page=8" class="pg_page">8<span class="sound_only">페이지</span></a>
-<a href="board90a2.html?bo_table=qa&amp;page=9" class="pg_page">9<span class="sound_only">페이지</span></a>
-<a href="board6ec9.html?bo_table=qa&amp;page=10" class="pg_page">10<span class="sound_only">페이지</span></a>
-<a href="boardc830.html?bo_table=qa&amp;page=11" class="pg_page pg_next">다음</a>
-<a href="board3979.html?bo_table=qa&amp;page=48" class="pg_page pg_end">맨끝</a>
+        <nav class="pg_wrap">
+        <span class="pg">
+       
+		<% for(int i=1; i<= totalPage; i++){ %>
+		 <a href="qna.jsp?currentPage=<%= i %>" class="pg_page"><%= i %></a> 
+		<%} %>
 </span></nav>
+
+		<script>
+		 $(function(){
+		       
+		        $(".con_inner").hide();
+
+		        $(".closer_btn").on("click", function(){
+		            $(this).closest(".con_inner").slideUp();
+		        });
+
+		        $(".bo_tit a").on("click", function(e){
+		            var $con = $(this).closest("tr").find(".con_inner");
+
+		           
+		            if ($con.is(":visible")) {
+		                $con.slideUp();
+		            } else {
+		                
+		                $(".con_inner").slideUp();
+		               
+		                $con.slideDown();
+		            }
+		            
+		            return true;
+		        });
+		    });
+
+		  
+		    $(window).on("load", function() {
+		        $(".con_inner").css("display", "");
+		    });
+		</script>
 
         <!-- } 게시판 목록 끝 -->
 
