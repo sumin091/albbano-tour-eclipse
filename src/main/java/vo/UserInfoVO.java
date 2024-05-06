@@ -6,11 +6,78 @@ public class UserInfoVO {
  
 	private String id, pass, name, tel, email;
 	private Date create_date, modify_date;
+	private String email1,email2,ip;
 	
 	public UserInfoVO() {
 		super();
 	}
 	
+	
+
+
+
+	public UserInfoVO(String id, String pass, String name, String tel, String email, Date create_date, Date modify_date,
+			String email1, String email2, String ip) {
+		super();
+		this.id = id;
+		this.pass = pass;
+		this.name = name;
+		this.tel = tel;
+		this.email = email;
+		this.create_date = create_date;
+		this.modify_date = modify_date;
+		this.email1 = email1;
+		this.email2 = email2;
+		this.ip = ip;
+	}
+	
+
+	public String getEmail1() {
+		return email1;
+	}
+
+
+
+	public void setEmail1(String email1) {
+		this.email1 = email1;
+	}
+
+
+	public String getEmail2() {
+		return email2;
+	}
+
+
+
+	public void setEmail2(String email2) {
+		this.email2 = email2;
+	}
+
+
+
+	public String getIp() {
+		return ip;
+	}
+
+
+
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+
+	
+
+	@Override
+	public String toString() {
+		return "UserInfoVO [id=" + id + ", pass=" + pass + ", name=" + name + ", tel=" + tel + ", email=" + email
+				+ ", create_date=" + create_date + ", modify_date=" + modify_date + ", email1=" + email1 + ", email2="
+				+ email2 + ", ip=" + ip + "]";
+	}
+
+
+
+
+
 	public UserInfoVO(String id, String pass, String name, String tel, String email, Date create_date,
 			Date modify_date) {
 		super();
