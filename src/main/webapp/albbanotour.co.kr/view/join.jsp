@@ -91,16 +91,16 @@
         <div class="register">
             <script src="https://cmtour.co.kr/js/jquery.register_form.js"></script>
 
-            <form id="fregisterform" name="fregisterform" action="https://cmtour.co.kr/bbs/register_form_update.php"
+            <form id="fregisterform" name="fregisterform" action="join_process.jsp"
                   onsubmit="return fregisterform_submit(this);" method="post" enctype="multipart/form-data"
                   autocomplete="off">
-                <input type="hidden" name="w" value="">
+                <!-- <input type="hidden" name="w" value="">
                 <input type="hidden" name="url" value="%2Fbbs%2Fregister_form.php">
                 <input type="hidden" name="agree" value="1">
                 <input type="hidden" name="agree2" value="1">
                 <input type="hidden" name="cert_type" value="">
                 <input type="hidden" name="cert_no" value="">
-                <input type="hidden" name="mb_sex" value="">
+                <input type="hidden" name="mb_sex" value=""> -->
                 <div id="register_form" class="form_01">
                     <div class="register_form_inner">
                         <h2>사이트 이용정보 입력</h2>
@@ -114,20 +114,21 @@
                                     <span class="tooltip">영문자, 숫자, _ 만 입력 가능. 최소 3자이상 입력하세요.</span>
                                 </label>
                                 <input type="text" name="mb_id" value="" id="reg_mb_id" required
-                                       class="frm_input full_input required " minlength="3" maxlength="20"
+                                       class="frm_input full_input required " minlength="3" maxlength="20" style="width: 200px;"
                                        placeholder="아이디">
+                                <input type="button" value="ID 중복확인" class="btn btn-outline-dark" id="idChk"/>
                                 <span id="msg_mb_id"></span>
                             </li>
                             <li class="half_input left_input margin_input">
                                 <label for="reg_mb_password">비밀번호<strong class="sound_only">필수</strong></label>
                                 <input type="password" name="mb_password" id="reg_mb_password" required
-                                       class="frm_input full_input required" minlength="3" maxlength="20"
+                                       class="frm_input full_input required" minlength="3" maxlength="20" style="width: 200px;"
                                        placeholder="비밀번호">
                             </li>
                             <li class="half_input left_input">
                                 <label for="reg_mb_password_re">비밀번호 확인<strong class="sound_only">필수</strong></label>
                                 <input type="password" name="mb_password_re" id="reg_mb_password_re" required
-                                       class="frm_input full_input required" minlength="3" maxlength="20"
+                                       class="frm_input full_input required" minlength="3" maxlength="20" style="width: 200px;"
                                        placeholder="비밀번호 확인">
                             </li>
                         </ul>
@@ -139,19 +140,26 @@
                             <li>
                                 <label for="reg_mb_name">이름<strong class="sound_only">필수</strong></label>
                                 <input type="text" id="reg_mb_name" name="mb_name" value="" required
-                                       class="frm_input full_input required " size="10" placeholder="이름">
+                                       class="frm_input full_input required " size="10" style="width: 200px;" placeholder="이름">
                             </li>
 
                             <li>
-                                <label for="reg_mb_email">E-mail<strong class="sound_only">필수</strong>
-
-                                </label>
-                                <input type="hidden" name="old_email" value="">
-                                <input type="text" name="mb_email" value="" id="reg_mb_email" required
-                                       class="frm_input email full_input required" size="70" maxlength="100"
-                                       placeholder="E-mail">
-
-                            </li>
+							    <label for="reg_mb_email">이메일<strong class="sound_only">필수</strong></label>
+							    <div class="input_wrap">
+							        <input type="text" id="email1" name="email1" class="frm_input half_input required" maxlength="100" style="width: 200px;" placeholder="이메일">
+							        <span class="at_symbol">@</span>
+							        <input type="text" list="selecEmail" id="email2" name="email2" class="frm_input half_input required" style="width: 200px;" placeholder="도메인 선택">
+							        <datalist id="selecEmail" class="selecEmail">
+							            <option value="">도메인 선택</option>
+							            <option value="직접 입력">직접 입력</option>
+							            <option value="gmail.com">gmail.com</option>
+							            <option value="naver.com">naver.com</option>
+							            <option value="daum.net">daum.net</option>
+							            <option value="nate.com">nate.com</option>
+							            <option value="hotmail.com">hotmail.com</option>
+							        </datalist>
+							    </div>
+							</li>
 
 
                             <li>
@@ -160,7 +168,7 @@
                                 <label for="reg_mb_hp">휴대폰번호<strong class="sound_only">필수</strong></label>
 
                                 <input type="text" name="mb_hp" value="" id="reg_mb_hp" required
-                                       class="frm_input full_input required" maxlength="20" placeholder="휴대폰번호">
+                                       class="frm_input full_input required" maxlength="20" style="width: 200px;" placeholder="휴대폰번호">
                             </li>
 
                         </ul>
@@ -173,7 +181,23 @@
                 </div>
             </form>
         </div>
-        <script>
+        <script type="text/javascript">
+        
+        window.onload=function(){
+        	//1. 이벤트 등록
+        	document.getElementById('idChk').addEventListener('click', idDupWin);
+        }
+        
+        function idDupWin(){
+        	//부모창 > 자식창으로 값 전달
+        	//자식창에서는 JSP 코드로 값 받기
+        	var id = document.fregisterform.mb_id.value;
+    		window.open('id_duplication.jsp?mb_id=' + id, 'idDup', 
+    			'width=472, height=340, top=' + (window.screenY + 100) + ', left=' + (window.screenX + 100));	// 첫 번째 파라미터엔 http:// 로 시작하는 값을 줘도 됨
+    		
+        }
+        
+        
             $(function () {
                 $("#reg_zip_find").css("display", "inline-block");
 
@@ -232,15 +256,6 @@
                 }
 
 
-                // 닉네임 검사
-                if ((f.w.value == "") || (f.w.value == "u" && f.mb_nick.defaultValue != f.mb_nick.value)) {
-                    var msg = reg_mb_nick_check();
-                    if (msg) {
-                        alert(msg);
-                        f.reg_mb_nick.select();
-                        return false;
-                    }
-                }
 
                 // E-mail 검사
                 if ((f.w.value == "") || (f.w.value == "u" && f.mb_email.defaultValue != f.mb_email.value)) {

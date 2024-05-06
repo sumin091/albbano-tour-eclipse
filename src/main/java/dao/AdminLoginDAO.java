@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import util.DbConnection;
+import vo.LoginVO;
+import vo.UserInfoVO;
 
 public class AdminLoginDAO {
 
@@ -21,33 +23,47 @@ public class AdminLoginDAO {
 		return alDAO;
 	}
 	
-public boolean loginRegister(String id, String password) throws SQLException {
+	public UserInfoVO selectLogin(LoginVO lVO) throws SQLException{
+		UserInfoVO uiVO=null;
 		
-		DbConnection dbCon = DbConnection.getInstance();
-		
-		Connection con=null;
-		PreparedStatement pstmt = null;
+		Connection con = null;
+		PreparedStatement pstmt=null;
 		ResultSet rs = null;
-		boolean loginCon = false;
+		
+		DbConnection db=DbConnection.getInstance();
 		
 		try {
-			con = dbCon.getConn("jdbc/abn");
-			String query = "select count(*) from admin where id = ? and password = ?";
+		//1. JDNI 사용 객체를 생성
+		
+		//2. DataSource를 얻기 (DBCP에서)
+		//3. Connection얻기
+			con=db.getConn("jdbc/abn");
+		//4. 쿼리문 생성객체 얻기
+			StringBuilder selectUser= new StringBuilder();
+			selectUser
+			.append("	select * from ADMIN")
+			.append("	where	id=? and pass=?");
 			
-			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, id);
-			pstmt.setString(2, password);
-			rs = pstmt.executeQuery();
+			pstmt=con.prepareStatement(selectUser.toString());
+		//5. 바인드변수에 값 설정
+			pstmt.setString(1, lVO.getId());
+			pstmt.setString(2, lVO.getPass());//암호화
 			
-			//if(rs.next())
-				//loginCon = true;
+		//6. 쿼리문 수행 후 결과 얻기
+			rs=pstmt.executeQuery();
 			
-			loginCon=rs.next();//true-조회결과 있음, false-조회결과 없음
-		}catch(Exception ex) {
-			System.out.println("Exception" + ex);
+			if(rs.next()) { //입력된 아이디와 비번으로 조회된 결과 있음
+				uiVO=new UserInfoVO();
+				uiVO.setId(lVO.getId());
+			}
+			
 		}finally {
-			dbCon.closeCon(rs, pstmt, con);
-		}
-		return loginCon;
-	}
+			//6. 연결 끊기
+			db.closeCon(rs, pstmt, con);
+		}//end finally
+		
+		
+		return uiVO;
+	}//selectLogin
+	
 }//class
