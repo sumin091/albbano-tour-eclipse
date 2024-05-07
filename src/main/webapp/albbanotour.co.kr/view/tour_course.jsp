@@ -5,8 +5,26 @@ Date: 2024-04-17
 Time: 오후 03:32
 To change this template use File | Settings | File Templates.
 --%>
+<%@page import="vo.CourseManagementVO"%>
+<%@page import="java.util.List"%>
+<%@page import="vo.SpotListVO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="dao.CourseManagementDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+String code ="CURS_00001";
+
+CourseManagementDAO cmDAO = CourseManagementDAO.getInstance();
+List<SpotListVO> list= new ArrayList<SpotListVO>();
+list =cmDAO.selectAllSpot();
+pageContext.setAttribute("list", list);
+CourseManagementVO cVO = cmDAO.selectCourseDetail(code);
+pageContext.setAttribute("cVO", cVO);
+out.print(code);
+
+%>
 <html lang="ko">
 <head>
     <title>동해안투어 | 알빠노관광</title>
@@ -72,7 +90,7 @@ To change this template use File | Settings | File Templates.
         <div class="path">
             <li><a href="index_user.jsp"><span class="ic-home"><i></i></span></a></li>
             <li>관광지</li>
-            <li>동해안투어</li>
+            <li>${ spt.spot_name }</li>
         </div>
         <div class="title">관광지</div>
         <p class="normal_txt">
@@ -85,49 +103,42 @@ To change this template use File | Settings | File Templates.
 
 
         <div class="bg_vline"></div>
-        <p class="eng"><em>동해안투어</em></p>
-        <p class="stitle">동해안투어는 천해의 자연경관을 담은 동해를 중심으로 주변의 유적지와 대한민국의 아름다운 경관을 즐기실 수 있는 코스입니다.</p>
+        <p class="eng"><em>${ cVO.crsName }</em></p>
+        <p class="stitle">${ cVO.crsDesc }</p>
 
 
         <div class="business">
             <div class="receive-btn">
                 <input name="image" type="submit" value="예약바로가기" alt="예약바로가기"
-                       onclick="location.href = '/bbs/board.php?bo_table=booking' ">
+                       onclick="location.href = 'booking.jsp' ">
             </div>
-
-
         </div>
 
         <div class="lview" style="height: 50px;"></div>
 
         <div class="business">
             <div class="course_title"><h5>코스안내</h5></div>
-            <!--
+            
                         <div class="course_box">
                             <div class="box_wrap">
                                 <dd>
                                     <ul>
-                                        <li><span>1</span>승차</li>
-                                        <li><span>2</span>경주전통명주전시관</li>
-                                        <li><span>3</span>감은사지</li>
-                                        <li><span>4</span>문무대왕릉</li>
-                                        <li><span>5</span>양남주상절리(파도소리길)</li>
-                                        <li><span>6</span>골굴사</li>
-                                        <li><span>7</span>괘릉(원성왕릉)</li>
-                                        <li><span>8</span>하차</li>
+                                    <c:forEach var="spt" items="${ list }" varStatus="i">
+                                        <li><span>${ i.count }</span>${ spt.spot_name }</li>
+                                    </c:forEach>
                                     </ul>
 
                                 </dd>
                             </div>
                         </div>
-            -->
+           
 
 
             <!--타이틀 이미지 시작  -->
             <div id="content1">
-                <div class="cross_img"><img class="wow fadeInLeft"
+                <!-- <div class="cross_img"><img class="wow fadeInLeft"
                                             src="../front_util/images/course_v2_01.png" alt="">
-                </div>
+                </div> -->
             </div>
             <!--타이틀 이미지 끝   -->
 
@@ -146,34 +157,15 @@ To change this template use File | Settings | File Templates.
             <div class="course_title"><h5>요금안내</h5></div>
             <div class="box_normal">
                 <ul>
-                    <li>· 성인 : 25,000원</li>
-                    <li>· 청소년(중고등) : 23,000원</li>
-                    <li>· 어린이(초등) : 23,000원</li>
-                    <li>· 입장료 별도('입장요금 안내' 참고)</li>
+                    <li>· 금액 : ${ cVO.fare } 원</li>
                     <!--					<li>· 성인은 19세 이상을 말하며, 소인은 7세~18세까지</li>-->
                 </ul>
             </div>
             <div class="lview" style="height: 50px;"></div>
 
-            <div>
-                <div class="course_title"><h5>입장요금 안내 </h5></div>
-                <div class="box_normal">
-                    <ul>
-                        <li>입장료 없음</li>
-
-                    </ul>
-                </div>
-            </div>
             <div class="lview" style="height: 50px;"></div>
 
 
-            <div class="course_title"><h5>탑승시간/장소안내</h5></div>
-            <div class="box_normal">
-                <ul>
-                    <li>· <a href="map_info_01.html#map_donghae" target="_blank">안내페이지 바로가기(클릭) </a></li>
-                </ul>
-            </div>
-            <div class="lview" style="height: 50px;"></div>
 
             <div class="course_title"><h5>안내사항 </h5></div>
 

@@ -8,9 +8,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>관리자 메인 페이지</title>
+    <%@ include file="common_head.jsp" %>
 </head>
+
 <body>
 
+<%@ include file="common_lower_container.jsp" %>
 </body>
 </html>

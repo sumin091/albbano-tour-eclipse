@@ -5,7 +5,34 @@ Date: 2024-04-17
 Time: 오후 02:32
 To change this template use File | Settings | File Templates.
 --%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="vo.TourReservationVO"%>
+<%@page import="java.util.List"%>
+<%@page import="dao.TourReservationDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+
+
+<%String login_id = (String)session.getAttribute("idKey");
+	if(login_id == null){ %>
+	
+	<script>
+	alert("로그인이 필요한 페이지 입니다.");
+	location.href = "login.jsp";
+	</script>
+	
+	
+	<% }%>
+
+<%
+	TourReservationDAO trDAO = TourReservationDAO.getInstance();
+	
+	List<TourReservationVO> list = new ArrayList<TourReservationVO>();
+	list = trDAO.selectTourReservationList(login_id);
+	pageContext.setAttribute("list", list);
+	
+%>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -28,8 +55,11 @@ To change this template use File | Settings | File Templates.
     <script type="text/javascript"
             src="../front_util/js/jquery.magnific-popup.min.js"></script>
     <script type="text/javascript" src="../front_util/js/common.js"></script>
-
+   
+   
     <%@ include file="common_head.jsp" %>
+    
+
 </head>
 
 <body>
@@ -51,7 +81,7 @@ To change this template use File | Settings | File Templates.
                 </div>
                 <ul class="">
                     <li>
-                        <span>맛집</span>
+                        <span> 예약확인</span>
                         <ul>
                             <li><a href="/theme/cmtour/html/business/new_01.php" target="_self">관광지</a></li>
                             <li><a href="/bbs/board.php?bo_table=booking" target="_self">맛집</a></li>
@@ -63,9 +93,9 @@ To change this template use File | Settings | File Templates.
                 </ul>
                 <ul class="dep2">
                     <li>
-                        <span>맛집</span>
+                        <span> 예약확인</span>
                         <ul>
-                            <li><a href="/bbs/board.php?bo_table=booking" target="_self">맛집</a></li>
+                            <li><a href="/bbs/board.php?bo_table=booking" target="_self"> 예약확인</a></li>
 
 
                         </ul>
@@ -80,9 +110,9 @@ To change this template use File | Settings | File Templates.
         <div class="path">
             <li><a href="index_user.jsp"><span class="ic-home"><i></i></span></a></li>
             <li></li>
-            <li>맛집</li>
+            <li> 예약확인</li>
         </div>
-        <div class="title">맛집</div>
+        <div class="title"> 예약확인</div>
         <p class="normal_txt"></p>
     </div>
 
@@ -90,7 +120,7 @@ To change this template use File | Settings | File Templates.
 
 
         <div class="bg_vline"></div>
-        <p class="eng"><em></em> 맛집</p>
+        <p class="eng"><em></em> 예약확인</p>
         <p class="stitle"></p>
 
 
@@ -121,19 +151,43 @@ To change this template use File | Settings | File Templates.
                         <table class="table form-group form-group-sm table-bordered font-color-gray">
                             <thead>
                             <tr>
-                                <th scope="col">예약정보</th>
-                                <th scope="col">예약자명</th>
+                                <th scope="col">예약번호</th>
+                                <th scope="col">예약자ID</th>
+                                <th scope="col">예약날자</th>                             
                                 <th scope="col">이용요금</th>
                                 <th scope="col">예약상태</th>
-                                <th scope="col">결제방식</th>
+                           
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
+                            	<c:if test="${empty list }">
                                 <td colspan="7" style="text-align:center">
                                     예약내역이 존재하지 않습니다.
-                                </td>
-                            </tr>
+                                </td>                          
+                                </c:if>
+                                
+                                <c:if test="${not empty list }">
+                            	<c:forEach var="list" items="${ list }" varStatus="i">
+                           		 <td >
+                                	  <c:out value="${list.resv_code }"/>
+                                </td >	  
+                                 <td >
+                                	  <%=login_id %>
+                            	</td >
+                            	 <td >
+                                	   <c:out value="${list.create_date }"/>
+                            	</td >
+                            	 <td >
+                                	   <c:out value="${list.fare }"/>원
+                            	</td >
+                            	 <td >
+                                	   <c:out value="${list.resv_flag }"/>
+                            	</td >
+                            
+                           		 </c:forEach>
+                                </c:if>
+                            
+                            
                             </tbody>
                         </table>
 

@@ -5,7 +5,18 @@
   Time: 오후 01:16
   To change this template use File | Settings | File Templates.
 --%>
+<%@page import="java.util.List"%>
+<%@page import="dao.NoticeDAO"%>
+<%@page import="vo.NoticeVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+String noticeNo= request.getParameter("noticeNo"); 
+NoticeDAO noticeDAO= NoticeDAO.getInstance();
+NoticeVO ntVO=noticeDAO.selectOne(noticeNo);
+//List<NoticeVO> list= noticeDAO.selectAll();
+pageContext.setAttribute("ntVO", ntVO);
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -103,11 +114,11 @@
 
         <!-- 게시물 읽기 시작 { -->
 
-        <article id="bo_v" style="width:100%">
+        <article id="bo_v" style="width:100%"> 
+            <c:forEach var="notice" items="${ list }">
             <header>
                 <h2 id="bo_v_title">
-                        <span class="bo_v_tit">
-            2022년 투어요금 변경안내</span>
+                        <span class="bo_v_tit"><c:out value="${notice.getTitle }"/></span>
                 </h2>
             </header>
 
@@ -117,27 +128,32 @@
                 <span class="sound_only">댓글</span><strong><a href="#bo_vc"> <i class="fas fa-comment-dots"></i>
                 0건</a></strong>
                 <span class="sound_only">조회</span><strong>Hit 16,503회</strong>
-                <strong class="if_date"><span class="sound_only">작성일</span>Date 22-01-04 11:19</strong>
-
+                <strong class="if_date"><span class="sound_only">작성일</span><c:out value="${notice.getCreate_Date()}" /></strong>
             </section>
 
             <section id="bo_v_atc">
                 <h2 id="bo_v_atc_title">본문</h2>
-
                 <div id="bo_v_img">
                 </div>
 
                 <!-- 본문 내용 시작 { -->
-                <div id="bo_v_con"><p style="text-align:center;" align="center"><img
+                <div id="bo_v_con"><p style="text-align:center;" align="center">
+			  	<span><c:out value="${notice.doc_Cont}"/></span> 
+                  
+                  <!--  
+                  <img
                         src="../front_util/images/0449aab71f1d097bc30b6175e80ea92d_1640851081_4495.jpg"
-                        alt="0449aab71f1d097bc30b6175e80ea92d_1640851081_4495.jpg"/> </p></div>
+                        alt="0449aab71f1d097bc30b6175e80ea92d_1640851081_4495.jpg"/> 
+                   -->     
+                      <!--  </p>  -->
+                        </div>
                 <!-- } 본문 내용 끝 -->
 
 
                 <!--  추천 비추천 시작 { -->
                 <!-- }  추천 비추천 끝 -->
             </section>
-
+			</c:forEach>
             <div id="bo_v_share">
 
             </div>
@@ -147,10 +163,12 @@
             <div id="bo_v_top">
 
                 <ul class="bo_v_left">
+                <input type="submit" value="수정" id="btn_submit" class="btn_submit btn" />
+                <!--  <a href="modify_notice.jsp?docNo=${notice.doc_No}"></a> -->
                 </ul>
 
                 <ul class="bo_v_com">
-                    <li><a href="board6f05.html?bo_table=notice&amp;page=" class="btn_b01 btn"><i class="fa fa-list"
+                    <li><a href="http://localhost/albbano-tour-eclipse/albbanotour.co.kr/view/main_notice.jsp?bo_table=notice" class="btn_b01 btn"><i class="fa fa-list"
                                                                                                   aria-hidden="true"></i>
                         목록</a></li>
                 </ul>
@@ -158,12 +176,12 @@
                 <ul class="bo_v_nb">
                     <li class="btn_prv"><span class="nb_tit"><i class="fa fa-caret-up"
                                                                 aria-hidden="true"></i> 이전글</span><a
-                            href="notice02.html?bo_table=notice&amp;wr_id=36">포항-경주-김해공항 공항리무진 운행안내</a> <span
-                            class="nb_date">22.07.09</span></li>
+                            href="desc_notice.jsp?noticeNo=NOTI_00002">포항-경주-김해공항 공항리무진 운행안내</a> <span
+                            class="nb_date"><c:out value="${notice.create_Date}"/></span></li>
                     <li class="btn_next"><span class="nb_tit"><i class="fa fa-caret-down"
                                                                  aria-hidden="true"></i> 다음글</span><a
-                            href="notice04.html?bo_table=notice&amp;wr_id=29">KTX + 알빠노관광 상품판매(코레일)</a> <span
-                            class="nb_date">21.11.01</span></li>
+                            href="desc_notice.jsp?noticeNo=NOTI_00003">KTX + 알빠노관광 상품판매(코레일)</a> <span
+                            class="nb_date"><c:out value="${notice.create_Date}"/></span></li>
                 </ul>
             </div>
             <!-- } 게시물 상단 버튼 끝 -->
