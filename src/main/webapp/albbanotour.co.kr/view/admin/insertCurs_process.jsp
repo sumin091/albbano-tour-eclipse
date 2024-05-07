@@ -1,3 +1,6 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="dao.CourseManagementDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
      info=""%>
@@ -31,16 +34,15 @@
 <body>
 <div>
 <!-- 값 받는거 확인까지만 해둠  -->
-<%
+<%-- <%
 request.setCharacterEncoding("UTF-8");
 String crsCode = request.getParameter("crsCode"); 
 String crsName = request.getParameter("crsName"); 
 String crsDesc = request.getParameter("crsDesc"); 
 String imgName = request.getParameter("imgName");
 String fare = request.getParameter("fare");
-String[] spotValues = request.getParameterValues("spotValues");
-%>
- 
+%> --%>
+ <%-- 
     <p>코스 코드: <%= crsCode %></p>
     <p>코스 이름: <%= crsName %></p>
     <p>코스 설명: <%= crsDesc %></p>
@@ -48,10 +50,39 @@ String[] spotValues = request.getParameterValues("spotValues");
     <p>코스 요금: <%= fare %></p>
     <p>선택된 관광지:</p>
     <ul>
-        <% for (String spotValue : spotValues) { %>
+        <% for (String spotValue : crsSpots) { %>
             <li><%= spotValue %></li>
         <% } %>
-    </ul>
+    </ul> --%>
+    <% request.setCharacterEncoding("UTF-8"); %>
+    <jsp:useBean id="curVO" class="vo.CourseManagementVO" scope="page"/>
+    <jsp:setProperty property="*" name="curVO"/>
+    <%pageContext.setAttribute("curVO", curVO);
+    String[] crsSpotsArray = request.getParameterValues("spotValues");
+
+    List<String> crsSpotsList = new ArrayList<>();
+    if (crsSpotsArray != null) {
+        for (String spot : crsSpotsArray) {
+            String[] spots = spot.split(",");
+            for (String s : spots) {
+                crsSpotsList.add(s.trim());
+            }
+        }
+    }
+
+    String[] crsSpots = crsSpotsList.toArray(new String[0]);
+
+    curVO.setCrsSpots(crsSpots);
+    CourseManagementDAO cDAO = CourseManagementDAO.getInstance();
+    cDAO.insertCurs(curVO);
+    out.print(crsSpots.length);
+
+    for (int i = 0; i < crsSpots.length; i++) {
+    cDAO.insertTourCurs(curVO.getCrsCode(), crsSpots[i]);
+    }
+
+    %>
+    
 </div>
 </body>
 </html>

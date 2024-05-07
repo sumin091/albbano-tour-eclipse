@@ -39,8 +39,8 @@ request.setCharacterEncoding("UTF-8");
 <%
 pageContext.setAttribute("ResListVO", ResListVO);
 RestaurantManagementDAO rmDAO = RestaurantManagementDAO.getInstance();
-rmDAO.updateRes(ResListVO);
-
+int cnt =rmDAO.updateRes(ResListVO);
+out.print(cnt);
 %>
 <h3>수정완료</h3>
 

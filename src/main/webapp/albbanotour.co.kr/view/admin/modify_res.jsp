@@ -4,13 +4,6 @@
     pageEncoding="UTF-8"
      info=""%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-request.setCharacterEncoding("UTF-8");
-String resCode =request.getParameter("res_code");
-RestaurantManagementDAO rmDAO = RestaurantManagementDAO.getInstance();
-ResListVO rVO= rmDAO.selectRes(resCode);
-pageContext.setAttribute("rVO", rVO);
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,6 +30,13 @@ pageContext.setAttribute("rVO", rVO);
 	});//ready
 </script>
 </head>
+<%
+request.setCharacterEncoding("UTF-8");
+String resCode =request.getParameter("res_code");
+RestaurantManagementDAO rmDAO = RestaurantManagementDAO.getInstance();
+ResListVO rVO= rmDAO.selectRes(resCode);
+pageContext.setAttribute("rVO", rVO);
+%>
 <body>
 <form action="modify_res_process.jsp" method="post">
 <div>
@@ -70,7 +70,7 @@ pageContext.setAttribute("rVO", rVO);
 </tr>
 </table>
 </div>
-<input type="submit" value ="내용수정"/>
+<input type="submit" value ="내용 수정"/>
 </form>
 </body>
 </html>
