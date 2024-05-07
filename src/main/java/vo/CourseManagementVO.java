@@ -1,20 +1,24 @@
 package vo;
 
+import java.util.Arrays;
 import java.util.Date;
 
 public class CourseManagementVO {
 	private String crsCode, crsName, crsDesc, imgName;
 	private Date createDate;
+	private String[] crsSpots;
 	private int fare;
 	private char delYn;
-	public CourseManagementVO(String crsCode, String crsName, String crsDesc, String imgName, Date createDate, int fare,
-			char delYn) {
+	
+	public CourseManagementVO(String crsCode, String crsName, String crsDesc, String imgName, Date createDate,
+			String[] crsSpots, int fare, char delYn) {
 		super();
 		this.crsCode = crsCode;
 		this.crsName = crsName;
 		this.crsDesc = crsDesc;
 		this.imgName = imgName;
 		this.createDate = createDate;
+		this.crsSpots = crsSpots;
 		this.fare = fare;
 		this.delYn = delYn;
 	}
@@ -61,6 +65,18 @@ public class CourseManagementVO {
 	}
 	public void setDelYn(char delYn) {
 		this.delYn = delYn;
+	}
+	public String[] getCrsSpots() {
+		return crsSpots;
+	}
+	public void setCrsSpots(String[] crsSpots) {
+		this.crsSpots = crsSpots;
+	}
+	@Override
+	public String toString() {
+		return "CourseManagementVO [crsCode=" + crsCode + ", crsName=" + crsName + ", crsDesc=" + crsDesc + ", imgName="
+				+ imgName + ", createDate=" + createDate + ", crsSpots=" + Arrays.toString(crsSpots) + ", fare=" + fare
+				+ ", delYn=" + delYn + "]";
 	}
 	
 }

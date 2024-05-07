@@ -125,7 +125,7 @@ pageContext.setAttribute("list", list);
 </tr>
 <tr>
     <td>코스 관광지 : 
-        <select id="spotSelect"> 
+        <select id="spotSelect" name="crsSpots"> 
             <c:forEach var="spt" items="${list}">
                 <option value="${spt.spot_code}">${spt.spot_name}</option>
             </c:forEach>

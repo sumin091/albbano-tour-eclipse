@@ -59,7 +59,7 @@ pageContext.setAttribute("sVO", sVO);
 <tr>
 	<td><input type="text"  name ="spot_code" value ="${ sVO.spot_code }"/></td>
 	<td><input type="text"  name ="spot_name" value ="${ sVO.spot_name }"/></td>
-	<td><textarea  name ="spot_desc">"${ sVO.spot_desc }"</textarea>
+	<td><textarea  name ="spot_desc">"${ sVO.spot_desc }"</textarea></td>
 	<td><input type="text" name ="img_name" value =" ${ sVO.img_name }"/></td>
 	<td><input type="text" name ="longitude" value ="${ sVO.longitude }"/></td>
 	<td><input type="text" name ="latitude" value ="${ sVO.latitude }"/></td>
