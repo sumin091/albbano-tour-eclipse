@@ -77,7 +77,7 @@ public class NoticeDAO {
 		try {
 			
 			con =dbCon.getConn("jdbc/abn");			
-			String selectOne=(" select * from notice where title=? ");
+			String selectOne=(" select * from notice where doc_No=? ");
 			
 			
 			pstmt=con.prepareStatement(selectOne);
@@ -102,34 +102,66 @@ public class NoticeDAO {
 		}
 		return ntVO;
 	}
-	/*
-	public int updateMenu(NoticeVO NoticeVO) throws SQLException {
-		NoticeVO ntVO=null;
+	
+	public int insertNotice(NoticeVO ntVO) throws SQLException{
+		int cnt=0;
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		
+		DbConnection dbCon=DbConnection.getInstance();
+		
+		try {
+			con=dbCon.getConn("jdbc/abn");
+			String insert=" insert into notice values(?,?,?,sysdate,?,?,'N') ";
+			
+			pstmt=con.prepareStatement(insert);
+			
+			pstmt.setString(1, ntVO.getDoc_No());
+			pstmt.setString(2, ntVO.getTitle());
+			pstmt.setString(3, ntVO.getImg_Name());
+			pstmt.setString(4, ntVO.getId());
+			pstmt.setString(5, ntVO.getDoc_Cont());
+			
+			pstmt.executeUpdate();
+		}finally {
+			dbCon.closeCon(null, pstmt, con);
+		}
+		return cnt;
+	}
+	
+	
+	public int updateNotice(NoticeVO ntVO) throws SQLException {
+		
+		int cnt=0;
 		
 		Connection con=null;
 		PreparedStatement pstmt=null;
-		ResultSet rs=null;
-		int result=0;
 		
 		DbConnection dbCon= DbConnection.getInstance();
 		
 		try {
+			con=dbCon.getConn("jdbc/abn");
+			StringBuilder update=new StringBuilder();
+			update.append(" update notice ")
+			.append(" set title=?, img_Name=?, doc_Cont=? ")
+			.append(" where doc_No=? ");
 			
-			String updateMenu= " update notice set =? where title=? ";
+			pstmt=con.prepareStatement(update.toString());
 			
+			pstmt.setString(1, ntVO.getTitle());
+			pstmt.setString(2, ntVO.getImg_Name());
+			pstmt.setString(3, ntVO.getId());
+			pstmt.setString(4, ntVO.getDoc_Cont());
 			
-			pstmt=con.prepareStatement(updateMenu);
-			pstmt.setString(1, "title");
-			
-			result=pstmt.executeUpdate();
+			pstmt.executeUpdate();
 		}finally {
-			dbCon.closeCon(rs, pstmt, con);
+			dbCon.closeCon(null, pstmt, con);
 		}
-		return result;
+		return cnt;
 		
 	}
 	
-	public void deleteMenu(String del_yn) throws SQLException {
+	public void deleteNotice(String del_yn) throws SQLException {
 		
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -137,11 +169,11 @@ public class NoticeDAO {
 		DbConnection dbCon= DbConnection.getInstance();
 		try {
 			
-			String deleteMenu=" delete from notice where del_yn=? ";
+			String deleteNotice=" update notice set del_yn= 'y' where doc_No=? ";
 			
-			pstmt=con.prepareStatement(deleteMenu);
+			pstmt=con.prepareStatement(deleteNotice);
 			
-			pstmt.setString(1, "del_yn");
+			pstmt.setString(1, "doc_No");
 			
 			
 			
@@ -150,6 +182,6 @@ public class NoticeDAO {
 			if(con != null) {con.close();}
 		}
 	}
-	*/
+	
 
 }
