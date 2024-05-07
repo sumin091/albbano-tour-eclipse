@@ -33,9 +33,6 @@ To change this template use File | Settings | File Templates.
 	
 %>
 
-
-
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -58,8 +55,11 @@ To change this template use File | Settings | File Templates.
     <script type="text/javascript"
             src="../front_util/js/jquery.magnific-popup.min.js"></script>
     <script type="text/javascript" src="../front_util/js/common.js"></script>
-
+   
+   
     <%@ include file="common_head.jsp" %>
+    
+
 </head>
 
 <body>
