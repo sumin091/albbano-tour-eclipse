@@ -5,11 +5,23 @@
   Time: 오후 04:24
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page import="dao.TourDAO" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+    TourDAO tourDAO = TourDAO.getInstance();
+    List<String> tourList = new ArrayList<>();
+    tourList = tourDAO.selectAllTourList();
+    pageContext.setAttribute("tourList", tourList);
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <title>투어예약 | 알빠노관광</title>
+
     <script>
         // 자바스크립트에서 사용하는 전역변수 선언
         var g5_url = "../index_user.jsp";
@@ -22,6 +34,7 @@
         var g5_editor = "smarteditor2";
         var g5_cookie_domain = "";
     </script>
+
     <%@include file="common_head.jsp" %>
 
     <script type="text/javascript" src="../js/jquery.magnific-popup.min.js"></script>
@@ -67,7 +80,6 @@
                         </ul>
                     </li>
                 </ul>
-
             </div>
         </div>
     </div>
@@ -83,7 +95,6 @@
     </div>
 
     <div class="scontents">
-
         <div class="bg_vline"></div>
         <p class="eng"><em></em> 투어예약</p>
         <p class="stitle"></p>
@@ -94,36 +105,36 @@
             <div class="col-md-12">
                 <div class="navi-wrap">
                     <ul class="nav nav-tabs">
-                        <li role="presentation" class="active"><a href="booking.jsp">실시간예약</a>
-                        </li>
+                        <li role="presentation" class="active"><a href="booking.jsp">실시간예약</a></li>
                         <li role="presentation" class=""><a href="list_reservation.jsp">예약확인/취소</a></li>
                     </ul>
-                    <p class="button-list">
-                    </p>
+                    <p class="button-list"></p>
                 </div>
 
                 <div class="clearfix" style="height:10px;"></div>
 
-
                 <div class="bx-reserv">
-
                     <table cellpadding=0 cellspacing=0 border=0 style="width:100%;">
                         <tbody>
                         <tr>
                             <td class="bxframe fm-room">
                                 <div class="head">01. 투어선택 ◀◀코스를 선택하세요▶▶</div>
                                 <div class="list">
-
+                                    <c:forEach var="tour" items="${ tourList }" varStatus="i">
                                     <a href="#none" class="roomli active" data-rm-ix="1">
                                         <div class="media-left">
                                             <div class="room-photo-frame"><img
                                                     src="https://cmtour.co.kr/data/wzb_room/thumb-3552226015_dXFPwZYD_img_sea3_50x50.png"
-                                                    class="room-photo-main"></div>
+                                                    class="room-photo-main">
+                                            </div>
                                         </div>
 
                                         <div class="media-body info">
-                                            <h4 class="media-heading" id="top-aligned-media">동해안투어</h4>
+
+                                            <h4 class="media-heading" id="top-aligned-media">
+                                                <c:out value="${ tour.crs_name }"/></h4>
                                             <div class="desc"></div>
+                                            </c:forEach>
                                         </div>
                                     </a>
 
@@ -400,11 +411,8 @@
                             반드시 주의사항을 숙지하시기 바랍니다.
                         </li>
                     </ul>
-
                 </div>
-
-                </form>
-
+                
                 <script type="text/javascript">
                     //<!--
                     var sch_day = '2024-04-03';
