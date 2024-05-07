@@ -33,23 +33,16 @@ public class AdminLoginDAO {
 		DbConnection db=DbConnection.getInstance();
 		
 		try {
-		//1. JDNI 사용 객체를 생성
-		
-		//2. DataSource를 얻기 (DBCP에서)
-		//3. Connection얻기
 			con=db.getConn("jdbc/abn");
-		//4. 쿼리문 생성객체 얻기
 			StringBuilder selectUser= new StringBuilder();
 			selectUser
-			.append("	select * from ADMIN")
-			.append("	where	id=? and pass=?");
+			.append("	select * from ADMIN	")
+			.append("	where id=? and pass=?");
 			
 			pstmt=con.prepareStatement(selectUser.toString());
-		//5. 바인드변수에 값 설정
 			pstmt.setString(1, lVO.getId());
-			pstmt.setString(2, lVO.getPass());//암호화
+			pstmt.setString(2, lVO.getPass());
 			
-		//6. 쿼리문 수행 후 결과 얻기
 			rs=pstmt.executeQuery();
 			
 			if(rs.next()) { //입력된 아이디와 비번으로 조회된 결과 있음
