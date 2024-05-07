@@ -113,6 +113,9 @@ pageContext.setAttribute("list", list);
                     <div class="swiper-slide" style="width:285px !important;">
                         <a href="desc_spot.jsp?spot_code=${ spt.spot_code }">
                             <img src="${ spt.img_name}"
+                            
+                            
+                            
                                  alt="&nbsp;">
                             <p class="txtBox">
                                 <span class="tit"><c:out value="${ spt.spot_name}" /></span>

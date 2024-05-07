@@ -9,6 +9,8 @@
 <%
 request.setCharacterEncoding("UTF-8");
 
+int num= Integer.parseInt(request.getParameter("doc_No"));
+
 String doc_No= request.getParameter("doc_No");
 String title= request.getParameter("title");
 String img_Name= request.getParameter("img_Name");
@@ -16,6 +18,17 @@ String id= request.getParameter("id");
 String doc_cont= request.getParameter("doc_cont");
 String del_yn= request.getParameter("del_Yn");
 
+NoticeDAO ntDAO=NoticeDAO.getInstance();
+NoticeVO ntVO= new NoticeVO(); 
+
+int isUpdated = ntDAO.updateNotice(ntVO);
+/*  
+if (isUpdated) {
+    response.sendRedirect(request.getContextPath() + "/modiftNotice.jsp?doc_No=" + doc_No);
+} else {
+    response.sendRedirect(request.getContextPath() + "/registNotice.jsp");
+}
+*/
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -110,48 +123,17 @@ String del_yn= request.getParameter("del_Yn");
         <div class="bg_vline"></div>
         <p class="eng"><em></em> 공지사항 작성</p>
         <p class="stitle"></p>
-<!--  
-	<script type="text/javascript">
-		 $(function () {
-			$('#summernote').summernote({
-				height: 300,
-				width: 600,
-				focus: true,
-				lang: 'ko-KR',
-				toolbar: [
-						    // [groupName, [list of button]]
-						    ['style', ['bold', 'clear']],
-						    ['font', ['strikethrough', 'superscript', 'subscript']],
-						    ['fontsize', ['fontsize']],
-						    ['para', ['ul', 'ol']],
-						    ['table', ['table']],
-						  	['insert', [ 'picture']],
-						  	['view', ['fullscreen', 'codeview', 'help']],
-						  ]
-			});//summernote
-		});//ready
-	</script>
-	 -->
 
-
-
-	<!--
-	<form method="post">
-		  <textarea id="summernote" name="ta"></textarea>
-		<input type="submit" value="작성완료" class="btn btn-dark" onclick="alert(글이 작성되었습니다.)"/>
-		<input type="button" value="취소" class="btn btn-light" onclick="history.back();"/>
-	</form>
-	-->
 	 <section id="bo_w">
             <h2 class="sound_only">공지사항 작성</h2>
 	
 	
 	 <!-- 게시물 작성/수정 시작 { -->
-            <form name="fwrite" id="fwrite" action="" method="post"
+            <form name="fwrite" id="fwrite" action="<%=request.getContextPath() %>/modifyNotice.jsp" method="post"
                   style="width:100%">
 
                 <div class="bo_w_info write_div">
-
+					<input type="hidden" name="doc_No" value="<%=ntVO.getDoc_No() %>">
 
                 </div>
 
@@ -160,8 +142,8 @@ String del_yn= request.getParameter("del_Yn");
                     <label for="wr_subject" class="sound_only">제목<strong>필수</strong></label>
 
                     <div id="autosave_wrapper write_div">
-                        <input type="text" name="wr_subject" value="" id="wr_subject" required
-                               class="frm_input full_input required" size="50" maxlength="255" placeholder="제목">
+                        <input type="text" name="wr_subject" value="" id="wr_subject" required 
+                               class="frm_input full_input required" value="<%=ntVO.getTitle() %>" size="50" maxlength="255" placeholder="제목">
 
                     </div>
 
@@ -177,7 +159,7 @@ String del_yn= request.getParameter("del_Yn");
                         <script src="https://cmtour.co.kr/plugin/editor/smarteditor2/config.js"></script>
                        
                         <textarea id="wr_content" name="wr_content" class="smarteditor2" maxlength="65536"
-                                  style="width:100%;height:300px"></textarea>
+                                   style="width:100%;height:300px" value="<%=ntVO.getDoc_Cont() %> "></textarea>
                         <span class="sound_only">웹 에디터 끝</span></div>
 
                 </div>
@@ -188,7 +170,7 @@ String del_yn= request.getParameter("del_Yn");
                         <label for="bf_file_2" class="lb_icon"><i class="fa fa-download" aria-hidden="true"></i><span
                                 class="sound_only"> 파일 #1</span></label>
                         <input type="file" name="bf_file[]" id="bf_file_2" title="파일첨부 2 : 용량 10,485,760 바이트 이하만 업로드 가능"
-                               class="frm_file ">
+                               value="<%=ntVO.getImg_Name() %>" class="frm_file ">
                     </div>
 
 
@@ -196,8 +178,8 @@ String del_yn= request.getParameter("del_Yn");
 
 
                 <div class="btn_confirm write_div" style="text-align:center;">
-                    <a href="#void"><input type="button" value="취소" class="btn btn-light" onclick="history.back();"/></a>
-                    <input type="button" value="작성완료" id="btn_submit" class="btn_submit btn" onclick="alert()">
+                    <input type="button" value="취소" class="btn btn-light" onclick="history.back();"/>
+                    <input type="submit" value="수정" id="btn_submit" class="btn_submit btn" onclick="alert()">
                 </div>
             </form>
 
