@@ -8,18 +8,20 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
+	<% 
+	String resCode = request.getParameter("res_code");
+	String resName = request.getParameter("res_name");	
+	%>
 	<%
-	//String login_id = (String)session.getAttribute("idKey");
-	//if(login_id == null){ %>
-	<%--
+	String login_id = (String)session.getAttribute("idKey");
+	if(login_id == null){ %>
+	
 	<script>
-	alert("로그인이 필요한 페이지 입니다.");
 	location.href = "login_ok.jsp";
 	</script>
-	 --%>
+	 
 	
-	<% //}%>
-
+	<% }%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -39,6 +41,25 @@
         var g5_cookie_domain = "";
     </script>
     <%@ include file="common_head.jsp" %>
+    
+    <script type="text/javascript">
+    
+    $(function(){
+  	  	$("#btn_submit").click(function(){
+    		chkNull();		
+    	});
+  	  	
+    });
+    
+    function chkNull(){
+    	 if (confirm("리뷰를 입력하시겠습니까?")) {
+			$("#fwrite").submit();
+    	 }
+    
+    }
+
+    </script>
+
 </head>
 
 <body>
@@ -120,15 +141,17 @@
             <h2 class="sound_only">리뷰작성</h2>
 
             <!-- 게시물 작성/수정 시작 { -->
-            <form name="fwrite" id="fwrite" action="" method="post"
+            <form name="fwrite" id="fwrite" action="review_action.jsp" method="post"
                   style="width:100%">
-
+        
                 <div class="bo_w_info write_div">
 
 
                 </div>
 
-
+                <input type="hidden" id="re_code" name="re_code" value="<%=resCode %>">
+				<input type="hidden" id="re_name" name="re_name" value="<%=resName %>">
+				
                 <div class="bo_w_tit write_div">
                     <label for="wr_subject" class="sound_only">제목<strong>필수</strong></label>
 
@@ -154,23 +177,12 @@
                         <span class="sound_only">웹 에디터 끝</span></div>
 
                 </div>
-
-
-                <div class="bo_w_flie write_div">
-                    <div class="file_wr write_div">
-                        <label for="bf_file_2" class="lb_icon"><i class="fa fa-download" aria-hidden="true"></i><span
-                                class="sound_only"> 파일 #1</span></label>
-                        <input type="file" name="bf_file[]" id="bf_file_2" title="파일첨부 2 : 용량 10,485,760 바이트 이하만 업로드 가능"
-                               class="frm_file ">
-                    </div>
-
-
-                </div>
+    
 
 
                 <div class="btn_confirm write_div" style="text-align:center;">
                     <a href="review.jsp" class="btn_cancel btn">취소</a>
-                    <input type="button" value="작성완료" id="btn_submit" class="btn_submit btn" onclick="alert()">
+                    <input type="button" value="작성완료" id="btn_submit" class="btn_submit btn">
                 </div>
             </form>
 
