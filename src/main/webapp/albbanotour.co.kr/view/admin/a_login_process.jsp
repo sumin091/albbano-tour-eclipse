@@ -11,11 +11,11 @@
 <jsp:setProperty name="lVO" property="*"/>
 <% 
 //비번은 일방향 Hash로 암호화
-lVO.setPass(DataEncrypt.messageDigest("MD5", lVO.getPass()));
+//lVO.setPass(DataEncrypt.messageDigest("MD5", lVO.getPass()));
 
 
 pageContext.setAttribute("msg", "로그인 실패. 아이디나 비번을 확인.");
-pageContext.setAttribute("url", "login_frm.jsp");
+pageContext.setAttribute("url", "a_login.jsp");
 
 AdminLoginDAO alDAO=AdminLoginDAO.getInstance();
 try{
@@ -34,7 +34,7 @@ try{
 		session.setAttribute("loginData", uiVO);
 		
 		pageContext.setAttribute("msg", "로그인 성공");
-		//pageContext.setAttribute("url", "http://192.168.10.223/jsp_prj/index.jsp");
+		pageContext.setAttribute("url", "a_userInfo_list.jsp");
 	}//end if
 }catch(Exception e){
 	pageContext.setAttribute("msg", "문제 발생 잠시 후 다시 시도해주세요.");

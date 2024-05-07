@@ -148,9 +148,9 @@ public class SpotManagementDAO {
 		try {
 			con = dbCon.getConn("jdbc/abn");
 			StringBuilder update = new StringBuilder();
-			update.append("	update  SPOT	").append(
-					"	set  SPOT_NAME =? , SPOT_DESC =?, IMG_NAME =?, LONGITUDE =?, LATITUDE =?, SPT_LOC =?	")
-					.append("	where   SPOT_CODE =?	");
+			update.append("	update  SPOT	")
+			.append("	set  SPOT_NAME =? , SPOT_DESC =?, IMG_NAME =?, LONGITUDE =?, LATITUDE =?, SPT_LOC =?	")
+			.append("	where   SPOT_CODE =?	");
 			pstmt = con.prepareStatement(update.toString());
 			pstmt.setString(1, sVO.getSpot_name());
 			pstmt.setString(2, sVO.getSpot_desc());
