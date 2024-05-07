@@ -121,9 +121,11 @@ pageContext.setAttribute("list", list);
                 </div>
 
                 <ul class="btn_bo_user">
-                    <li><a href="rss8497.php?bo_table=notice" class="btn_b01 btn"><i class="fa fa-rss"
+                   <!--   <li><a href="rss8497.php?bo_table=notice" class="btn_b01 btn"><i class="fa fa-rss"
                                                                                      aria-hidden="true"></i> RSS</a>
                     </li>
+                    -->
+                    <li><a href="registNotice.jsp" class="btn_b01 btn" >글쓰기</a></li>
                 </ul>
             </div>
             <!-- } 게시판 페이지 정보 및 버튼 끝 -->
@@ -160,6 +162,7 @@ pageContext.setAttribute("list", list);
                         </tr>
                         </thead>
                         <tbody>
+							<c:forEach var="notice" items="${ list }">
                         <tr class="bo_notice">
                             <td class="td_num2">
                                 <strong class="notice_icon"><i class="fa fa-bullhorn" aria-hidden="true"></i><span
@@ -168,11 +171,10 @@ pageContext.setAttribute("list", list);
                             <td class="td_subject" style="padding-left:0px">
 
                                 <div class="bo_tit">
-									<c:forEach var="notice" items="${ list }">
-                                    <a href="desc_notice.jsp?docNO=${notice.doc_No }&title=${notice.title}&img_Name=${notice.img_Name}$doc_cont=${notice.doc_Cont}">
+                                
+                                    <a href="desc_notice.jsp?noticeNo=${notice.doc_No }">
                                         ${notice.title }
                                     </a>
-								</c:forEach>
                                     <i class="fa fa-heart" aria-hidden="true"></i></div>
                                 <div class="mview">
                                     <div class="gall_info">
@@ -186,149 +188,10 @@ pageContext.setAttribute("list", list);
                             </td>
                             <td class="td_name sv_use lview"><span class="sv_member">관리자</span></td>
                             <td class="td_num lview">1842</td>
-                            <td class="td_datetime lview">2022-11-22</td>
+                            <td class="td_datetime lview"><c:out value="${notice.create_Date}"/></td>
 
                         </tr>
-                        <tr class="bo_notice">
-                            <td class="td_num2">
-                                <strong class="notice_icon"><i class="fa fa-bullhorn" aria-hidden="true"></i><span
-                                        class="sound_only">공지</span></strong></td>
-
-                            <td class="td_subject" style="padding-left:0px">
-
-                                <div class="bo_tit">
-
-                                    <a href="notice02.html?bo_table=notice&amp;wr_id=36">
-                                        포항-경주-김해공항 공항리무진 운행안내
-                                    </a>
-                                    <i class="fa fa-heart" aria-hidden="true"></i></div>
-                                <div class="mview">
-                                    <div class="gall_info">
-                                        <span class="sv_member">관리자</span></div>
-                                    <div class="gall_info">
-                                        <span class="sound_only">조회 </span>Hit 5177 <span class="gall_date"><span
-                                            class="sound_only">작성일 </span>Date  2022-07-09</span>
-                                    </div>
-                                </div>
-
-                            </td>
-                            <td class="td_name sv_use lview"><span class="sv_member">관리자</span></td>
-                            <td class="td_num lview">5177</td>
-                            <td class="td_datetime lview">2022-07-09</td>
-
-                        </tr>
-                        <tr class="bo_notice">
-                            <td class="td_num2">
-                                <strong class="notice_icon"><i class="fa fa-bullhorn" aria-hidden="true"></i><span
-                                        class="sound_only">공지</span></strong></td>
-
-                            <td class="td_subject" style="padding-left:0px">
-
-                                <div class="bo_tit">
-
-                                    <a href="notice04.html?bo_table=notice&amp;wr_id=29">
-                                        KTX + 알빠노관광 상품판매(코레일)
-                                    </a>
-                                    <i class="fa fa-heart" aria-hidden="true"></i></div>
-                                <div class="mview">
-                                    <div class="gall_info">
-                                        <span class="sv_member">관리자</span></div>
-                                    <div class="gall_info">
-                                        <span class="sound_only">조회 </span>Hit 6944 <span class="gall_date"><span
-                                            class="sound_only">작성일 </span>Date  2021-11-01</span>
-                                    </div>
-                                </div>
-
-                            </td>
-                            <td class="td_name sv_use lview"><span class="sv_member">관리자</span></td>
-                            <td class="td_num lview">6944</td>
-                            <td class="td_datetime lview">2021-11-01</td>
-
-                        </tr>
-                        <tr class="">
-                            <td class="td_num2">
-                                3
-                            </td>
-
-                            <td class="td_subject" style="padding-left:0px">
-
-                                <div class="bo_tit">
-
-                                    <a href="notice06.html?bo_table=notice&amp;wr_id=41">
-                                        승차장소 제한 안내
-                                    </a>
-                                </div>
-                                <div class="mview">
-                                    <div class="gall_info">
-                                        <span class="sv_member">관리자</span></div>
-                                    <div class="gall_info">
-                                        <span class="sound_only">조회 </span>Hit 51 <span class="gall_date"><span
-                                            class="sound_only">작성일 </span>Date  2024-03-30</span>
-                                    </div>
-                                </div>
-
-                            </td>
-                            <td class="td_name sv_use lview"><span class="sv_member">관리자</span></td>
-                            <td class="td_num lview">51</td>
-                            <td class="td_datetime lview">2024-03-30</td>
-
-                        </tr>
-                        <tr class="">
-                            <td class="td_num2">
-                                2
-                            </td>
-
-                            <td class="td_subject" style="padding-left:0px">
-
-                                <div class="bo_tit">
-
-                                    <a href="notice03.html?bo_table=notice&amp;wr_id=40">
-                                        2월26일이부로 일부 승차장소 변경 안내
-                                    </a>
-                                    <i class="fa fa-heart" aria-hidden="true"></i></div>
-                                <div class="mview">
-                                    <div class="gall_info">
-                                        <span class="sv_member">관리자</span></div>
-                                    <div class="gall_info">
-                                        <span class="sound_only">조회 </span>Hit 657 <span class="gall_date"><span
-                                            class="sound_only">작성일 </span>Date  2024-02-24</span>
-                                    </div>
-                                </div>
-
-                            </td>
-                            <td class="td_name sv_use lview"><span class="sv_member">관리자</span></td>
-                            <td class="td_num lview">657</td>
-                            <td class="td_datetime lview">2024-02-24</td>
-
-                        </tr>
-                        <tr class="">
-                            <td class="td_num2">
-                                1
-                            </td>
-
-                            <td class="td_subject" style="padding-left:0px">
-
-                                <div class="bo_tit">
-
-                                    <a href="desc_notice.jsp?bo_table=notice&amp;wr_id=33">
-                                        2022년 투어요금 변경안내
-                                    </a>
-                                    <i class="fa fa-heart" aria-hidden="true"></i></div>
-                                <div class="mview">
-                                    <div class="gall_info">
-                                        <span class="sv_member">관리자</span></div>
-                                    <div class="gall_info">
-                                        <span class="sound_only">조회 </span>Hit 16503 <span class="gall_date"><span
-                                            class="sound_only">작성일 </span>Date  2022-01-04</span>
-                                    </div>
-                                </div>
-
-                            </td>
-                            <td class="td_name sv_use lview"><span class="sv_member">관리자</span></td>
-                            <td class="td_num lview">16503</td>
-                            <td class="td_datetime lview">2022-01-04</td>
-
-                        </tr>
+								</c:forEach>
                         </tbody>
                     </table>
                 </div>
