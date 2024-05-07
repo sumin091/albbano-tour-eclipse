@@ -134,7 +134,7 @@
             <a class="sel" rel="선택">맛집 리뷰</a>
             <ul style="display:none;">
                 <li><a href="#none">선택</a></li>
-                <li><a href="review_spot.jsp?fm_id=1" id="bo_cate_on"><span
+                <li><a href="review_restaurant.jsp?fm_id=1" id="bo_cate_on"><span
                         class="sound_only">열린 분류 </span>맛집 리뷰</a></li>
             </ul>
         </div>
@@ -143,7 +143,7 @@
             <ul id="bo_cate_ul">
                 <li>
                 
-                	<a href="review.jsp" id="bo_cate_on" style="background-color: white">
+                	<a href="review.jsp?res_code=<%=resCode %>&res_name=<%=resName %>" id="bo_cate_on" style="background-color: white">
                 	
                 	<span class="sound_only">열린 분류 </span>리뷰 작성</a>
                 	
