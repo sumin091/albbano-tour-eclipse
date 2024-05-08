@@ -5,18 +5,18 @@ import java.util.Date;
 public class SpotReviewVO {
 	
 
-	private String spot_doc_no, spot_code, spot_title, img_name, id, spot_contents;
+	private String spot_doc_no, spot_code, spot_title, star, id, spot_contents;
 	private Date create_date, edit_date;
 	
 	public SpotReviewVO() {
 		
 	}
 
-	public SpotReviewVO(String spot_doc_no, String spot_code, String spot_title, String img_name, String id,
+	public SpotReviewVO(String spot_doc_no, String spot_code, String spot_title, String star, String id,
 			String spot_contents, Date create_date, Date edit_date) {
 		super();
 		this.spot_code = spot_code;
-		this.img_name = img_name;
+		this.star = star;
 		this.create_date = create_date;
 		this.spot_doc_no = spot_doc_no;
 		this.spot_title = spot_title;
@@ -49,12 +49,12 @@ public class SpotReviewVO {
 		this.spot_title = spot_title;
 	}
 
-	public String getImg_name() {
-		return img_name;
+	public String getStar() {
+		return star;
 	}
 
-	public void setImg_name(String img_name) {
-		this.img_name = img_name;
+	public void setStar(String star) {
+		this.star = star;
 	}
 
 	public String getId() {

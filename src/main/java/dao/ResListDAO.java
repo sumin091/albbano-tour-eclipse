@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 import util.DbConnection;
 import vo.ResListVO;
+import vo.SearchVO;
 
 
 
@@ -103,41 +103,74 @@ public class ResListDAO {
 	
 	
 	
-	public List<ResListVO> selectResAllReview(String rescode)throws SQLException {
-		List<ResListVO> list = new ArrayList<ResListVO>();
-		ResListVO rVO = null;
-		DbConnection dbCon = DbConnection.getInstance();
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try{
-		
-		con =dbCon.getConn("jdbc/abn");
-		String sql =
-		"select * from RESTAURANT_REVIEW where res_code = ? ";
-		pstmt= con.prepareStatement(sql);
-		pstmt.setString(1, rescode);
-		rs = pstmt.executeQuery();
-		while(rs.next()) {
-			rVO = new ResListVO();
-        	rVO.setRes_doc_no(rs.getString("res_doc_no"));
-        	rVO.setImg_name(rs.getString("img_name"));
-        	rVO.setCreate_date(rs.getDate("create_date"));
-        	rVO.setRes_title(rs.getString("res_title"));
-        	rVO.setRes_contents(rs.getString("res_contents"));
-        	rVO.setId(rs.getString("id"));
-        	
-        	list.add(rVO);
-		}
-		}finally {
-			dbCon.closeCon(rs, pstmt, con);
-		}
-		return list;
-		
-	}
-		
-
+	
+//	public int selecttotalCount(SearchVO sVO) throws SQLException {
+//		
+//		int totalCnt =0;
+//		Connection con = null;
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//		DbConnection dbCon = DbConnection.getInstance();
+//		
+//		try {
+//			con = dbCon.getConn("jdbc/dbcp");
+//			//4. 쿼리문 생성객체 얻기(Dynamic Query)
+//				StringBuilder selectCnt = new StringBuilder();
+//			selectCnt.append(" select count (*) cnt from RESTAURANT_REVIEW");
+//			pstmt=con.prepareStatement(selectCnt.toString());
+//				//5. 바인드 변수 값 설정
+//			//6. 쿼리문 수행 후 결과 얻기
+//			rs = pstmt.executeQuery();
+//			if(rs.next()) {
+//				totalCnt = rs.getInt("cnt");
+//			}
+//			}finally {
+//				//7. 연결 끊기
+//				dbCon.closeCon(rs, pstmt, con);
+//			}
+//			return totalCnt;
+//	
+//	}
+//	
+//	public List<ResListVO> selectBoard (SearchVO sVO) throws SQLException{
+//		List<ResListVO> list = new ArrayList<ResListVO>();
+//		Connection con = null;
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//		DbConnection db = DbConnection.getInstance();
+//		try {
+//			con =db.getConn("jdbc/dbcp");
+//			StringBuilder sb = new StringBuilder();
+//			sb.
+//			append("  select NUM, TITLE, CONTENT, ID, INPUT_DATE, CNT , rnum  ").
+//			append("	from (select NUM, TITLE, CONTENT, ID, INPUT_DATE, CNT ,	").
+//			append("	row_number() over (order by INPUT_DATE desc) rnum from  BOARD)	").
+//			append("	where rnum  between ? and ?	");
+//			pstmt = con.prepareStatement(sb.toString());
+//			pstmt.setInt(1, sVO.getStartNum());
+//			pstmt.setInt(2, sVO.getEndNum());
+//			rs =pstmt.executeQuery();
+//			ResListVO bVO = null;
+//			while(rs.next()) {
+//				bVO = new ResListVO(0, null, null, null, null, null, null, null);
+//				list.add(bVO);
+//			}
+//		}finally {
+//			db.closeCon(rs, pstmt, con);
+//		}
+//		return list;
+//	}
+//	
+//	
+//	
+//	
+//	
+//	
+//	
+//	
+	
+	
+	
 
 }
 

@@ -5,6 +5,8 @@
   Time: 오후 02:41
   To change this template use File | Settings | File Templates.
 --%>
+<%@page import="vo.RestaurantReviewVO"%>
+<%@page import="dao.RestaurantReviewDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="vo.ResListVO"%>
@@ -23,15 +25,16 @@
           	return;
           }
 
-         ResListDAO rDAO = ResListDAO.getInstance();
-         List<ResListVO> list = new ArrayList<ResListVO>();
-         list = rDAO.selectResAllReview(resCode);
+         RestaurantReviewDAO rrDAO = RestaurantReviewDAO.getInstance();
+         List<RestaurantReviewVO> list = new ArrayList<RestaurantReviewVO>();
+         list = rrDAO.selectResAllReview(resCode);
          pageContext.setAttribute("list", list);
    %>
    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+
     <title>맛집 리뷰 | 알빠노관광</title>
 
     <script>
@@ -45,13 +48,23 @@
         var g5_sca = "";
         var g5_editor = "";
         var g5_cookie_domain = "";
+        
+        
+        
+  
+        
     </script>
     <%@ include file="common_head.jsp" %>
+    
+
+    
 </head>
 
 <body>
 <%@ include file="common_m_header.jsp" %>
 <%@ include file="common_desktop_header.jsp" %>
+
+
 
 <section id="sub_visual">
     <div class="backgroundimg">
@@ -59,7 +72,6 @@
              style="background:url('https://cmtour.co.kr/theme/cmtour/html/image/sub_visual05.jpg') no-repeat top center;"></div>
     </div>
 </section>
-
 
 <section id="sub_wrapper">
     <div id="sub_menu">
@@ -87,16 +99,11 @@
                     <li>
                         <span>맛집 리뷰</span>
                         <ul>
-                            <li><a href="/bbs/board.php?bo_table=notice" target="_self">공지사항</a></li>
+                            <li><a href="/bbs/board.php?bo_table=notice" target="_self">맛집 리스트</a></li>
 
 
-                            <li><a href="/bbs/faq.php?fm_id=1" target="_self">관광지 리뷰</a></li>
+                            <li><a href="/bbs/faq.php?fm_id=1" target="_self">맛집 리뷰</a></li>
 
-
-                            <li><a href="/bbs/board.php?bo_table=qa" target="_self">질문답변</a></li>
-
-
-                            <li><a href="/bbs/qalist.php" target="_self">1:1문의</a></li>
 
 
                         </ul>
@@ -143,7 +150,7 @@
             <ul id="bo_cate_ul">
                 <li>
                 
-                	<a href="review.jsp?res_code=<%=resCode %>&res_name=<%=resName %>" id="bo_cate_on" style="background-color: white">
+                	<a href="review_write_res.jsp?res_code=<%=resCode %>&res_name=<%=resName %>" id="bo_cate_on" style="background-color: white">
                 	
                 	<span class="sound_only">열린 분류 </span>리뷰 작성</a>
                 	
@@ -157,22 +164,19 @@
                 <h2>맛집 목록</h2>
                 <ol>
                  <c:forEach var="review" items="${ list }" varStatus="i">
-     
+     							
                     <li>
                         <h3>
-                        	<c:if test="${empty review.img_name }">
-								이미지 없다.<br/>
-							</c:if>
-                        	
-                        	<c:if test="${not empty review.img_name }">
-                            	<img src=" ${review.img_name }">
-                            </c:if>
-                            
+
                             <a href="#none" onclick="return faq_open(this);" style="display: block;">
+                            
                                 <span class="tit_bg" style="position: static">제목</span>
-                                <p style="    display: inline;">
+                                <p style="    display: inline;">                           
                                    <c:out value=" ${review.res_title }"/><br>
                                 </p>
+   	  
+                          			 별점 : <span class="starRating"><c:out value="${review.star}"/>점</span>
+		 	
                             </a>
                         </h3>
                         <div class="con_inner">
