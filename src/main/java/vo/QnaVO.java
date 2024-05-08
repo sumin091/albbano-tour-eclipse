@@ -96,7 +96,7 @@ public class QnaVO {
 
 	public QnaVO(String aSK_DOC_NO, String iD, String aSK_TITLE, String aSK_CONTENTS, String dEL_YN,
 			String aNSWER_CONTENTS, Date cREATE_DATE, Date aNSWER_DATE) {
-		super();
+		
 		this.ASK_DOC_NO = aSK_DOC_NO;
 		this.ID = iD;
 		this.ASK_TITLE = aSK_TITLE;

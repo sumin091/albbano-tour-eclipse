@@ -42,7 +42,7 @@ if(login_id == null){ %>
 </head>
 
 <body>
-<jsp:useBean id="qsVO" class="vo.QnasearchVO" scope="page"/>
+<jsp:useBean id="qsVO" class="vo.QnaSearchVO" scope="page"/>
 <jsp:setProperty property="*" name="qsVO"/>
 
 	
