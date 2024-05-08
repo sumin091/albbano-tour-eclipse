@@ -22,6 +22,12 @@ public class CourseManagementVO {
 		this.fare = fare;
 		this.delYn = delYn;
 	}
+	
+	public CourseManagementVO(String crsName) {
+		super();
+		this.crsName = crsName;
+	}
+
 	public CourseManagementVO() {
 	}
 	public String getCrsCode() {

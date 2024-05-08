@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page import="dao.TourDAO" %>
+<%@ page import="vo.CourseManagementVO" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
 
@@ -13,7 +14,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     TourDAO tourDAO = TourDAO.getInstance();
-    List<String> tourList = new ArrayList<>();
+    List<CourseManagementVO> tourList = new ArrayList<>();
     tourList = tourDAO.selectAllTourList();
     pageContext.setAttribute("tourList", tourList);
 %>
@@ -65,7 +66,7 @@
                         <ul>
                             <li><a href="list_spot.jsp" target="_self">관광지</a></li>
                             <li><a href="list_restaurant.jsp" target="_self">맛집</a></li>
-                            <li><a href="booking.jsp" target="_self">투어예약</a></li>
+                            <li><a href="booking.jsp" target="_self">투어</a></li>
                             <li><a href="main_notice.jsp?bo_table=notice" target="_self">고객센터</a></li>
                         </ul>
                     </li>
@@ -74,16 +75,18 @@
                     <li>
                         <span>투어예약</span>
                         <ul>
-                            <li><a href="tour_course.jsp" target="_self">투어코스</a></li>
-                            <li><a href="booking.jsp" target="_self">투어예약</a></li>
-                            <li><a href="list_reservation.jsp" target="_self">예약확인</a></li>
+                            <li><a href="tour_course.html" target="_self">투어코스</a></li>
+                            <li><a href="review_spot.jsp" target="_self">투어예약</a></li>
+                            <li><a href="review_spot.jsp" target="_self">예약확인</a></li>
                         </ul>
                     </li>
                 </ul>
+
             </div>
         </div>
     </div>
-
+    
+    
     <div id="sub_tit">
         <div class="path">
             <li><a href="index_user.jsp"><span class="ic-home"><i></i></span></a></li>
@@ -120,26 +123,24 @@
                             <td class="bxframe fm-room">
                                 <div class="head">01. 투어선택 ◀◀코스를 선택하세요▶▶</div>
                                 <div class="list">
-                                    <c:forEach var="tour" items="${ tourList }" varStatus="i">
-                                    <a href="#none" class="roomli active" data-rm-ix="1">
-                                        <div class="media-left">
-                                            <div class="room-photo-frame"><img
-                                                    src="https://cmtour.co.kr/data/wzb_room/thumb-3552226015_dXFPwZYD_img_sea3_50x50.png"
-                                                    class="room-photo-main">
-                                            </div>
-                                        </div>
-
-                                        <div class="media-body info">
-
-                                            <h4 class="media-heading" id="top-aligned-media">
-                                                <c:out value="${ tour.crs_name }"/></h4>
-                                            <div class="desc"></div>
-                                            </c:forEach>
-                                        </div>
-                                    </a>
-
+                                    <c:forEach var="tour" items="${tourList}" varStatus="i">
+   										<a href="#none" class="roomli active" data-rm-ix="${i.index}">
+        									<div class="media-left">
+            								<div class="room-photo-frame">
+                								<img src="https://cmtour.co.kr/data/wzb_room/thumb-3552226015_dXFPwZYD_img_sea3_50x50.png" class="room-photo-main">
+            								</div>
+        									</div>
+        									<div class="media-body info">
+            								<h4 class="media-heading" id="top-aligned-media">
+          								      <c:out value="${tour.crsName}" />
+         								   </h4>
+      							      <div class="desc"></div>
+     							   </div>
+  							  </a>
+								</c:forEach>
                                 </div>
                             </td>
+                            
                             <td class="bxframe fm-day">
                                 <div class="head">02. 날짜</div>
                                 <div class="list">
@@ -582,4 +583,3 @@
 <%@ include file="common_lower_container.jsp" %>
 </body>
 </html>
-
