@@ -69,7 +69,6 @@ String fare = request.getParameter("fare");
             }
         }
     }
-
     String[] crsSpots = crsSpotsList.toArray(new String[0]);
 
     curVO.setCrsSpots(crsSpots);
