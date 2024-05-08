@@ -26,7 +26,7 @@ public class CourseManagementDAO {
 	}
 
 	/**
-	 * 코스 소개 화면에서, 해당 코스의 관광지 리스트를 보여주는 method 현재 하나만 나오게 코딩되어있음. 수정필요
+	 * 코스 소개 화면에서, 해당 코스의 관광지 리스트를 보여주는 method 현재 하나만 나오게 코딩되어있음.
 	 * 24.05.02 김일신
 	 * @return List<SpotListVO>
 	 * @throws SQLException
@@ -156,6 +156,13 @@ public class CourseManagementDAO {
 		}
 		return cnt;
 	}
+	/**
+	 * 투어코스 테이블에 해당 코스와 관광지 리스트들을 추가하는 매서드.
+	 * @param curCode
+	 * @param curSpot
+	 * @return
+	 * @throws SQLException
+	 */
 	public int insertTourCurs(String curCode, String curSpot ) throws SQLException{
 		int cnt =0;
 		DbConnection dbCon = DbConnection.getInstance();
@@ -175,5 +182,66 @@ public class CourseManagementDAO {
 		}
 		return cnt;
 		
+	}
+	/**
+	 * 코스 테이블의 내용을 업데이트 하는 method
+	 * 24.05.08
+	 * @return
+	 * @throws SQLException 
+	 */
+	public int updateCurs(CourseManagementVO cVO) throws SQLException {
+		int cnt =0;
+		DbConnection dbCon = DbConnection.getInstance();
+		Connection con = null;
+		PreparedStatement pstmt =null;
+		try {
+			con = dbCon.getConn("jdbc/abn");
+			StringBuilder update = new StringBuilder();
+		update.append("	update COURSE	")
+		.append("	set    CRS_NAME =?, CRS_DESC=?, IMG_NAME=?, FARE=?	")
+		.append("	where  CRS_CODE =?  ");
+		
+		pstmt= con.prepareStatement(update.toString());
+		pstmt.setString(1, cVO.getCrsName());
+		pstmt.setString(2, cVO.getCrsDesc());
+		pstmt.setString(3, cVO.getImgName());
+		pstmt.setInt(4, cVO.getFare());
+		pstmt.setString(5, cVO.getCrsCode());
+		
+		cnt = pstmt.executeUpdate();
+		
+		
+		}finally {
+			dbCon.closeCon(null, pstmt, con);
+		}
+		return cnt;
+	}
+	
+	/**
+	 * 투어코스 테이블의 내용을 업데이트 하는 method
+	 * @return 
+	 * @throws SQLException 
+	 */
+	public int updateTourCurs(String SPOT_CODE,String CRS_CODE) throws SQLException {
+		int cnt =0;
+		DbConnection dbCon = DbConnection.getInstance();
+		Connection con = null;
+		PreparedStatement pstmt =null;
+		try {
+			con = dbCon.getConn("jdbc/abn");
+			StringBuilder update= new StringBuilder();
+			update.append("	update  TOUR_COURSE	")
+			.append("	set  SPOT_CODE= ?	")
+			.append("	where  CRS_CODE=?	");
+			pstmt = con.prepareStatement(update.toString());
+			pstmt.setString(1, SPOT_CODE);
+			pstmt.setString(1, CRS_CODE);
+			
+			cnt = pstmt.executeUpdate();
+			
+		}finally {
+			dbCon.closeCon(null, pstmt, con);
+		}
+		return cnt;
 	}
 }
