@@ -14,6 +14,13 @@ To change this template use File | Settings | File Templates.
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <%
 	String sptCode = request.getParameter("spt_code");
+	String sptName = request.getParameter("spt_name");
+	
+	if( sptCode==null){
+      	response.sendRedirect("http://localhost/albbano-tour-eclipse/albbanotour.co.kr/view/list_spot.jsp");
+      	return;
+      }
+	
 	SpotReviewDAO sDAO = SpotReviewDAO.getInstance();
 	List<SpotReviewVO> list = new ArrayList<SpotReviewVO>();
 	list = sDAO.selectSptAllReview(sptCode);
@@ -101,7 +108,7 @@ To change this template use File | Settings | File Templates.
 
 
         <div class="bg_vline"></div>
-        <p class="eng"><em></em> 관광지 리뷰</p>
+        <p class="eng"><em></em> <%=sptName %> 리뷰</p>
         <p class="stitle"></p>
 
 
@@ -120,8 +127,8 @@ To change this template use File | Settings | File Templates.
         <nav id="bo_cate" class="snone">
             <h2>관광지 분류</h2>
             <ul id="bo_cate_ul">
-                <li><a href="review_spot.jsp" id="bo_cate_on" style="background-color: white"><span
-                        class="sound_only">열린 분류 </span>관광지 리뷰</a></li>
+                <li><a href="review_write_spt.jsp?spt_code=<%=sptCode %>&spt_name=<%=sptName %>" id="bo_cate_on" style="background-color: white">
+                <span class="sound_only">열린 분류 </span>리뷰 작성</a></li>
             </ul>
         </nav>
 
@@ -132,7 +139,7 @@ To change this template use File | Settings | File Templates.
                   <c:forEach var="review" items="${ list }" varStatus="i">
                     <li>
                         <h3>
-                            <img src="${review.img_name }">
+                           
                             <a href="#none" onclick="return faq_open(this);" style="
     display: block;
 ">
@@ -142,6 +149,7 @@ To change this template use File | Settings | File Templates.
 ">											
                                     <c:out value=" ${review.spot_title }"/><br>
                                 </p>
+                                별점 : <span class="starRating"><c:out value="${review.star}"/>점</span>
                             </a>
                         </h3>
                         <div class="con_inner">
@@ -214,141 +222,18 @@ To change this template use File | Settings | File Templates.
 </section>
 
 <footer>
-    <section id="footer" class="clearfix">
-        <div class="copy_bar">
-            <div>
-                <div class="copy_menu">
-                    <p><a href="company_introduce.jsp">회사소개</a> &nbsp;&nbsp;&nbsp; <a
-                            href="policy.jsp?co_id=privacy">개인정보처리방침</a> &nbsp;&nbsp;&nbsp; <a
-                            href="service_terms.jsp?co_id=provision">이용약관</a> &nbsp;&nbsp;&nbsp; <a
-                            href="main_notice.jsp?bo_table=notice" class="depth1" alt="공지사항" title="공지사항">공지사항</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="copy_area">
-            <div class="copyright">
-                <p>
-                    <span>상호명 : 알빠노관광</span>
-                    <span>대표 : 곽우신</span>
-                    <span>주소 : 서울특별시 강남구 테헤란로 132(역삼동) 한독약품빌딩 8층</span>
-                    <span>대표전화 : 02-3483-4632 </span>
-                    <span>개인정보책임관리자 : 알빠노!</span>
-                    <span>© Albbano Tour All Rights Reserved.</span>
-                </p>
-            </div>
-            <div class="copy_logo">
-                <img src="../images/top_logo.png" alt="로고" title="로고">
-                <p class="copy_cs">고객문의 <a href="tel:02-3483-4632">02-3483-4632</a></p>
-            </div>
-        </div>
-    </section>
+    <%@ include file="common_footer.jsp" %>
 </footer>
+<%--footer_jsp_적용_끝--%>
 
-<!-- 모바일_하단고정 -->
-<div class="request">
-    <div class="floating">
-        <div class="inner">
-            <div class="btn_col">
-                <span><a href="question.jsp" class="btn_type1">온라인문의</a></span>
-                <span><a href="tel:02-3483-4632" class="btn_type2">상담원연결</a></span>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- 모바일_하단고정 //-->
+<%@ include file="common_m_footer.jsp" %>
+<%@ include file="common_sidebar.jsp" %>
+<%@ include file="common_lower_container.jsp" %>
 
-
-<!-- 사이드바_시작 -->
-<div class="q-menu">
-    <dl>
-        <dt>
-            <i class="fas fa-bars"></i>
-            <p>QUICK MENU</p>
-        </dt>
-
-        <dd>
-            <a href="list_spot.jsp" alt="관광지리스트" title="관광지리스트">
-                <i class="fas fa-camera" aria-hidden="true"></i>
-                <p>관광지 리스트</p></a>
-        </dd>
-
-        <dd>
-            <a href="list_restaurant.jsp" alt="맛집리스트" title="맛집리스트">
-                <i class="fas fa-utensils" aria-hidden="true"></i>
-                <p>맛집 리스트</p></a>
-        </dd>
-
-        <dd>
-            <a href="booking.jsp?bo_table=booking" alt="예약하기" title="예약하기">
-                <i class="fas fa-calendar-check" aria-hidden="true"></i>
-                <p>예약바로가기</p>
-            </a>
-        </dd>
-
-        <dd>
-            <a href="qna.jsp?bo_table=qa" alt="온라인문의" title="온라인문의">
-                <i class="fas fa-question-circle" aria-hidden="true"></i>
-                <p>온라인문의</p>
-            </a>
-        </dd>
-
-        <dd>
-            <a href="main_notice.jsp?bo_table=notice" alt="공지사항" title="공지사항">
-                <i class="fas fa-volume-down" aria-hidden="true"></i>
-                <p>공지사항</p>
-            </a>
-        </dd>
-
-        <dd>
-            <a href="#none" alt="상단으로" title="상단으로" id="top_btn2">
-                <i class="fa fa-arrow-up" aria-hidden="true"></i>
-                <p>상단으로</p>
-            </a>
-        </dd>
-    </dl>
-</div>
-<!-- 사이드바_끝 -->
-
-
-<script src="https://cmtour.co.kr/theme/cmtour/html/css_js/common.js"></script>
-
-
-<script>
-    $(function () {
-        $("#top_btn2").on("click", function () {
-            $("html, body").animate({scrollTop: 0}, '500');
-            return false;
-        });
-    });
-</script>
-
-
-<button type="button" id="top_btn"><i class="fa fa-arrow-up" aria-hidden="true"></i><span class="sound_only">상단으로</span>
-</button>
-<script>
-
-    $(function () {
-        $("#top_btn").on("click", function () {
-            $("html, body").animate({scrollTop: 0}, '500');
-            return false;
-        });
-    });
-</script>
-
-
-<!-- } 하단 끝 -->
-
-<script>
-    $(function () {
-        // 폰트 리사이즈 쿠키있으면 실행
-        font_resize("container", get_cookie("ck_font_resize_rmv_class"), get_cookie("ck_font_resize_add_class"));
-    });
-</script>
-
-
-<script src="https://cmtour.co.kr/theme/cmtour/html/css_js/wow.min.js"></script>
+<%--스크롤_애니메이션_리셋--%>
+<script src="../front_util/js/wow.min.js"></script>
 <script> new WOW().init(); </script>
 
 </body>
 </html>
+

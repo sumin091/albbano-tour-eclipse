@@ -12,6 +12,10 @@ public class ResListVO {
 	
 	private String res_doc_no, res_title, res_contents, id;
 	
+	
+	private int cnt;
+	
+	
 	public ResListVO() {
 	
 	}
@@ -36,9 +40,10 @@ public class ResListVO {
 	}
 	
 	
-	public ResListVO(String res_code, String img_name, Date create_date, String res_doc_no, String res_title,
+	public ResListVO(int cnt,String res_code, String img_name, Date create_date, String res_doc_no, String res_title,
 			String res_contents, String id) {
 		super();
+		this.cnt = cnt;
 		this.res_code = res_code;
 		this.img_name = img_name;
 		this.create_date = create_date;
@@ -46,6 +51,14 @@ public class ResListVO {
 		this.res_title = res_title;
 		this.res_contents = res_contents;
 		this.id = id;
+	}
+
+	public int getCnt() {
+		return cnt;
+	}
+
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
 	}
 
 	public String getRes_doc_no() {
@@ -190,7 +203,7 @@ public class ResListVO {
 				+ holiday + ", busi_hour=" + busi_hour + ", res_loc=" + res_loc + ", img_name=" + img_name
 				+ ", create_date=" + create_date + ", edit_date=" + edit_date + ", longitude=" + longitude
 				+ ", latitude=" + latitude + ", del_yn=" + del_yn + ", intro=" + intro + ", res_doc_no=" + res_doc_no
-				+ ", res_title=" + res_title + ", res_contents=" + res_contents + ", id=" + id + "]";
+				+ ", res_title=" + res_title + ", res_contents=" + res_contents + ", id=" + id + ", cnt=" + cnt + "]";
 	}
 	
 	
