@@ -10,7 +10,7 @@ import java.util.List;
 
 import util.DbConnection;
 import vo.QnaVO;
-import vo.QnasearchVO;
+import vo.QnaSearchVO;
 
 public class QnaDAO {
 	
@@ -27,7 +27,7 @@ public class QnaDAO {
 		return qDAO;
 	}
 	
-	public int selecttotalCount(QnasearchVO qsVO)throws SQLException{
+	public int selecttotalCount(QnaSearchVO qsVO)throws SQLException{
 		
 		int totalCnt=0;
 		List<QnaVO> list = new ArrayList<QnaVO>();
@@ -59,7 +59,7 @@ public class QnaDAO {
 	}
 	
 	
-	public List<QnaVO> selectQna(QnasearchVO qsVO, String loginId) throws SQLException {
+	public List<QnaVO> selectQna(QnaSearchVO qsVO, String loginId) throws SQLException {
 
 	    List<QnaVO> list = new ArrayList<QnaVO>();
 
@@ -149,6 +149,61 @@ public class QnaDAO {
 	}
 	
 	
+	public QnaVO insertQna(QnaVO qnaVO) throws SQLException {
+	    DbConnection dbCon = DbConnection.getInstance();
+	    Connection con = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    
+	    try {
+	        con = dbCon.getConn("jdbc/abn");
+	        String query = "INSERT INTO qna (ASK_DOC_NO, ID, ASK_TITLE, ASK_CONTENTS, CREATE_DATE, DEL_YN) " +
+	                       "VALUES ('QNA__' || LPAD(seqASK_DOC_NO.NEXTVAL, 5, '0'), ?, ?, ?, SYSDATE, 'N')"; 
+	        pstmt = con.prepareStatement(query);
+	        pstmt.setString(1, qnaVO.getID());
+	        pstmt.setString(2, qnaVO.getASK_TITLE());
+	        pstmt.setString(3, qnaVO.getASK_CONTENTS());
+	        
+	        pstmt.executeUpdate();
+	        
+	        return qnaVO;
+	    } finally {
+	        dbCon.closeCon(rs, pstmt, con);
+	    }
+	}
+	
+	
+	
+	public int updateQna(QnaVO qVO)throws SQLException{
+		int cnt=0;
+		
+		DbConnection dbCon = DbConnection.getInstance();
+	    Connection con = null;
+	    PreparedStatement pstmt = null;
+	    
+	    try {
+	    	con =dbCon.getConn("jdbc/abn");
+	    	
+	    	StringBuilder updateQna= new StringBuilder();
+	    	updateQna
+	    	.append("  update qna  ")
+	    	.append("  set ASK_TITLE=?, ASK_CONTENTS=?  ")
+	    	.append("  where ASK_DOC_NO=? ID=? ");
+	    	
+	    	pstmt=con.prepareStatement(updateQna.toString());
+	    	
+	    	pstmt.setString(1, qVO.getASK_TITLE());
+	    	pstmt.setString(2, qVO.getASK_CONTENTS());
+	    	pstmt.setString(3, qVO.getID());
+	    	
+	    	cnt=pstmt.executeUpdate();
+	    	
+	    }finally {
+	    	dbCon.closeCon(null, pstmt, con);
+	    	
+	    }
+	    return cnt;
+	}
 	
 	
 	
@@ -157,39 +212,6 @@ public class QnaDAO {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	/*
-	 * public List<QnaVO> selectAllQna()throws SQLException{
-	 * 
-	 * List<QnaVO> list = new ArrayList<QnaVO>(); QnaVO qVO = null; DbConnection
-	 * dbCon = DbConnection.getInstance(); Connection con = null; PreparedStatement
-	 * pstmt = null; ResultSet rs = null;
-	 * 
-	 * try { con = dbCon.getConn("jdbc/abn"); String selectQuery =
-	 * "select* from qna"; pstmt = con.prepareStatement(selectQuery); rs =
-	 * pstmt.executeQuery(); while(rs.next()) { qVO = new QnaVO();
-	 * qVO.setASK_DOC_NO(rs.getString("ASK_DOC_NO")); qVO.setID(rs.getString("ID"));
-	 * qVO.setASK_TITLE(rs.getString("ASK_TITLE"));
-	 * qVO.setASK_CONTENTS(rs.getString("ASK_CONTENTS"));
-	 * qVO.setCREATE_DATE(rs.getDate("CREATE_DATE"));
-	 * qVO.setANSWER_DATE(rs.getDate("ANSWER_DATE"));
-	 * qVO.setDEL_YN(rs.getString("DEL_YN"));
-	 * qVO.setANSWER_CONTENTS(rs.getString("ANSWER_CONTENTS"));
-	 * 
-	 * list.add(qVO);
-	 * 
-	 * } }finally { dbCon.closeCon(rs, pstmt, con); }
-	 * 
-	 * 
-	 * return list; }
-	 */
 	
 
 }
