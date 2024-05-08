@@ -28,6 +28,84 @@ public class SpotReviewDAO {
 		
 	}
 	
+	
+	public int insertSpotReview(
+			String spot_code, String spot_title, String spot_contents, String id, String star) throws SQLException {
+		
+		
+		
+		
+		int flag = 0;
+		
+		int num = setNom()+1;
+		//코드번호 순차적으로 증가 
+		String numString = String.format("%05d", num);
+		String resultNum = "SPT_S" + numString;
+		
+		DbConnection dbCon = DbConnection.getInstance();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try{
+			con =dbCon.getConn("jdbc/abn");
+			String insert_spotReview =
+			"insert into SPOT_REVIEW  (SPOT_DOC_NO, SPOT_CODE, SPOT_TITLE, SPOT_CONTENTS, ID, STAR, CREATE_DATE, EDIT_DATE)  values(?,?,?,?,?,?,sysdate,sysdate) ";
+			pstmt= con.prepareStatement(insert_spotReview);
+			pstmt.setString(1, resultNum);	
+			pstmt.setString(2, spot_code);	
+			pstmt.setString(3, spot_title);
+			pstmt.setString(4, spot_contents);
+			pstmt.setString(5, id);
+			pstmt.setString(6, star);
+			pstmt.executeUpdate();
+		
+			
+        } catch (Exception e) {
+            e.printStackTrace();
+            flag = 1;
+        } finally {
+			dbCon.closeCon(rs, pstmt, con);
+		}
+		
+
+		return flag;
+	}
+	
+	public int setNom() throws SQLException {
+		DbConnection dbCon = DbConnection.getInstance();
+		String StringNum = "";
+		String numberStr = "";
+		int docNum = 0;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try{
+			con =dbCon.getConn("jdbc/abn");
+			String select =
+					"SELECT * FROM( SELECT * FROM SPOT_REVIEW ORDER BY spot_doc_no DESC) WHERE ROWNUM = 1 ";
+			pstmt= con.prepareStatement(select);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				StringNum = rs.getString("spot_doc_no");
+			}
+			
+        } catch (Exception e) {
+            e.printStackTrace();;
+        } finally {
+			dbCon.closeCon(rs, pstmt, con);
+		}
+		if(StringNum != null) {
+			numberStr = StringNum.replaceAll("[^0-9]", "");
+			docNum = Integer.parseInt(numberStr);
+		}
+		
+		return docNum;
+	}
+
+	
+
 	public List<SpotReviewVO> selectSptAllReview(String spotcode)throws SQLException {
 		List<SpotReviewVO> list = new ArrayList<SpotReviewVO>();
 		SpotReviewVO sVO = null;
@@ -47,7 +125,7 @@ public class SpotReviewDAO {
 		while(rs.next()) {
 			sVO = new SpotReviewVO();
         	sVO.setSpot_doc_no(rs.getString("spot_doc_no"));
-        	sVO.setImg_name(rs.getString("img_name"));
+        	sVO.setStar(rs.getString("star"));
         	sVO.setCreate_date(rs.getDate("create_date"));
         	sVO.setSpot_title(rs.getString("spot_title"));
         	sVO.setSpot_doc_no(rs.getString("spot_doc_no"));

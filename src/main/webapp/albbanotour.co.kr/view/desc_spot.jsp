@@ -10,6 +10,13 @@ To change this template use File | Settings | File Templates.
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
 String sptCode = request.getParameter("spot_code");
+
+if( sptCode==null){
+ 	response.sendRedirect("http://localhost/albbano-tour-eclipse/albbanotour.co.kr/view/list_spot.jsp");
+ 	return;
+ }
+
+
 SpotDAO sDAO = SpotDAO.getInstance();
 SpotListVO sVO= sDAO.selectSpot(sptCode);
 pageContext.setAttribute("sVO", sVO);
@@ -89,7 +96,7 @@ pageContext.setAttribute("sVO", sVO);
     <section class="scontents">
         <div class="bg_vline"></div>
         <p class="eng"><em>${ sVO.spot_name }</em></p>
-        <p class="all_map" style="float: right;"><a href="review_spot.jsp?spt_code=<%=sptCode %>">리뷰 보기</a></p>
+        <p class="all_map" style="float: right;"><a href="review_spot.jsp?spt_code=<%=sptCode %>&spt_name=${sVO.spot_name}">리뷰 보기</a></p>
         
     </section>
     <div>
