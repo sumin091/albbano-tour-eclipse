@@ -40,22 +40,28 @@ request.setCharacterEncoding("UTF-8");
 
 <c:catch var="e"> 
 <%
-/* //입력값 전처리
+//입력값 전처리
 uiVO.setEmail( uiVO.getEmail1()+"@"+uiVO.getEmail2());
-uiVO.setIp(request.getRemoteAddr());
+	System.out.println("--------------------메일합침");
 
+/* uiVO.setIp(request.getRemoteAddr());
 uiVO.setPass(DataEncrypt.messageDigest("MD5", uiVO.getPass())); */
 
 //db 추가
+	System.out.println("--------------------1번인가");
 UserInfoManagementDAO uiDAO = UserInfoManagementDAO.getInstance();
+	System.out.println("--------------------졸려");
 	if(!"".equals(uiDAO.selectId(uiVO.getId()))){
+	System.out.println("--------------------아이디 중복");
 %>
 	입력하신 아이디는 이미 사용 중 입니다.<br/>
 	다른 아이디로 재가입 해주세요.<br>
 	<a href="#void" onclick="history.back()">뒤로</a>
 <%
 	}else{
-	uiDAO.insertUser(uiVO);
+	uiDAO.insertMember(uiVO);
+	System.out.println("---------------------------dkdkdkdkdk");
+	//uiDAO.insertPassword(id, uiVO);
 }
 %>
 <div id="success">

@@ -50,10 +50,17 @@ public class UserInfoManagementDAO {
 			db.closeCon(rs, pstmt, con);
 		}
 		
+		System.out.println("======================되나?");
 		return returnId;
 	}
 	
-	public void insertUser(UserInfoVO uiVO) throws SQLException {
+	
+	/**
+	 * 회원가입
+	 * @param uiVO
+	 * @throws SQLException
+	 */
+	public void insertMember(UserInfoVO uiVO) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -72,23 +79,38 @@ public class UserInfoManagementDAO {
             pstmt.setString(1, uiVO.getId());
             pstmt.setString(2, uiVO.getName());
             pstmt.setString(3, uiVO.getTel());
-            pstmt.setString(4, uiVO.getEmail()); //이메일 1,2 합치는 과정 필요
+            pstmt.setString(4, uiVO.getEmail());
+            //pstmt.setString(4, uiVO.getEmail1()+"@"+uiVO.getEmail2()); //이메일 1,2 합치는 과정 필요
             pstmt.executeUpdate();
             
-            //password 테이블에 비밀번호 추가
-            StringBuilder passwordInsert = new StringBuilder();
-            passwordInsert
-            .append("insert into password")
-            .append("(id, password)")
-            .append("values (?,?)");
-           // String passwordInsert = "INSERT INTO password (id, password) VALUES (?,?)";
-            pstmt = con.prepareStatement(passwordInsert.toString());
-            pstmt.setString(1, uiVO.getId());
-            pstmt.setString(2, uiVO.getPass());
-            pstmt.executeUpdate();
 		}finally {
 			db.closeCon(null, pstmt, con);
 		}//end finally
+		System.out.println("======================되나?222");
+	}//insertUser
+	
+	public void insertPassword(String id, UserInfoVO uiVO) throws SQLException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		DbConnection db = DbConnection.getInstance();
+		try {
+			con = db.getConn("jdbc/abn");
+			
+			StringBuilder passwordInsert = new StringBuilder();
+			passwordInsert
+			.append("insert into password")
+			.append("(id, password, create_date, del_yn)")
+			.append("values (?,?, SYSDATE, 'N')");
+			
+			pstmt = con.prepareStatement(passwordInsert.toString());
+			pstmt.setString(1, id);
+			pstmt.setString(2, uiVO.getPass());
+			pstmt.executeUpdate();
+		}finally {
+			db.closeCon(null, pstmt, con);
+		}//end finally
+		System.out.println("======================되나?333");
 	}//insertUser
 	
 }
