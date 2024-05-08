@@ -1,17 +1,16 @@
 package vo;
 
-public class QnasearchVO {
+public class QnaSearchVO {
 	
 	private String currentPage;
 	private int StartNum,endNum;
-	
-	public QnasearchVO(String currentPage, int startNum, int endNum) {
+	public QnaSearchVO(String currentPage, int startNum, int endNum) {
 		super();
 		this.currentPage = currentPage;
 		StartNum = startNum;
 		this.endNum = endNum;
 	}
-	public QnasearchVO() {
+	public QnaSearchVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -35,7 +34,8 @@ public class QnasearchVO {
 	}
 	@Override
 	public String toString() {
-		return "QnasearchVO [currentPage=" + currentPage + ", StartNum=" + StartNum + ", endNum=" + endNum + "]";
+		return "QnaSearchVO [currentPage=" + currentPage + ", StartNum=" + StartNum + ", endNum=" + endNum + "]";
 	}
-
+	
+	
 }
