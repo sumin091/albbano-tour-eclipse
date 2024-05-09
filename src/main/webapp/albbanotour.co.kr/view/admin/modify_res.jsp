@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@page import="vo.ResListVO"%>
 <%@page import="dao.RestaurantManagementDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -5,6 +6,11 @@
      info=""%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
+<%
+RestaurantManagementDAO rDAO = RestaurantManagementDAO.getInstance();
+List<ResListVO> list = rDAO.resCat();
+pageContext.setAttribute("list", list);
+%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -38,7 +44,7 @@ ResListVO rVO= rmDAO.selectRes(resCode);
 pageContext.setAttribute("rVO", rVO);
 %>
 <body>
-<form action="modify_res_process.jsp" method="post">
+<form action="modify_res_process.jsp" method="post" enctype="multipart/form-data">
 <div>
 <table>
 <thead>
@@ -57,14 +63,19 @@ pageContext.setAttribute("rVO", rVO);
 </thead>
 <tbody>
 <tr>
-	<td><input type="text" name ="res_code" value =" ${ rVO.res_code }"/></td>
-	<td><input type="text" name ="res_cat" value =" ${ rVO.res_cat }"/></td>
+	<td><input type="text" name ="res_code" value =" ${ rVO.res_code }" readonly="readonly"/></td>
+	<td><select name ="res_cat" >
+	<c:forEach var="cat" items="${ list }">
+	<option value="${ cat.res_cat }">${ cat.res_cat }</option>
+	</c:forEach>
+	</select>
+	</td>
 	<td><input type="text" name ="res_name" value =" ${ rVO.res_name }"/></td>
 	<td><textarea name ="intro">${ rVO.intro }</textarea></td>
 	<td><input type="text" name ="holiday" value =" ${ rVO.holiday }"></td>
 	<td><input type="text" name ="busi_hour" value =" ${ rVO.busi_hour }"></td>
 	<td><input type="text" name ="res_loc" value =" ${ rVO.res_loc }"></td>
-	<td><input type="text" name ="img_name" value =" ${ rVO.img_name }"></td>
+	<td><input type="file" name ="img_name" /></td>
 	<td><input type="text" name ="latitude" value =" ${ rVO.latitude }"></td>
 	<td><input type="text" name ="longitude" value =" ${ rVO.longitude }"></td>
 </tr>

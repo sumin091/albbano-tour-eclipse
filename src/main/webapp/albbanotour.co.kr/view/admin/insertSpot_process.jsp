@@ -35,7 +35,6 @@
 <body>
 <div>
 <jsp:useBean id="SpotListVO" class="vo.SpotListVO" scope ="page"/>
-<jsp:setProperty property="*" name="SpotListVO"/>
 <%
 request.setCharacterEncoding("UTF-8");
 File saveDir = new File("C:/dev/albbano-tour-eclipse/src/main/webapp/upload");

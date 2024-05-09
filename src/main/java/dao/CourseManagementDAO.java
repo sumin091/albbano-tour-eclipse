@@ -192,7 +192,7 @@ public class CourseManagementDAO {
 	}
 
 	/**
-	 * 코스 테이블에 코스에 대한 정보를 저장하는 method
+	 * 코스 테이블에 코스에 대한 정보를 저장하는 method 24.05.08 김일신
 	 * 
 	 * @param cVO
 	 * @return
@@ -222,7 +222,7 @@ public class CourseManagementDAO {
 	}
 
 	/**
-	 * 투어코스 테이블에 해당 코스와 관광지 리스트들을 추가하는 매서드. 24.05.08
+	 * 투어코스 테이블에 해당 코스와 관광지 리스트들을 추가하는 매서드. 24.05.08 김일신
 	 * 
 	 * @param curCode
 	 * @param curSpot
@@ -264,8 +264,9 @@ public class CourseManagementDAO {
 		try {
 			con = dbCon.getConn("jdbc/abn");
 			StringBuilder update = new StringBuilder();
-			update.append("	update COURSE	").append("	set    CRS_NAME =?, CRS_DESC=?, IMG_NAME=?, FARE=?	")
-					.append("	where  CRS_CODE =?  ");
+			update.append("	update COURSE	").
+			append("	set    CRS_NAME =?, CRS_DESC=?, IMG_NAME=?, FARE=?	")
+			.append("	where  CRS_CODE =?  ");
 
 			pstmt = con.prepareStatement(update.toString());
 			pstmt.setString(1, cVO.getCrsName());
@@ -296,7 +297,9 @@ public class CourseManagementDAO {
 		try {
 			con = dbCon.getConn("jdbc/abn");
 			StringBuilder update = new StringBuilder();
-			update.append("	update  TOUR_COURSE	").append("	set  SPOT_CODE= ? ").append("	where  CRS_CODE=? and  seq =?	");
+			update.append("	update  TOUR_COURSE	").
+			append("	set  SPOT_CODE= ? ").
+			append("	where  CRS_CODE=? and  seq =?	");
 			//update.append("	update  TOUR_COURSE	").append("	set  SPOT_CODE= '"+SPOT_CODE+"'" )
 			//.append("	where  CRS_CODE='"+CRS_CODE+"' and  seq ='"+seq+"'	");
 			pstmt = con.prepareStatement(update.toString());

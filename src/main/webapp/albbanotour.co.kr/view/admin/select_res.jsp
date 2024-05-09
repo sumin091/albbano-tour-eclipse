@@ -83,7 +83,7 @@ pageContext.setAttribute("list", list);
 <td><c:out value="${ res.holiday }"/></td>
 <td><c:out value="${ res.busi_hour }"/></td>
 <td><c:out value="${ res.res_loc }"/></td>
-<td><c:out value="${ res.img_name }"/></td>
+<td><img src="http://localhost/albbano-tour-eclipse/upload/%EC%A7%A411.jpg" ${ res.img_name }"/></td>
 <td><c:out value="${ res.edit_date }"/></td>
 <td><c:out value="${ res.latitude }"/></td>
 <td><c:out value="${ res.longitude }"/></td>
