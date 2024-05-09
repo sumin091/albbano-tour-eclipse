@@ -1,6 +1,6 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="dao.CourseManagementDAO"%>
-<%@page import="vo.CourseManagementVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
      info=""%>
@@ -29,51 +29,37 @@
 	$(function(){
 	
 	});//ready
-	function submitFrm(crsCode) {
-		var form = document.createElement('form');
-		form.method = 'POST';
-		form.action = 'select_one_curs.jsp';
-
-		var input = document.createElement('input');
-		input.type = 'hidden';
-		input.name = 'crsCode';
-		input.value = crsCode;
-
-		form.appendChild(input);
-		document.body.appendChild(form);
-		form.submit();
-		}
 </script>
 </head>
 <body>
 <div>
-<%
-CourseManagementDAO cDAO = CourseManagementDAO.getInstance();
-List<CourseManagementVO> list= cDAO.selectAllCurs();
-pageContext.setAttribute("list", list);
-%>
-<h3>투어코스 리스트</h3>
-<table>
-<tr>
-<th>번호</th>
-<th>코스코드</th>
-<th>코스이름</th>
-<th>코스설명</th>
-<th>이미지 이름</th>
-<th>운임</th>
-</tr>
-<c:forEach var="cur" items="${list }" varStatus="i">
-<tr>
-<td>${ i.count }</td>
-<td >${ cur.crsCode  }</td>
-<td onclick="submitFrm('${cur.crsCode}')">${ cur.crsName }</td>
-<td>${ cur.crsDesc }</td>
-<td>${ cur.imgName }</td>
-<td>${ cur.fare }</td>
-</tr>
-</c:forEach>
-</table>
+    <% request.setCharacterEncoding("UTF-8"); %>
+    <jsp:useBean id="curVO" class="vo.CourseManagementVO" scope="page"/>
+    <jsp:setProperty property="*" name="curVO"/>
+    <%pageContext.setAttribute("curVO", curVO);
+    String[] crsSpotsArray = request.getParameterValues("spotValues");
 
+    List<String> crsSpotsList = new ArrayList<>();
+    if (crsSpotsArray != null) {
+        for (String spot : crsSpotsArray) {
+            String[] spots = spot.split(",");
+            for (String s : spots) {
+                crsSpotsList.add(s.trim());
+            }
+        }
+    }
+    String[] crsSpots = crsSpotsList.toArray(new String[0]);
+
+    curVO.setCrsSpots(crsSpots);
+    CourseManagementDAO cDAO = CourseManagementDAO.getInstance();
+    cDAO.updateCurs(curVO);
+	
+    for (int i = 0; i < 5; i++) {
+    cDAO.updateTourCurs(curVO.getCrsCode(), crsSpots[i],i+1);
+    }
+
+    %>
+    
 </div>
 </body>
 </html>

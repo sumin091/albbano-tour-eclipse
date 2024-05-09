@@ -24,13 +24,34 @@
 </style>
 <script type ="text/javascript">
 	$(function(){
-	
+	$("#btn").click(function(){
+		// 이미지만 업로드하도록 설정
+		var file = $("#img_name").val();
+		var selectedExt = file.substring(file.lastIndexOf(".")+1);
+
+		var extArr = ["png", "jpg", "gif", "jpeg", "bmp"];
+		var flag = false;
+
+		for(var i = 0; i < extArr.length; i++) {
+		if(selectedExt == extArr[i]) {
+		flag = true;
+		break;
+		} // end if
+		} // end for
+
+		if(!flag) {
+		alert(selectedExt + "는 업로드 가능한 파일의 확장자가 아닙니다.");
+		return;
+		} // end if
+
+		$("#frm").submit();
+	});
 	});//ready
 </script>
 </head>
 <body>
 <div>
-<form action ="insertSpot_process.jsp" method="post">
+<form action ="insertSpot_process.jsp" method="post" id="frm" enctype="multipart/form-data">
 <table class ="table">
 <thead>
 <tr>
@@ -38,16 +59,16 @@
 </tr>
 </thead>
 <tbody>
-	<tr><td>관광지 코드: <input type="text" name ="spot_code"/></td></tr>
-	<tr><td>관광지 이름: <input type="text" name ="spot_name"/></td></tr>
-	<tr><td>관광지 설명: <input type="text" name ="spot_desc"/></td></tr>
-	<tr><td>관광지 이미지: <input type="text" name ="img_name"/></td></tr>
-	<tr><td>관광지 경도: <input type="text" name ="longitude"/></td></tr>
-	<tr><td>관광지 위도: <input type="text" name ="latitude"/></td></tr>
-	<tr><td>관광지 주소: <input type="text" name ="spt_loc"/></td></tr>
+	<tr><td>관광지 코드: <input type="text" name ="spot_code" id ="spot_code"/></td></tr>
+	<tr><td>관광지 이름: <input type="text" name ="spot_name" id  ="spot_name"/></td></tr>
+	<tr><td>관광지 설명: <input type="text" name ="spot_desc" id ="spot_desc"/></td></tr>
+	<tr><td>관광지 경도: <input type="text" name ="longitude" id ="longitude"/></td></tr>
+	<tr><td>관광지 위도: <input type="text" name ="latitude" id ="latitude"/></td></tr>
+	<tr><td>관광지 주소: <input type="text" name ="spt_loc" id ="spt_loc"/></td></tr>
+	<tr><td>관광지 이미지: <input type="file" name ="img_name" id ="img_name" style="width: 300px"/></td></tr>
 </tbody>
 </table>
-<input type ="submit" value ="관광지 추가"/>
+<input type ="button" value ="관광지 추가" id ="btn"/>
 </form>
 
 </div>

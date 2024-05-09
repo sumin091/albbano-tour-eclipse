@@ -1,18 +1,12 @@
 <%@page import="java.util.List"%>
-<%@page import="vo.ResListVO"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="dao.RestaurantManagementDAO"%>
+<%@page import="vo.SpotListVO"%>
+<%@page import="vo.CourseManagementVO"%>
+<%@page import="dao.CourseManagementDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
      info=""%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<%
-RestaurantManagementDAO rDAO = RestaurantManagementDAO.getInstance();
-List<ResListVO> list = new ArrayList<ResListVO>();
-list = rDAO.selectAllRes();
-pageContext.setAttribute("list", list);
-%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -33,19 +27,11 @@ pageContext.setAttribute("list", list);
 	
 </style>
 <script type ="text/javascript">
-	$(function(){
+$(function(){
+});//ready
+function submitForm(crsCode) {
+
 	
-	});//ready
-	function submitFrm(res_code) {
-		var form = document.createElement('form');
-		form.method = 'POST';
-		form.action = 'select_one_res.jsp';
-
-		var input = document.createElement('input');
-		input.type = 'hidden';
-		input.name = 'res_code';
-		input.value = res_code;
-
 		form.appendChild(input);
 		document.body.appendChild(form);
 		form.submit();
@@ -53,44 +39,45 @@ pageContext.setAttribute("list", list);
 </script>
 </head>
 <body>
+<%
+request.setCharacterEncoding("UTF-8");
+String crsCode= (String)request.getParameter("crsCode");
+CourseManagementDAO cDAO = CourseManagementDAO.getInstance();
+CourseManagementVO cVO= cDAO.selectCourseDetail(crsCode);
+String spots = cDAO.selectDetailSpot(crsCode);
+pageContext.setAttribute("cVO", cVO);
+pageContext.setAttribute("spots", spots);
+
+%>
 <div>
-<div>
-<h3>맛집 리스트</h3>
+<h3>투어코스 상세</h3>
 </div>
+<div>
+<form method="post" action="modify_curs.jsp?crsCode=${ cVO.crsCode }">
 <table>
 <thead>
 <tr>
-<th>번호</th>
-<th>코드</th>
-<th>상호명</th>
-<th>설명</th>
-<th>휴일</th>
-<th>영업시간</th>
-<th>위치</th>
-<th>이미지</th>
-<th>수정일</th>
-<th>위도</th>
-<th>경도</th>
+<th>코스코드</th>
+<th>투어이름</th>
+<th>투어설명</th>
+<th>이미지 이름</th>
+<th>운임</th>
+<th>해당 코스 관광지</th>
 </tr>
 </thead>
 <tbody>
-<c:forEach var ="res" items="${ list }" varStatus="i">
 <tr>
-<td><c:out value="${ i.count }"/></td>
-<td><c:out value="${ res.res_code }"/></td>
-<td onclick="submitFrm('${res.res_code}')"><c:out value="${ res.res_name }"/></td>
-<td><c:out value="${ res.intro }"/></td>
-<td><c:out value="${ res.holiday }"/></td>
-<td><c:out value="${ res.busi_hour }"/></td>
-<td><c:out value="${ res.res_loc }"/></td>
-<td><c:out value="${ res.img_name }"/></td>
-<td><c:out value="${ res.edit_date }"/></td>
-<td><c:out value="${ res.latitude }"/></td>
-<td><c:out value="${ res.longitude }"/></td>
+<td>${ cVO.crsCode}</td>
+<td>${ cVO.crsName}</td>
+<td>${ cVO.crsDesc}</td>
+<td>${ cVO.imgName}</td>
+<td>${ cVO.fare}원</td>
+<td>${ spots}</td>
 </tr>
-</c:forEach>
 </tbody>
 </table>
+<input type="submit" value="코스 수정" id="btn" onclick="submitForm('${cVO.crsCode}')"/>
+</form>
 </div>
 </body>
 </html>
