@@ -5,6 +5,7 @@
   Time: 오후 02:41
   To change this template use File | Settings | File Templates.
 --%>
+<%@page import="dao.QnaDAO"%>
 <%@page import="vo.RestaurantReviewVO"%>
 <%@page import="dao.RestaurantReviewDAO"%>
 <%@page import="java.util.ArrayList"%>
@@ -15,21 +16,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
 
 
-<%
-  
-         String resCode = request.getParameter("res_code");
-         String resName = request.getParameter("res_name");
-
-         if( resCode==null){
-          	response.sendRedirect("http://localhost/albbano-tour-eclipse/albbanotour.co.kr/view/list_restaurant.jsp");
-          	return;
-          }
-
-         RestaurantReviewDAO rrDAO = RestaurantReviewDAO.getInstance();
-         List<RestaurantReviewVO> list = new ArrayList<RestaurantReviewVO>();
-         list = rrDAO.selectResAllReview(resCode);
-         pageContext.setAttribute("list", list);
-   %>
    
 <!DOCTYPE html>
 <html lang="ko">
@@ -49,15 +35,66 @@
         var g5_editor = "";
         var g5_cookie_domain = "";
         
-        
-        
-  
-        
+    
     </script>
-    <%@ include file="common_head.jsp" %>
+    
+<%
+         String resCode = request.getParameter("res_code");
+         String resName = request.getParameter("res_name");
+         String login_id = (String)session.getAttribute("idKey");
+         if( resCode==null){
+          	response.sendRedirect("list_restaurant.jsp");
+          	return;
+          }
+  
+         pageContext.setAttribute("login_id",login_id);
+%>
+    
+    
+<jsp:useBean id="qsVO" class="vo.QnaSearchVO" scope="page"/>
+<jsp:setProperty property="*" name="qsVO"/>
+
+	
+<%
+RestaurantReviewDAO rrDAO = RestaurantReviewDAO.getInstance();
+
+int totalCount=rrDAO.selecttotalCount(qsVO);
+int pageScale=5;
+
+int totalPage=(int)Math.ceil((double)totalCount/pageScale)-1;
+
+String tempPage=qsVO.getCurrentPage();
+int currentPage=1;
+if(tempPage != null){
+	try{
+		currentPage=Integer.parseInt(tempPage);
+	}catch(NumberFormatException nfe){
+		
+	}
+}
+int startNum=currentPage * pageScale-pageScale +1;
+int endNum=startNum+pageScale-1;
+
+qsVO.setStartNum(startNum);
+qsVO.setEndNum(endNum);
+
+
+
+List<RestaurantReviewVO> list = new ArrayList<RestaurantReviewVO>();
+
+list = rrDAO.selectResAllReview(qsVO, resCode);
+
+pageContext.setAttribute("list", list);
+
+
+
+
+
+%> 
     
 
     
+    <%@ include file="common_head.jsp" %>
 </head>
 
 <body>
@@ -163,68 +200,99 @@
             <section id="faq_con">
                 <h2>맛집 목록</h2>
                 <ol>
+                
+                <c:if test="${ not empty list}">
                  <c:forEach var="review" items="${ list }" varStatus="i">
      							
+                  	
                     <li>
                         <h3>
 
                             <a href="#none" onclick="return faq_open(this);" style="display: block;">
                             
                                 <span class="tit_bg" style="position: static">제목</span>
-                                <p style="    display: inline;">                           
-                                   <c:out value=" ${review.res_title }"/><br>
+                                <p  style="    display: inline;">                           
+                                   <c:out value=" ${review.res_title }"/>
+                                   
+                                   <span class="id" style="float: right;">작성자 : <c:out value=" ${review.id }"/></span>
+                        
+                                   <br>
                                 </p>
    	  
-                          			 별점 : <span class="starRating"><c:out value="${review.star}"/>점</span>
-		 	
+                          			 별점 : <span class="starRating" ><c:out value="${review.star}"/>점</span>
+		 							
                             </a>
                         </h3>
                         <div class="con_inner">
                             <span class="tit_bg">내용</span>
-                             <c:out value="${review.res_contents }"/>
+                            	<p style="    display: inline;">                           
+                                   <c:out value="${review.res_contents }"/>
+                                </p>
+         
                             <div class="con_closer">
-                                <button type="button" class="closer_btn btn_b03">닫기</button>
+                            	<c:if test="${review.id eq login_id }">
+                            	
+
+                                <a href="review_update_res.jsp?res_code=<%=resCode%>&res_name=<%=resName%>&res_doc_no=${review.res_doc_no }" style="background-color: white">
+                                <span class="sound_only">열린 분류 </span>수정</a>
+                                                              
+                                <a href="review_delete_res.jsp?res_code=<%=resCode%>&res_name=<%=resName%>&res_doc_no=${review.res_doc_no }" style="background-color: white">
+                                <span class="sound_only">열린 분류 </span>삭제</a>
+                                
+                                </c:if>
                             </div>
                         </div>
                     </li>
                     
+                    
                     </c:forEach>
-                    
-                    
+                    </c:if>
+                    <c:if test="${ empty list}">
+				 		<li>
+                     		작성된 리뷰가 없습니다.
+                    	</li>
+				    </c:if>
                     
                     
                 </ol>
             </section>
         </div>
 
-        <nav class="pg_wrap"><span class="pg"><span class="sound_only">열린</span><strong
-                class="pg_current">1</strong><span class="sound_only">페이지</span>
-<a href="/bbs/faq.php?&amp;fm_id=1&amp;page=2" class="pg_page">2<span class="sound_only">페이지</span></a>
-<a href="/bbs/faq.php?&amp;fm_id=1&amp;page=2" class="pg_page pg_end">맨끝</a>
-</span></nav>
-        <div id="faq_thtml"></div>
-        <fieldset id="faq_sch">
-            <legend>리뷰 검색</legend>
-
-            <form name="faq_search_form" method="get">
-                <!-- <span class="sch_tit">FAQ 검색</span> -->
-                <input type="hidden" name="fm_id" value="1">
-                <label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
-                <input type="text" name="stx" value="" required id="stx" class="frm_input " size="15" maxlength="15"
-                       placeholder="리뷰 검색">
-                <button type="submit" value="검색" class="btn_submit"><i class="fa fa-search" aria-hidden="true"></i> 검색
-                </button>
-            </form>
-        </fieldset>
-
-        <!-- } FAQ 끝 -->
+        <nav class="pg_wrap"> 
+        
+        <span class="pg">
+  		<% for(int i=1; i<= totalPage; i++){ %>
+		 <a href="review_restaurant.jsp?res_code=<%=resCode%>&res_name=<%=resName%>&currentPage=<%= i %>" class="pg_page"><%= i %></a> 
+		<%} %>
+		
+		</span>
+		
+		</nav>
+		
+    
 
 
         <script src="https://cmtour.co.kr/js/viewimageresize.js"></script>
         <script>
+        
+        $(function(){
+      	  	$("#btn_delete").click(function(){
+        		chkNull();		
+        	});
+      	  	
+        });
+        
+        function chkNull(){
+        	 if (confirm("리뷰를 삭제하시겠습니까?")) {
+    			$("#fwrite").submit();
+        	 }
+        
+        }
+        
             $(function () {
                 $(".closer_btn").on("click", function () {
                     $(this).closest(".con_inner").slideToggle();
+                 
                 });
             });
 
