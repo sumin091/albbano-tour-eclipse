@@ -1,17 +1,26 @@
+<%@page import="vo.CourseManagementVO"%>
 <%@page import="vo.SpotListVO"%>
 <%@page import="java.util.List"%>
 <%@page import="dao.CourseManagementDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-     info="코스 추가"%>
+     info=""%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
 <%
 request.setCharacterEncoding("UTF-8");
 CourseManagementDAO cmDAO = CourseManagementDAO.getInstance();
 List<SpotListVO> list = cmDAO.selectAllSpotNames();
 pageContext.setAttribute("list", list);
+
+String crsCode= (String)request.getParameter("crsCode");
+CourseManagementDAO cDAO = CourseManagementDAO.getInstance();
+CourseManagementVO cVO= cDAO.selectCourseDetail(crsCode);
+String spots = cDAO.selectDetailSpot(crsCode);
+pageContext.setAttribute("cVO", cVO);
+pageContext.setAttribute("spots", spots);
+
 %>
-<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -70,34 +79,16 @@ pageContext.setAttribute("list", list);
     }
     
     function sendToProcessPage() {
+        // 폼 생성
         var form = document.createElement("form");
+        form.setAttribute("method", "post"); // GET 방식으로 변경
+        form.setAttribute("action", "modifyCurs_process.jsp");
         
-        form.setAttribute("method", "post");
-        form.setAttribute("action", "insertCurs_process.jsp");
-        form.setAttribute("enctype", "multipart/form-data");
-        
-        var file = $("#imgName").val();
-		var selectedExt = file.substring(file.lastIndexOf(".")+1);
-
-		var extArr = ["png", "jpg", "gif", "jpeg", "bmp"];
-		var flag = false;
-
-		for(var i = 0; i < extArr.length; i++) {
-		if(selectedExt == extArr[i]) {
-		flag = true;
-		break;
-		} // end if
-		} // end for
-
-		if(!flag) {
-		alert(selectedExt + "는 업로드 가능한 파일의 확장자가 아닙니다.");
-		return;
-		} // end if
-
-        
+        // 폼에 값 추가
         addInputToForm(form, "crsCode", $("input[name='crsCode']").val());
         addInputToForm(form, "crsName", $("input[name='crsName']").val());
         addInputToForm(form, "crsDesc", $("input[name='crsDesc']").val());
+        addInputToForm(form, "imgName", $("input[name='imgName']").val());
         addInputToForm(form, "fare", $("input[name='fare']").val());
 
         var spotValues = [];
@@ -107,7 +98,17 @@ pageContext.setAttribute("list", list);
         addInputToForm(form, "spotValues", spotValues.join(","));
 
         document.body.appendChild(form);
+    	 var currentRowCount = $(".spotList tr").length;
+
+         var maxRowCount = 5;
+         var flag =false;
+         if(currentRowCount!=maxRowCount){
+        	 flag = true;
+        	 alert("관광지의 개수는 5개가 모두 선택되어야 합니다.")
+        	 return;
+         }
         form.submit();
+        
     }
     function addInputToForm(form, name, value) {
         var input = document.createElement("input");
@@ -119,53 +120,48 @@ pageContext.setAttribute("list", list);
 </script>
 </head>
 <body>
+<div> 
+<h3>투어 수정</h3>
+</div>
 <form>
 <div>
 <table>
 <thead>
 <tr>
-<th>코스 추가</th>
+<th>코스코드</th>
+<th>코스이름</th>
+<th>코스설명</th>
+<th>코스 이미지</th>
+<th>코스 요금</th>
+<th>해당 코스 관광지</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>코스 코드 : <input type="text" name ="crsCode"/></td>
-</tr>
-<tr>
-<td>코스 이름 : <input type="text" name ="crsName"/></td>
-</tr>
-<tr>
-<td>코스 설명 : <input type="text" name ="crsDesc" maxlength="333"/></td>
-</tr>
-<tr>
-<td>코스 이미지: <input type="file" name ="imgName" id ="imgName" style="width: 300px"/></td>
-</tr>
-<tr>
-<td>코스 요금 : <input type="text" name ="fare"/></td>
-</tr>
-<tr>
-    <td>코스 관광지 : 
+<td><input type="text" value="${ cVO.crsCode}" name ="crsCode"/></td>
+<td><input type="text" value="${ cVO.crsName}" name ="crsName"/></td>
+<td><textarea style="width: 500px;" name ="crsDesc" >${ cVO.crsDesc}</textarea></td>
+<td><input type="text" value="${ cVO.imgName}" name ="imgName"/></td>
+<td><input type="text" value="${ cVO.fare}" name ="fare"/></td>
+<td>코스 관광지 : 
         <select id="spotSelect" name="crsSpots"> 
             <c:forEach var="spt" items="${list}">
                 <option value="${spt.spot_code}">${spt.spot_name}</option>
             </c:forEach>
         </select>
         <input type="button" value="추가" onclick="addSpotToList($('#spotSelect').val())"/>
-    </td>
-</tr>
+   </tr>
 </tbody>
-
 </table>
 </div>
 <div>
 선택 된 관광지 리스트
 <table class="spotList">
 </table>
-<input type ="button" onclick="resetTable()" value ="테이블 리셋"/>
+<input type="button" onclick="resetTable()" value="테이블 리셋"/> 
 </div>
 <div>
-<input type="button" onclick="sendToProcessPage()" value="값 전송">
+<input type="button" onclick="sendToProcessPage()" value="코스 수정">
 </div>
 </form>
-</body>
-</html>
+   

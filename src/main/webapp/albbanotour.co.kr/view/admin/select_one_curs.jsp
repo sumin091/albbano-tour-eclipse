@@ -1,6 +1,7 @@
 <%@page import="java.util.List"%>
-<%@page import="dao.CourseManagementDAO"%>
+<%@page import="vo.SpotListVO"%>
 <%@page import="vo.CourseManagementVO"%>
+<%@page import="dao.CourseManagementDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
      info=""%>
@@ -26,19 +27,11 @@
 	
 </style>
 <script type ="text/javascript">
-	$(function(){
+$(function(){
+});//ready
+function submitForm(crsCode) {
+
 	
-	});//ready
-	function submitFrm(crsCode) {
-		var form = document.createElement('form');
-		form.method = 'POST';
-		form.action = 'select_one_curs.jsp';
-
-		var input = document.createElement('input');
-		input.type = 'hidden';
-		input.name = 'crsCode';
-		input.value = crsCode;
-
 		form.appendChild(input);
 		document.body.appendChild(form);
 		form.submit();
@@ -46,34 +39,45 @@
 </script>
 </head>
 <body>
-<div>
 <%
+request.setCharacterEncoding("UTF-8");
+String crsCode= (String)request.getParameter("crsCode");
 CourseManagementDAO cDAO = CourseManagementDAO.getInstance();
-List<CourseManagementVO> list= cDAO.selectAllCurs();
-pageContext.setAttribute("list", list);
+CourseManagementVO cVO= cDAO.selectCourseDetail(crsCode);
+String spots = cDAO.selectDetailSpot(crsCode);
+pageContext.setAttribute("cVO", cVO);
+pageContext.setAttribute("spots", spots);
+
 %>
-<h3>투어코스 리스트</h3>
+<div>
+<h3>투어코스 상세</h3>
+</div>
+<div>
+<form method="post" action="modify_curs.jsp?crsCode=${ cVO.crsCode }">
 <table>
+<thead>
 <tr>
-<th>번호</th>
 <th>코스코드</th>
-<th>코스이름</th>
-<th>코스설명</th>
+<th>투어이름</th>
+<th>투어설명</th>
 <th>이미지 이름</th>
 <th>운임</th>
+<th>해당 코스 관광지</th>
 </tr>
-<c:forEach var="cur" items="${list }" varStatus="i">
+</thead>
+<tbody>
 <tr>
-<td>${ i.count }</td>
-<td >${ cur.crsCode  }</td>
-<td onclick="submitFrm('${cur.crsCode}')">${ cur.crsName }</td>
-<td>${ cur.crsDesc }</td>
-<td>${ cur.imgName }</td>
-<td>${ cur.fare }</td>
+<td>${ cVO.crsCode}</td>
+<td>${ cVO.crsName}</td>
+<td>${ cVO.crsDesc}</td>
+<td>${ cVO.imgName}</td>
+<td>${ cVO.fare}원</td>
+<td>${ spots}</td>
 </tr>
-</c:forEach>
+</tbody>
 </table>
-
+<input type="submit" value="코스 수정" id="btn" onclick="submitForm('${cVO.crsCode}')"/>
+</form>
 </div>
 </body>
 </html>

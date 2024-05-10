@@ -42,8 +42,8 @@ public class RestaurantManagementDAO {
 			con = dbCon.getConn("jdbc/abn");
 			StringBuilder sb = new StringBuilder();
 			sb.append("insert into RESTAURANT ").append(
-					"RES_CODE, RES_CAT, RES_NAME, INTRO, HOLIDAY, BUSI_HOUR, RES_LOC, IMG_NAME, CREATE_DATE, LONGITUDE, LATITUDE, DEL_YN, SPT_LOC")
-					.append("values(?,?,?,?,?,?,?,?,sysdate,?,?,'N',?) ");
+					"(RES_CODE, RES_CAT, RES_NAME, INTRO, HOLIDAY, BUSI_HOUR, RES_LOC, IMG_NAME, CREATE_DATE, LONGITUDE, LATITUDE, DEL_YN) ")
+					.append("	values(?,?,?,?,?,?,?,?,sysdate,?,?,'N') ");
 			pstmt = con.prepareStatement(sb.toString());
 			pstmt.setString(1, rVO.getRes_code());
 			pstmt.setString(2, rVO.getRes_cat());
@@ -55,7 +55,6 @@ public class RestaurantManagementDAO {
 			pstmt.setString(8, rVO.getImg_name());
 			pstmt.setDouble(9, rVO.getLongitude());
 			pstmt.setDouble(10, rVO.getLatitude());
-			pstmt.setString(11, rVO.getRes_loc());
 
 			pstmt.executeUpdate();
 
@@ -164,10 +163,14 @@ public class RestaurantManagementDAO {
 		try {
 			con = dbCon.getConn("jdbc/abn");
 			StringBuilder sb = new StringBuilder();
+			
 			sb.append("	update  RESTAURANT  ")
-			.append("set   RES_CAT =? , RES_NAME =? , HOLIDAY =? , BUSI_HOUR =?, RES_LOC =? , IMG_NAME =? , EDIT_DATE= sysdate,	LONGITUDE =? ,	")
-			.append("	LATITUDE= ?, INTRO=? where RES_CODE = ? ");
+			.append("	set   RES_CAT = ? , RES_NAME = ? , HOLIDAY = ? , BUSI_HOUR =?, 	")
+			.append("	RES_LOC =? , IMG_NAME =? ,	LONGITUDE =? , LATITUDE= ?, INTRO=?  ")
+			.append("	where RES_CODE = ? ");
 			pstmt = con.prepareStatement(sb.toString());
+			System.out.println(rVO);
+			
 			pstmt.setString(1, rVO.getRes_cat());
 			pstmt.setString(2, rVO.getRes_name());
 			pstmt.setString(3, rVO.getHoliday());
@@ -178,13 +181,47 @@ public class RestaurantManagementDAO {
 			pstmt.setDouble(8, rVO.getLatitude());
 			pstmt.setString(9, rVO.getIntro());
 			pstmt.setString(10, rVO.getRes_code());
-			System.out.println(rVO);
-			pstmt.executeUpdate();
+			
+			cnt = pstmt.executeUpdate();
+			System.out.println(sb);
+			
+			
+			
 		} finally {
 			dbCon.closeCon(null, pstmt, con);
 
 		}
+	
 		return cnt;
 	}
 
+	/**
+	 * 맛집 추가/수정페이지에서 사용자의 편의성을 위해 맛집 카테고리를 DB에서 가져오는 method 24.05.09 김일신
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<ResListVO> resCat() throws SQLException{
+		List<ResListVO> list= new ArrayList<ResListVO>();
+		ResListVO rVO = null;
+		DbConnection dbCon = DbConnection.getInstance();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = dbCon.getConn("jdbc/abn");
+			String cat ="select RES_CAT from RESTAURANT_CAT ";
+			pstmt= con.prepareStatement(cat);
+			rs= pstmt.executeQuery();
+			while(rs.next()) {
+					rVO=new ResListVO();
+				rVO.setRes_cat(rs.getString("RES_CAT"));
+				list.add(rVO);
+			}
+		}finally {
+			dbCon.closeCon(rs, pstmt, con);
+		}
+		
+		return list;
+		
+	}
 }
