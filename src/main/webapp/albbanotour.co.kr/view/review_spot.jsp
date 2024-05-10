@@ -12,20 +12,6 @@ To change this template use File | Settings | File Templates.
 <%@page import="dao.SpotDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
-<%
-	String sptCode = request.getParameter("spt_code");
-	String sptName = request.getParameter("spt_name");
-	
-	if( sptCode==null){
-      	response.sendRedirect("http://localhost/albbano-tour-eclipse/albbanotour.co.kr/view/list_spot.jsp");
-      	return;
-      }
-	
-	SpotReviewDAO sDAO = SpotReviewDAO.getInstance();
-	List<SpotReviewVO> list = new ArrayList<SpotReviewVO>();
-	list = sDAO.selectSptAllReview(sptCode);
-	pageContext.setAttribute("list", list);
-%>
 
 
 <!DOCTYPE html>
@@ -45,9 +31,63 @@ To change this template use File | Settings | File Templates.
         var g5_editor = "";
         var g5_cookie_domain = "";
     </script>
-    <%@ include file="common_head.jsp" %>
-</head>
+<%
+	String sptCode = request.getParameter("spt_code");
+	String sptName = request.getParameter("spt_name");
+	String login_id = (String)session.getAttribute("idKey");
+	if( sptCode==null){
+      	response.sendRedirect("http://localhost/albbano-tour-eclipse/albbanotour.co.kr/view/list_spot.jsp");
+      	return;
+      }
+	
+	pageContext.setAttribute("login_id",login_id);
 
+%>
+
+<jsp:useBean id="qsVO" class="vo.QnaSearchVO" scope="page"/>
+<jsp:setProperty property="*" name="qsVO"/>
+
+	
+<%
+
+SpotReviewDAO sDAO = SpotReviewDAO.getInstance();
+
+int totalCount= sDAO.selecttotalCount(qsVO);
+int pageScale=5;
+
+int totalPage=(int)Math.ceil((double)totalCount/pageScale)-1;
+
+String tempPage=qsVO.getCurrentPage();
+int currentPage=1;
+if(tempPage != null){
+	try{
+		currentPage=Integer.parseInt(tempPage);
+	}catch(NumberFormatException nfe){
+		
+	}
+}
+int startNum=currentPage * pageScale-pageScale +1;
+int endNum=startNum+pageScale-1;
+
+qsVO.setStartNum(startNum);
+qsVO.setEndNum(endNum);
+
+
+
+List<SpotReviewVO> list = new ArrayList<SpotReviewVO>();
+list = sDAO.selectSptAllReview(qsVO, sptCode);
+pageContext.setAttribute("list", list);
+
+
+
+
+
+%> 
+
+
+
+</head>
+    <%@ include file="common_head.jsp" %>
 <body>
 <%@ include file="common_m_header.jsp" %>
 <%@ include file="common_desktop_header.jsp" %>
@@ -136,6 +176,8 @@ To change this template use File | Settings | File Templates.
             <section id="faq_con">
                 <h2>관광지 목록</h2>
                 <ol>
+                
+                <c:if test="${ not empty list}">
                   <c:forEach var="review" items="${ list }" varStatus="i">
                     <li>
                         <h3>
@@ -147,47 +189,50 @@ To change this template use File | Settings | File Templates.
                                 <p style="
     display: inline;
 ">											
-                                    <c:out value=" ${review.spot_title }"/><br>
+                                    <c:out value=" ${review.spot_title }"/>
+                                    <span class="id" style="float: right;">작성자 : <c:out value=" ${review.id }"/></span>
+                                    <br>
                                 </p>
-                                별점 : <span class="starRating"><c:out value="${review.star}"/>점</span>
+                                별점 : <span class="starRating" ><c:out value="${review.star}"/>점</span>
                             </a>
                         </h3>
                         <div class="con_inner">
                             <span class="tit_bg">내용</span>
-                           		   <c:out value="${review.spot_contents }"/>
-                            <div class="con_closer">
-                                <button type="button" class="closer_btn btn_b03">닫기</button>
+                           		   <c:out value="${review.spot_contents}"/>
+                             <div class="con_closer">
+                            	<c:if test="${review.id eq login_id }">
+                            	
+                                <a href="review_update_spt.jsp?spt_code=<%=sptCode%>&spt_name=<%=sptName%>&spot_doc_no=${review.spot_doc_no}" style="background-color: white">                             
+                                <span class="sound_only">열린 분류 </span>수정</a>
+                                <a href="review_delete_spt.jsp?spt_code=<%=sptCode%>&spt_name=<%=sptName%>&spot_doc_no=${review.spot_doc_no}" style="background-color: white">                             
+                                <span class="sound_only">열린 분류 </span>삭제</a>
+                                </c:if>
                             </div>
                         </div>
                     </li>
-
-                      </c:forEach>
+				 </c:forEach>
+				 </c:if>
+				 
+				 <c:if test="${ empty list}">
+				 	<li>
+                     	작성된 리뷰가 없습니다.
+                    </li>
+				 </c:if>
 
                 </ol>
             </section>
         </div>
 
-        <nav class="pg_wrap"><span class="pg"><span class="sound_only">열린</span><strong
-                class="pg_current">1</strong><span class="sound_only">페이지</span>
-<a href="/bbs/faq.php?&amp;fm_id=1&amp;page=2" class="pg_page">2<span class="sound_only">페이지</span></a>
-<a href="/bbs/faq.php?&amp;fm_id=1&amp;page=2" class="pg_page pg_end">맨끝</a>
-</span></nav>
-        <div id="faq_thtml"></div>
-        <fieldset id="faq_sch">
-            <legend>리뷰 검색</legend>
-
-            <form name="faq_search_form" method="get">
-                <!-- <span class="sch_tit">FAQ 검색</span> -->
-                <input type="hidden" name="fm_id" value="1">
-                <label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
-                <input type="text" name="stx" value="" required id="stx" class="frm_input " size="15" maxlength="15"
-                       placeholder="리뷰 검색">
-                <button type="submit" value="검색" class="btn_submit"><i class="fa fa-search" aria-hidden="true"></i> 검색
-                </button>
-            </form>
-        </fieldset>
-
-        <!-- } FAQ 끝 -->
+        <nav class="pg_wrap"> 
+        
+        <span class="pg">
+  		<% for(int i=1; i<= totalPage; i++){ %>
+		 <a href="review_spot.jsp?spt_code=<%=sptCode%>&spt_name=<%=sptName%>&currentPage=<%= i %>" class="pg_page"><%= i %></a> 
+		<%} %>
+		
+		</span>
+		
+		</nav>
 
 
         <script src="https://cmtour.co.kr/js/viewimageresize.js"></script>
