@@ -6,8 +6,16 @@ public class SpotListVO {
 	private String spot_code, spot_name, spot_desc, img_name, spt_loc;
 	private Date create_date;
 	private Double longitude, latitude;
+	private String[] spots;
 	
 
+	public String[] getSpots() {
+		return spots;
+	}
+	public void setSpots(String[] spots) {
+		this.spots = spots;
+	}
+	
 	public SpotListVO() {
 		
 	}
@@ -26,9 +34,10 @@ public class SpotListVO {
 	
 
 	
-	
 
-
+	public SpotListVO(String spot_name) {
+		this.spot_name = spot_name;
+	}
 	public String getSpot_code() {
 		return spot_code;
 	}
@@ -79,9 +88,7 @@ public class SpotListVO {
 	}
 	@Override
 	public String toString() {
-		return "SpotListVO [spot_code=" + spot_code + ", spot_name=" + spot_name + ", spot_desc=" + spot_desc
-				+ ", img_name=" + img_name + ", spt_loc=" + spt_loc + ", create_date=" + create_date + ", longitude="
-				+ longitude + ", latitude=" + latitude  + "]";
+		return spot_name +"  ";
 	}
 	
 

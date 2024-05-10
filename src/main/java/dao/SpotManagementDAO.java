@@ -40,7 +40,7 @@ public class SpotManagementDAO {
 			con = dbCon.getConn("jdbc/abn");
 			String insert = "insert into SPOT values (?,?,?,?,sysdate,?,?,'N',?)";
 			pstmt = con.prepareStatement(insert);
-
+			System.out.println(sVO.toString());
 			pstmt.setString(1, sVO.getSpot_code());
 			pstmt.setString(2, sVO.getSpot_name());
 			pstmt.setString(3, sVO.getSpot_desc());
@@ -48,7 +48,7 @@ public class SpotManagementDAO {
 			pstmt.setDouble(5, sVO.getLongitude());
 			pstmt.setDouble(6, sVO.getLatitude());
 			pstmt.setString(7, sVO.getSpt_loc());
-
+			System.out.println(insert);
 			pstmt.executeUpdate();
 		} finally {
 			dbCon.closeCon(null, pstmt, con);

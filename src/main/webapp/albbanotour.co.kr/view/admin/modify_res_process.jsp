@@ -1,3 +1,6 @@
+<%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
+<%@page import="com.oreilly.servlet.MultipartRequest"%>
+<%@page import="java.io.File"%>
 <%@page import="dao.RestaurantManagementDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
@@ -34,16 +37,55 @@
 <%
 request.setCharacterEncoding("UTF-8");
 %>
-<jsp:useBean id="ResListVO" class="vo.ResListVO" scope="page"/>
-<jsp:setProperty property="*" name="ResListVO"/>
+<jsp:useBean id="rVO" class="vo.ResListVO" scope="page"/>
 <%
-pageContext.setAttribute("ResListVO", ResListVO);
-RestaurantManagementDAO rmDAO = RestaurantManagementDAO.getInstance();
-int cnt =rmDAO.updateRes(ResListVO);
-out.print(cnt);
-%>
+File saveDir = new File("C:/dev/albbano-tour-eclipse/src/main/webapp/upload");
+int maxSize =1024*1024*100;
+//try{
+MultipartRequest mr = new MultipartRequest(request, saveDir.getAbsolutePath(),
+maxSize,"UTF-8", new DefaultFileRenamePolicy());
+int limitSize =1024*1024*5;
+	String newName = mr.getFilesystemName("img_name");
+File readFile = new File(saveDir.getAbsolutePath()+"/"+newName);
+boolean flag = false;
+if(readFile.length()>limitSize){
+	flag =true;
+	readFile.delete();
+}//end if
+if(!flag){
+	String res_code =mr.getParameter("res_code");
+	String res_cat =mr.getParameter("res_cat");
+	String res_name =mr.getParameter("res_name");
+	String holiday =mr.getParameter("holiday");
+	String busi_hour =mr.getParameter("busi_hour");
+	String res_loc =mr.getParameter("res_loc");
+	String intro =mr.getParameter("intro");
+	double latitude = Double.parseDouble(mr.getParameter("latitude"));
+	double longitude = Double.parseDouble(mr.getParameter("longitude"));
+	rVO.setRes_code(res_code);
+	rVO.setRes_cat(res_cat);
+	rVO.setRes_name(res_name);
+	rVO.setHoliday(holiday);
+	rVO.setBusi_hour(busi_hour);
+	rVO.setRes_loc(res_loc);
+	rVO.setImg_name(newName);
+	rVO.setIntro(intro);
+	rVO.setLongitude(longitude);
+	rVO.setLatitude(latitude);
+out.print(rVO);
+RestaurantManagementDAO rDAO = RestaurantManagementDAO.getInstance();
+rDAO.updateRes(rVO);
+}else{
+	out.println("파일은 5MByte까지만 가능합니다.");
+}//end else
+	%>
 <h3>수정완료</h3>
-
+	
+	<%
+//}catch(Exception e){
+//e.printStackTrace();
+//}
+%>
 </div>
 </body>
 </html>
