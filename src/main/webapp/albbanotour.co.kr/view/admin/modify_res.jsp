@@ -63,21 +63,21 @@ pageContext.setAttribute("rVO", rVO);
 </thead>
 <tbody>
 <tr>
-	<td><input type="text" name ="res_code" value =" ${ rVO.res_code }" readonly="readonly"/></td>
+	<td><input type="text" name ="res_code" value ="${ rVO.res_code }" readonly="readonly"/></td>
 	<td><select name ="res_cat" >
 	<c:forEach var="cat" items="${ list }">
 	<option value="${ cat.res_cat }">${ cat.res_cat }</option>
 	</c:forEach>
 	</select>
 	</td>
-	<td><input type="text" name ="res_name" value =" ${ rVO.res_name }"/></td>
+	<td><input type="text" name ="res_name" value ="${ rVO.res_name }"/></td>
 	<td><textarea name ="intro">${ rVO.intro }</textarea></td>
-	<td><input type="text" name ="holiday" value =" ${ rVO.holiday }"></td>
-	<td><input type="text" name ="busi_hour" value =" ${ rVO.busi_hour }"></td>
-	<td><input type="text" name ="res_loc" value =" ${ rVO.res_loc }"></td>
+	<td><input type="text" name ="holiday" value ="${ rVO.holiday }"></td>
+	<td><input type="text" name ="busi_hour" value ="${ rVO.busi_hour }"></td>
+	<td><input type="text" name ="res_loc" value ="${ rVO.res_loc }"></td>
 	<td><input type="file" name ="img_name" /></td>
-	<td><input type="text" name ="latitude" value =" ${ rVO.latitude }"></td>
-	<td><input type="text" name ="longitude" value =" ${ rVO.longitude }"></td>
+	<td><input type="text" name ="latitude" value ="${ rVO.latitude }"></td>
+	<td><input type="text" name ="longitude" value ="${ rVO.longitude }"></td>
 </tr>
 </table>
 </div>

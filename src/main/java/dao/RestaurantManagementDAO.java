@@ -181,14 +181,17 @@ public class RestaurantManagementDAO {
 			pstmt.setDouble(8, rVO.getLatitude());
 			pstmt.setString(9, rVO.getIntro());
 			pstmt.setString(10, rVO.getRes_code());
+			
 			cnt = pstmt.executeUpdate();
 			System.out.println(sb);
-			System.out.println(cnt);
+			
+			
 			
 		} finally {
 			dbCon.closeCon(null, pstmt, con);
 
 		}
+	
 		return cnt;
 	}
 
