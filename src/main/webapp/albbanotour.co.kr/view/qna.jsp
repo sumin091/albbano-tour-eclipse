@@ -181,17 +181,7 @@ pageContext.setAttribute("qVO", qVO);
             <!-- 게시판 카테고리 시작 { -->
             <!-- } 게시판 카테고리 끝 -->
 
-            <form name="fboardlist" id="fboardlist" action="https://cmtour.co.kr/bbs/board_list_update.php"
-                  onsubmit="return fboardlist_submit(this);" method="post">
-                <input type="hidden" name="bo_table" value="qa">
-                <input type="hidden" name="sfl" value="">
-                <input type="hidden" name="stx" value="">
-                <input type="hidden" name="spt" value="">
-                <input type="hidden" name="sca" value="">
-                <input type="hidden" name="sst" value="wr_num, wr_reply">
-                <input type="hidden" name="sod" value="">
-                <input type="hidden" name="page" value="1">
-                <input type="hidden" name="sw" value="">
+           
 
                 <div class="tbl_head01 tbl_wrap">
                     <table>
@@ -201,16 +191,14 @@ pageContext.setAttribute("qVO", qVO);
                             <th scope="col">번호</th>
                             <th scope="col">제목</th>
                             <th scope="col" class="lview">글쓴이</th>
-                            <th scope="col" class="lview"><a
-                                    href="boarda809.html?bo_table=qa&amp;sop=and&amp;sst=wr_hit&amp;sod=desc&amp;sfl=&amp;stx=&amp;sca=&amp;page=1">조회
-                                <i class="fa fa-sort" aria-hidden="true"></i></a></th>
+                            
                             <th scope="col" class="lview"><a
                                     href="board62f0.html?bo_table=qa&amp;sop=and&amp;sst=wr_datetime&amp;sod=desc&amp;sfl=&amp;stx=&amp;sca=&amp;page=1">날짜
                                 <i class="fa fa-sort" aria-hidden="true"></i></a></th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr class="">
+                       <!--  <tr class="">
                             <td class="td_num2">
                                 712
                             </td>
@@ -228,14 +216,12 @@ pageContext.setAttribute("qVO", qVO);
                                     <div class="gall_info">
                                         <span class="sv_member">livecafe</span></div>
                                     <div class="gall_info">
-                                        <span class="sound_only">조회 </span>Hit 1 <span class="gall_date"><span
                                             class="sound_only">작성일 </span>Date  2024-04-03</span>
                                     </div>
                                 </div>
 
                             </td>
                             <td class="td_name sv_use lview"><span class="sv_member">livecafe</span></td>
-                            <td class="td_num lview">1</td>
                             <td class="td_datetime lview">2024-04-03</td>
 
                         </tr>
@@ -256,14 +242,13 @@ pageContext.setAttribute("qVO", qVO);
                                     <div class="gall_info">
                                         <span class="sv_member">이선영1</span></div>
                                     <div class="gall_info">
-                                        <span class="sound_only">조회 </span>Hit 2 <span class="gall_date"><span
                                             class="sound_only">작성일 </span>Date  2024-03-30</span>
                                     </div>
                                 </div>
 
                             </td>
                             <td class="td_name sv_use lview"><span class="sv_member">이선영1</span></td>
-                            <td class="td_num lview">2</td>
+                         
                             <td class="td_datetime lview">2024-03-30</td>
 
                         </tr>
@@ -285,38 +270,31 @@ pageContext.setAttribute("qVO", qVO);
                                     <div class="gall_info">
                                         <span class="sv_member">관리자</span></div>
                                     <div class="gall_info">
-                                        <span class="sound_only">조회 </span>Hit 5 <span class="gall_date"><span
+                                     
                                             class="sound_only">작성일 </span>Date  2024-03-31</span>
                                     </div>
                                 </div>
 
                             </td>
                             <td class="td_name sv_use lview"><span class="sv_member">관리자</span></td>
-                            <td class="td_num lview">5</td>
+                           
                             <td class="td_datetime lview">2024-03-31</td>
-                        </tr>
-                        
+                        </tr> -->
+                <form method="post" name="frmDetail" id="frmDetail">       
       <c:forEach var="qna" items="${list}" varStatus="i">
     <tr class="">
         <td class="td_num2">
-            <c:out value="${qna.ASK_DOC_NO}"/>
+        
+	<%-- 	<c:out value="${askDocNo}"/> --%>
         </td>
         <td class="td_subject" style="padding-left:0px">
             <div class="bo_tit">
-                <a href="#none" onclick="return faq_open(this);" style="display: block;">
-                    <p style="    display: inline;">
-                    <c:out value="${qna.ASK_TITLE}"/>
-                    </p>
-                </a>
-                <h3>
-                <div class="con_inner">
-                <span class="tit_bg">내용 : </span>
-                <c:out value=" ${qna.ASK_CONTENTS }"/><br>
-                <div class="con_closer">
-                <button type="button" class="closer_btn btn_b03">닫기</button>
-                </div>
-                </div>
-                </h3>   
+               <a href="question_read_frm.jsp?ASK_DOC_NO=${qna.ASK_DOC_NO}">
+    <c:out value="${qna.ASK_TITLE}"/>
+</a>
+              <%--   <span class="tit_bg">내용 : </span>
+                <c:out value=" ${qna.ASK_CONTENTS }"/><br> --%>
+                
             </div>
         </td>
         <td class="td_name sv_use lview">
@@ -324,22 +302,20 @@ pageContext.setAttribute("qVO", qVO);
                 <c:out value="${qna.ID}"/>
             </span>
         </td>
-        <td class="td_num lview">2</td>
+       
         <td class="td_datetime lview">
             <c:out value="${qna.CREATE_DATE}"/>
         </td>
+        
     </tr>
 </c:forEach>
 
-
-
-
-                        
+       </form>                  
                    </tbody>
                     </table>
                 </div>
 
-            </form>
+           
 
             <!-- 게시판 검색 시작 { -->
             <fieldset id="bo_sch">
@@ -354,10 +330,6 @@ pageContext.setAttribute("qVO", qVO);
                         <option value="wr_subject">제목</option>
                         <option value="wr_content">내용</option>
                         <option value="wr_subject||wr_content">제목+내용</option>
-                        <option value="mb_id,1">회원아이디</option>
-                        <option value="mb_id,0">회원아이디(코)</option>
-                        <option value="wr_name,1">글쓴이</option>
-                        <option value="wr_name,0">글쓴이(코)</option>
                     </select>
                     <label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
                     <input type="text" name="stx" value="" required id="stx" class="sch_input" size="25" maxlength="20"
@@ -382,34 +354,20 @@ pageContext.setAttribute("qVO", qVO);
 
 		<script>
 		 $(function(){
-		       
-		        $(".con_inner").hide();
-
-		        $(".closer_btn").on("click", function(){
-		            $(this).closest(".con_inner").slideUp();
-		        });
-
-		        $(".bo_tit a").on("click", function(e){
-		            var $con = $(this).closest("tr").find(".con_inner");
-
-		           
-		            if ($con.is(":visible")) {
-		                $con.slideUp();
-		            } else {
-		                
-		                $(".con_inner").slideUp();
-		               
-		                $con.slideDown();
-		            }
-		            
-		            return true;
-		        });
-		    });
-
+			 $(".btnDelete").click(function(){
+		    	 if(confirm("글을 정말 삭제하시겠습니까")){
+		    		$("#frmDetail")[0].action="question_update_process.jsp";
+		    	
+		    		$("#frmDetail").submit();
+		    	 }
+		     })   
+		        
+		 });
+		
+		 
 		  
-		    $(window).on("load", function() {
-		        $(".con_inner").css("display", "");
-		    });
+		    
+		    
 		</script>
 
         <!-- } 게시판 목록 끝 -->
