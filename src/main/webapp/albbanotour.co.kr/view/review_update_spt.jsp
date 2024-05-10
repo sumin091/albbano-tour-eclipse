@@ -6,11 +6,24 @@
   To change this template use File | Settings | File Templates.
 --%>
 
+<%@page import="vo.SpotReviewVO"%>
+<%@page import="dao.SpotReviewDAO"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 	<% 
-	String resCode = request.getParameter("res_code");
-	String resName = request.getParameter("res_name");	
+	request.setCharacterEncoding("UTF-8");
+	
+	
+	String sptCode = request.getParameter("spt_code");
+	String sptName = request.getParameter("spt_name");	
+	String spot_doc_no = request.getParameter("spot_doc_no");
+
+	SpotReviewDAO srDAO= SpotReviewDAO.getInstance();
+	SpotReviewVO srVO = srDAO.selectSpotReviewDetail(spot_doc_no);
+	pageContext.setAttribute("srVO", srVO);
+	
+	
 	%>
 	<%
 	String login_id = (String)session.getAttribute("idKey");
@@ -44,6 +57,18 @@
     
     <script type="text/javascript">
     
+
+
+    window.onload = function() {
+       	
+        var star = ${srVO.star };
+        
+        for (var i = 1; i <= star; i++) {
+            document.getElementById("rating" + i).checked = true;
+        }
+    };
+
+
     $(function(){
   	  	$("#btn_submit").click(function(){
     		chkNull();		
@@ -52,7 +77,7 @@
     });
     
     function chkNull(){
-    	 if (confirm("리뷰를 입력하시겠습니까?")) {
+    	 if (confirm("리뷰를 수정하시겠습니까?")) {
 			$("#fwrite").submit();
     	 }
     
@@ -133,16 +158,16 @@
 
 
         <div class="bg_vline"></div>
-        <p class="eng"><em></em> 리뷰작성</p>
+        <p class="eng"><em></em> 리뷰수정</p>
         <p class="stitle"></p>
 
 
         <!-- skin : theme/daon_basic -->
         <section id="bo_w">
-            <h2 class="sound_only">리뷰작성</h2>
+            <h2 class="sound_only">리뷰수정</h2>
 
             <!-- 게시물 작성/수정 시작 { -->
-            <form name="fwrite" id="fwrite" action="review_write_res_action.jsp" method="post"
+            <form name="fwrite" id="fwrite" action="review_update_spt_action.jsp" method="post"
                   style="width:100%">
         
                 <div class="bo_w_info write_div">
@@ -150,14 +175,14 @@
 
                 </div>
 
-	                <input type="hidden" id="res_code" name="res_code" value="<%=resCode %>">
-					<input type="hidden" id="res_name" name="res_name" value="<%=resName %>">
-				
+	                <input type="hidden" id="spt_code" name="spt_code" value="<%=sptCode %>">
+					<input type="hidden" id="spt_name" name="spt_name" value="<%=sptName %>">
+					<input type="hidden" id="spot_doc_no" name="spot_doc_no" value="<%=spot_doc_no %>">
                 <div class="bo_w_tit write_div">
-                    <label for="wr_subject" class="sound_only">제목<strong>필수</strong></label>
+                    <label for="wr_subject" class="sound_only"><strong>필수</strong></label>
 
                     <div id="autosave_wrapper write_div">
-                        <input type="text" name="wr_subject" value="" id="wr_subject" required
+                        <input type="text" name="wr_subject" value="${srVO.spot_title }" id="wr_subject" required
                                class="frm_input full_input required" size="50" maxlength="255" placeholder="제목">
 
                     </div>
@@ -165,7 +190,7 @@
                 </div>
 
                 <div class="write_div">
-                    <label for="wr_content" class="sound_only">내용<strong>필수</strong></label>
+                    <label for="wr_content" class="sound_only">제목<strong>필수</strong></label>
                     <div class="wr_content smarteditor2">
                         <span class="sound_only">웹에디터 시작</span>
                         <script src="https://cmtour.co.kr/plugin/editor/smarteditor2/js/service/HuskyEZCreator.js"></script>
@@ -174,7 +199,7 @@
                         <script src="https://cmtour.co.kr/plugin/editor/smarteditor2/config.js"></script>
                        
                         <textarea id="wr_content" name="wr_content" class="smarteditor2" maxlength="65536"
-                                  style="width:100%;height:300px"></textarea>
+                                  style="width:100%;height:300px">${srVO.spot_contents}</textarea>
                         <span class="sound_only">웹 에디터 끝</span></div>
 
                                 <fieldset class="rate">
@@ -197,7 +222,7 @@
 
 
                 <div class="btn_confirm write_div" style="text-align:center;">
-                    <a href="review_restaurant.jsp?res_code=<%=resCode %>&res_name=<%=resName %>" class="btn_cancel btn">취소</a>
+                    <a href="review_spot.jsp?spt_code=<%=sptCode %>&spt_name=<%=sptName %>" class="btn_cancel btn">취소</a>
                     <input type="button" value="작성완료" id="btn_submit" class="btn_submit btn">
                 </div>
             </form>
