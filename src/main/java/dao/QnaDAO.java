@@ -75,20 +75,16 @@ public class QnaDAO {
 
 	        StringBuilder selectQna = new StringBuilder();
 	        selectQna
-	            .append("SELECT ASK_DOC_NO, ID, ASK_TITLE, ASK_CONTENTS, CREATE_DATE, ANSWER_DATE, DEL_YN, ANSWER_CONTENTS ")
-	            .append("FROM (SELECT ASK_DOC_NO, ID, ASK_TITLE, ASK_CONTENTS, CREATE_DATE, ANSWER_DATE, DEL_YN, ANSWER_CONTENTS, ROW_NUMBER() OVER (ORDER BY CREATE_DATE DESC) RNUM FROM qna) ")
-	            .append("WHERE RNUM BETWEEN ? AND ? AND DEL_YN='N' ");
+	            .append("SELECT * FROM (SELECT ASK_DOC_NO, ID, ASK_TITLE, ASK_CONTENTS, CREATE_DATE, ANSWER_DATE, DEL_YN, ANSWER_CONTENTS, ROW_NUMBER() OVER(order by CREATE_DATE DESC) RNUM FROM QNA WHERE DEL_YN='N' AND ID = ? )")
+	            .append("WHERE RNUM BETWEEN ? AND ? ");
 
-	        // 로그인 아이디와 작성자 아이디를 비교하는 조건 추가
-	        selectQna.append("AND ID = ? ");
 
 	        pstmt = con.prepareStatement(selectQna.toString());
-	        pstmt.setInt(1, qsVO.getStartNum());
-	        pstmt.setInt(2, qsVO.getEndNum());
+	        pstmt.setString(1, loginId);
+	        pstmt.setInt(2, qsVO.getStartNum());
+	        pstmt.setInt(3, qsVO.getEndNum());
 	       
 
-	        // 로그인 아이디 설정
-	        pstmt.setString(3, loginId);
 
 	        rs = pstmt.executeQuery();
 	        QnaVO qVO = null;
@@ -162,7 +158,7 @@ public class QnaDAO {
 	        con = dbCon.getConn("jdbc/abn");
 	        StringBuilder selectqnaQuery = new StringBuilder();
 	        selectqnaQuery
-	            .append("SELECT ASK_TITLE, ASK_CONTENTS ")
+	            .append("SELECT ASK_TITLE, ASK_CONTENTS, ANSWER_CONTENTS ")
 	            .append("FROM qna ")
 	            .append("WHERE ASK_DOC_NO = ? ");
 
@@ -173,7 +169,8 @@ public class QnaDAO {
 	        if (rs.next()) {
 	            String ASK_TITLE = rs.getString("ASK_TITLE");
 	            String ASK_CONTENTS = rs.getString("ASK_CONTENTS");
-	            qVo = new QnaVO(ASK_DOC_NO, null,ASK_TITLE, ASK_CONTENTS, null, null, null, null);
+	            String ANSWER_CONTENTS = rs.getString("ANSWER_CONTENTS");
+	            qVo = new QnaVO(ASK_DOC_NO, null,ASK_TITLE, ASK_CONTENTS, null, ANSWER_CONTENTS, null, null);
 	        }
 	    } finally {
 	        dbCon.closeCon(rs, pstmt, con);
@@ -239,8 +236,7 @@ public class QnaDAO {
 	    	pstmt.setString(3, qVO.getASK_DOC_NO()); 
 	    	pstmt.setString(4, qVO.getID()); 
 	    	
-	    	System.out.println(updateQna);
-			System.out.println(qVO);
+	   
 	    	
 	    	cnt=pstmt.executeUpdate();
 	    	
@@ -342,44 +338,53 @@ public class QnaDAO {
 	}
 	
 	
-	public QnaVO selectadQna(String ASK_DOC_NO)throws SQLException{//관리자 모든데이터출력
-		QnaVO qVO = new QnaVO();
-		DbConnection dbCon=DbConnection.getInstance();
-		Connection con=null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			con =dbCon.getConn("jdbc/abn");
-			String sql =
-					"SELECT * FROM qna ";
-			pstmt= con.prepareStatement(sql);
-			pstmt.setString(1, ASK_DOC_NO);
-			rs=pstmt.executeQuery();
-			
-			while(rs.next()) {
-				 qVO = new QnaVO();
-				qVO.setASK_DOC_NO(rs.getString("ASK_DOC_NO"));
-				qVO.setID(rs.getString("ID"));
-				qVO.setASK_TITLE(rs.getString("ASK_TITLE"));
-				qVO.setANSWER_CONTENTS(rs.getString("ASK_CONTENTS"));
-				qVO.setCREATE_DATE(rs.getDate("CREATE_DATE"));
-				qVO.setANSWER_DATE(rs.getDate("ANSWER_DATE"));
-				qVO.setDEL_YN(rs.getString("DEL_YN"));
-				qVO.setANSWER_CONTENTS(rs.getString("ANSWER_CONTENTS"));
-				
-				
-			}
-			
-		}finally {
-			dbCon.closeCon(rs, pstmt, con);
-		}
-		return qVO;
-		
-		
-		
-		
+	
+	public List<QnaVO> selectAlladQna(QnaSearchVO qsVO) throws SQLException {
+	    List<QnaVO> list = new ArrayList<>();
+	    QnaVO qVO = null;
+	    Connection con = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    DbConnection db = DbConnection.getInstance();
+
+	    try {
+	        con = db.getConn("jdbc/abn");
+
+	        String sql =
+	            "SELECT * FROM ( " +
+	            "    SELECT qna.*, ROWNUM AS rnum FROM qna WHERE DEL_YN = 'N' " +
+	            ") WHERE rnum BETWEEN ? AND ?";
+
+	        pstmt = con.prepareStatement(sql);
+	        pstmt.setInt(1, qsVO.getStartNum());
+	        pstmt.setInt(2, qsVO.getEndNum());
+
+	        rs = pstmt.executeQuery();
+
+	        while (rs.next()) {
+	            qVO = new QnaVO();
+	            qVO.setASK_DOC_NO(rs.getString("ASK_DOC_NO"));
+	            qVO.setID(rs.getString("ID"));
+	            qVO.setASK_TITLE(rs.getString("ASK_TITLE"));
+	            qVO.setASK_CONTENTS(rs.getString("ASK_CONTENTS"));
+	            qVO.setDEL_YN(rs.getString("DEL_YN"));
+	            qVO.setANSWER_CONTENTS(rs.getString("ANSWER_CONTENTS"));
+	            qVO.setCREATE_DATE(rs.getDate("CREATE_DATE"));
+	            qVO.setANSWER_DATE(rs.getDate("ANSWER_DATE"));
+
+	            list.add(qVO);
+	        }
+
+	    } finally {
+	        db.closeCon(rs, pstmt, con);
+	    }
+
+	    return list;
 	}
+	
+	
+	
+	
 	
 	
 
