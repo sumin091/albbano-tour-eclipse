@@ -6,7 +6,7 @@
 <%@ page import="dao.QnaDAO" %>
 <%@page import="java.util.List" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -25,7 +25,7 @@
         var g5_editor = "smarteditor2";
         var g5_cookie_domain = "";
     </script>
-    <%@ include file="common_head.jsp" %>
+   
 </head>
 
 <body>
@@ -33,35 +33,30 @@
 <jsp:setProperty property="*" name="qVO"/>
 <% request.setCharacterEncoding("UTF-8"); %>
 
-<%@ include file="common_m_header.jsp" %>
-<%@ include file="common_desktop_header.jsp" %>
+
 
 
 <script type="text/javascript">
 		
-	
-
 	$(function(){
 		$("#btnUpdate").click(function(){
-			if(confirm("글을 수정하시겠습니까?")){
-				$("#questionForm")[0].action="question_update_process.jsp";
+			if(confirm("글을 수정하시겠습니까")){
+				$("#questionForm")[0].action="../admin/qna_answer_process.jsp";
 				$("#questionForm").submit();
-
-		}
+			}
 		})
-		
+
 		$(".btnDelete").click(function(){
 			if(confirm("글을 삭제하시겠습니까?")){
-				$("#questionForm")[0].action="question_delete_process.jsp";
+				$("#questionForm")[0].action="../admin/qna_delete_process.jsp";
 				$("#questionForm").submit();
 			}
 		})
 		
-		
-		
-	})//ready
 	
 	
+	
+	})
 
 </script>
 
@@ -156,44 +151,32 @@ try {
           
                 <input type="hidden" name="ASK_DOC_NO" value="${ qVO.ASK_DOC_NO }"/>
                 
-	<div class="write_div">
+<div class="write_div">
     <label for="wr_subject" class="sound_only">제목 <strong>필수</strong></label>
     <div id="autosave_wrapper write_div">
-        <input type="text" name="ASK_TITLE" maxlength="20" required class="frm_input full_input required" value="<%= qVo != null ? qVo.getASK_TITLE() : "" %>">
+        <span class="readonly-text"><%= qVo != null ? qVo.getASK_TITLE() : "" %></span>
     </div>
 </div>
 <div class="write_div">
     <label for="wr_content" class="sound_only">내용<strong>필수</strong></label>
     <div class="wr_content smarteditor2">
-        <textarea id="ASK_CONTENTS" name="ASK_CONTENTS" style="width:100%;height:300px">
-            <%= qVo != null ? qVo.getASK_CONTENTS() : "" %>
-        </textarea>
+         <div class="readonly-text" style="width:100%;height:300px" ><%= qVo != null ? qVo.getASK_CONTENTS() : "" %></div>
     </div>
+    <input name="ANSWER_CONTENTS" id="ANSWER_CONTENTS" placeholder="답변을 작성하세요" size="50">
+    <%=qVo != null? qVo.getANSWER_CONTENTS():"" %>
 </div>
                 <div class="btn_confirm write_div" style="text-align:center;">
-                <input type="button" value="수정" class="btn btn-info btn-sm" id="btnUpdate" />
+                <input type="button" value="답변작성" class="btn btn-info btn-sm" id="btnUpdate" />
                  <input type="button" value="글삭제" class="btn btn-success btn-sm btnDelete" style="float: right;"/>   
                     <a href="qna.jsp" class="btn_cancel btn">취소</a>
                     
 </div>
             </form>
         </section>
-        <!-- } 게시물 작성/수정 끝 -->
     </div>
 </section>
-<%--footer_jsp_적용_시작--%>
-<footer>
-    <%@ include file="common_footer.jsp" %>
-</footer>
-<%--footer_jsp_적용_끝--%>
 
-<%@ include file="common_m_footer.jsp" %>
-<%@ include file="common_sidebar.jsp" %>
-<%@ include file="common_lower_container.jsp" %>
 
-<%--스크롤_애니메이션_리셋--%>
-<script src="../front_util/js/wow.min.js"></script>
-<script> new WOW().init(); </script>
 
 </body>
 </html>

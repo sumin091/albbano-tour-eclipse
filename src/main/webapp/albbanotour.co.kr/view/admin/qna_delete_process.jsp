@@ -19,7 +19,7 @@ try {
 
 	int cnt = qDao.deleteadQna(qVO);
     if (cnt == 1) {
-        response.sendRedirect("qna.jsp");
+        response.sendRedirect("../admin/qna.jsp");
     } else {
         response.sendRedirect("javascript:history.back()");
     }
