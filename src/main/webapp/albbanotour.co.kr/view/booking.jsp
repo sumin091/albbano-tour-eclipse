@@ -53,6 +53,82 @@
         var g5_editor = "smarteditor2";
         var g5_cookie_domain = "";
     </script>
+    
+    <script>
+    window.onload = function() {
+        loadCalendar(<%= currentYear %>, <%= currentMonth %>, <%= today %>);
+    };
+
+    
+    function loadCalendar(year, month, day) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("targetDiv").innerHTML = this.responseText;
+            }
+        };
+        xhttp.open("GET", "calendar.jsp?year=" + year + "&month=" + month + "&day=" + day, true);
+        xhttp.send();
+    }
+    
+    function loadPreviousMonth() {
+        var currentYearElement = document.getElementById('currentYear');
+        var currentMonthElement = document.getElementById('currentMonth');
+        
+        var currentDate = new Date();
+        var year = parseInt(currentYearElement.textContent);
+        var month = parseInt(currentMonthElement.textContent);
+        var day = 1;
+        
+        month--;
+        
+        if (month < 1) {
+            month = 12;
+            year--;
+        }
+        
+        if (year === currentDate.getFullYear() && month === currentDate.getMonth() + 1) {
+            day = currentDate.getDate();
+        }
+        
+        if (year === currentDate.getFullYear() && month <= currentDate.getMonth()){
+        	alert("안돼");
+        	return;
+        }
+        
+        loadCalendar(year, month, day);
+        
+        currentYearElement.textContent = year;
+        currentMonthElement.textContent = (month < 10 ? '0' : '') + month;
+    }
+
+
+    function loadNextMonth() {
+        var currentYearElement = document.getElementById('currentYear');
+        var currentMonthElement = document.getElementById('currentMonth');
+        
+        var currentDate = new Date();
+        var year = parseInt(currentYearElement.textContent);
+        var month = parseInt(currentMonthElement.textContent);
+        var day = 1;
+        
+        month++;
+        
+        if (month > 12) {
+            month = 1;
+            year++;
+        }
+        
+        if (year === currentDate.getFullYear() && month === currentDate.getMonth() + 1) {
+            day = currentDate.getDate();
+        }
+        
+        loadCalendar(year, month, day);
+        
+        currentYearElement.textContent = year;
+        currentMonthElement.textContent = (month < 10 ? '0' : '') + month;
+    }
+	</script>
 
     <%@include file="common_head.jsp" %>
 
@@ -99,7 +175,6 @@
                         </ul>
                     </li>
                 </ul>
-
             </div>
         </div>
     </div>
@@ -142,7 +217,7 @@
                                 <div class="head">01. 투어선택 ◀◀코스를 선택하세요▶▶</div>
                                 <div class="list">
                                     <c:forEach var="tour" items="${tourList}" varStatus="i">
-   										<a href="#none" class="roomli" data-rm-ix="${i.index}">
+   										<a href="#" href="#" onclick="loadCalendar(<c:out value='${currentYear}'/>, <c:out value='${currentMonth}'/>, <c:out value='${today}'/> )" class="roomli" data-rm-ix="${i.index}">
         									<div class="media-left">
             									<div class="room-photo-frame">
                 									<img src="../front_util/images/tour_booking.png" class="room-photo-main">
@@ -164,53 +239,27 @@
                                 <div class="list">
                                     <div id="wrap-calendar" class="wrap-calendar">
                                         <nav>
-                                        <ul class="pager">
-    										<li>
-    											<a href="javascript:_wzSetCanlendar('${currentYear}','<%= (currentMonth - 1) %>');">
-    											<i class="fa fa-chevron-left" aria-hidden="true"></i></a>
-    										</li>
-    										<li>
-    											<strong class="ym-title">
-    											<span class="text-number"><c:out value="${currentYear}" /></span>
-    											<span class="text-hangul">.</span> 
-    											<span class="text-number"><%= String.format("%02d", currentMonth) %></span>
-    											</strong>
-    										</li>
-    										<li>
-    											<a href="javascript:_wzSetCanlendar('${currentYear}','<%= (currentMonth + 1) %>');">
-    											<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-    										</li>
-    									</ul>
+											<ul class="pager">
+											    <li>
+											        <a href="#" onclick="loadPreviousMonth()">
+											            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+											        </a>
+											    </li>
+											    <li>
+											        <strong class="ym-title">
+											            <span class="text-number" id="currentYear">${currentYear}</span>
+											            <span class="text-hangul">.</span> 
+											            <span class="text-number" id="currentMonth">${String.format("%02d", currentMonth)}</span>
+											        </strong>
+											    </li>
+											    <li>
+											        <a href="#" onclick="loadNextMonth()">
+											            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+											        </a>
+											    </li>
+											</ul>
                                         </nav>
-                                        
-										<div class="daylist hidden-xs hidden-sm">
-										    <c:set var="currentDate" value="<%= LocalDate.now() %>" />
-										    <c:forEach begin="${today}" end="${currentDate.lengthOfMonth()}" varStatus="day">
-										        <c:set var="date" value="${currentDate.withDayOfMonth(day.index)}" />
-										        <c:set var="korWeek" value="${date.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.KOREAN)}" />
-										        
-										        <c:choose>
-										            <c:when test="${korWeek eq '토'}">
-										                <a href="#none" class="dayli live">
-										                    <span class="txweek box-sat">${korWeek}</span>
-										                    <span class="txday box-sat">${day.index}</span>
-										                </a>
-										            </c:when>
-										            <c:when test="${korWeek eq '일'}">
-										                <a href="#none" class="dayli live">
-										                    <span class="txweek box-sun">${korWeek}</span>
-										                    <span class="txday box-sun">${day.index}</span>
-										                </a>
-										            </c:when>
-										            <c:otherwise>
-										                <a href="#none" class="dayli live">
-										                    <span class="txweek">${korWeek}</span>
-										                    <span class="txday">${day.index}</span>
-										                </a>
-										            </c:otherwise>
-										        </c:choose>
-										    </c:forEach>
-										</div>
+										<div class="daylist hidden-xs hidden-sm" id="targetDiv"></div>
                                     </div>
                                 </div>
                             </td>
@@ -241,7 +290,7 @@
                         <div class="col-md-12 btn-group-justified" role="group">
                             <div class="btn-group" role="group">
                                 <button type="button" class="btn btn-success" style="height: 80px;font-size: 24px" ;
-                                        onclick="location.href='pay.html'">다음단계 <i
+                                        onclick="location.href='tour_pay.jsp'">다음단계 <i
                                         class="fa fa-chevron-right fa-sm"></i></button>
                             </div>
                         </div>
