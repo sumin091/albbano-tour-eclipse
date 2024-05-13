@@ -371,4 +371,28 @@ public class CourseManagementDAO {
 		}
 		return cnt;
 	}
+	public int deleteCurs(String CRS_CODE) throws SQLException{
+		int cnt =0;
+		DbConnection dbCon = DbConnection.getInstance();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = dbCon.getConn("jdbc/abn");
+			StringBuilder update = new StringBuilder();
+			update.append("	update COURSE	")
+			.append("	set   DEL_YN ='Y'	")
+			.append("	where CRS_CODE =?	");
+			pstmt=con.prepareStatement(update.toString());
+			pstmt.setString(1, CRS_CODE);
+			cnt=pstmt.executeUpdate();
+			
+		}finally {
+			dbCon.closeCon(null, pstmt, con);
+		}
+		
+		
+		return cnt;
+		
+		
+	}
 }

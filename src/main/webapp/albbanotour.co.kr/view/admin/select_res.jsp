@@ -95,7 +95,6 @@ rDAO.selectMaxRes();
 </div>
 <div>
 <a href ="insert_res.jsp">맛집추가</a>
-<a href ="insert_rescat.jsp">맛집카테고리추가</a>
 
 </div>
 </body>
