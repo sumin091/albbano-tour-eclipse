@@ -44,7 +44,7 @@ request.setCharacterEncoding("UTF-8");
 String crsCode= (String)request.getParameter("crsCode");
 CourseManagementDAO cDAO = CourseManagementDAO.getInstance();
 CourseManagementVO cVO= cDAO.selectCourseDetail(crsCode);
-String spots = cDAO.selectDetailSpot(crsCode);
+String spots = cDAO.selectAdminDetailSpot(crsCode);
 pageContext.setAttribute("cVO", cVO);
 pageContext.setAttribute("spots", spots);
 
