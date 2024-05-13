@@ -83,7 +83,9 @@ smDAO.insertSpot(SpotListVO);
 }catch(Exception e){
 	%>
 	명소 추가에 실패했습니다.
-	잠시 후 다시 시도해주세요.
+	입력한 값을 다시한번 확인해주세요.
+<a href="insertSpot.jsp">명소 추가 화면으로 돌아가기</a><br>
+<a href="select_spot.jsp">명소 리스트 화면으로 돌아가기</a>
 	<%
 e.printStackTrace();
 }
