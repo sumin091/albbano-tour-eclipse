@@ -11,21 +11,7 @@
 <head>
     <title>결제 | 알빠노관광</title>
 
-    <script>
-        // 자바스크립트에서 사용하는 전역변수 선언
-        var g5_url       = "https://cmtour.co.kr";
-        var g5_bbs_url   = "https://cmtour.co.kr/bbs";
-        var g5_is_member = "";
-        var g5_is_admin  = "";
-        var g5_is_mobile = "";
-        var g5_bo_table  = "booking";
-        var g5_sca       = "";
-        var g5_editor    = "smarteditor2";
-        var g5_cookie_domain = "";
-    </script>
-
-    <script type="text/javascript" src="https://cmtour.co.kr/plugin/wz.bookingD.prm/js/jquery.magnific-popup.min.js"></script>
-    <script type="text/javascript" src="https://cmtour.co.kr/plugin/wz.bookingD.prm/js/common.js"></script>
+    <script src="https://cdn.portone.io/v2/browser-sdk.js"></script>
 
     <%@ include file="common_head.jsp" %>
 </head>
@@ -40,7 +26,6 @@
     </div>
 </section>
 
-
 <section id="sub_wrapper">
     <div id="sub_menu">
         <div class="sub_location">
@@ -48,7 +33,7 @@
                 <div class="cen"><a href="index_user.jsp"><i class="fa fa-home" aria-hidden="true"></i></a></div>
                 <ul class="">
                     <li>
-                        <span>맛집</span>
+                        <span>투어예약</span>
                         <ul>
                             <li><a href="/theme/cmtour/html/business/new_01.php" target="_self">관광지</a></li>
                             <li><a href="/bbs/board.php?bo_table=booking" target="_self">맛집</a></li>
@@ -60,11 +45,9 @@
                 </ul>
                 <ul class="dep2">
                     <li>
-                        <span>맛집</span>
+                        <span>결제하기</span>
                         <ul>
                             <li><a href="/bbs/board.php?bo_table=booking" target="_self">맛집</a></li>
-
-
 
                         </ul>
                     </li>
@@ -90,9 +73,6 @@
         <p class="eng"><em></em> 결제하기</p>
         <p class="stitle"></p>
 
-
-
-
         <script type="text/javascript"> var cp_code = ''; </script>
 
         <div class="wetoz">
@@ -101,351 +81,7 @@
 
 
                 <script language="javascript" type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js" charset="UTF-8"></script>
-                <script type="text/javascript">
 
-                    function pg_pay(f) {
-
-
-
-                        var payment = $(":input:radio[name=bk_payment]:checked").val();
-                        switch(payment)
-                        {
-                            case "계좌이체":
-                                paymentCode = "trans";
-                                break;
-                            case "가상계좌":
-                                paymentCode = "vbank";
-                                break;
-                            case "휴대폰":
-                                paymentCode = "phone";
-                                break;
-                            case "신용카드":
-                                paymentCode = "Card";
-                                f.acceptmethod.value = f.acceptmethod.value.replace(":useescrow", "");
-                                break;
-                            case "간편결제":
-                                paymentCode = "Kpay";
-                                break;
-                            default:
-                                paymentCode = "무통장";
-                                break;
-                        }
-
-                        f.good_mny.value  = f.reserv_price.value;
-
-                        f.price.value       = f.good_mny.value;
-                        f.buyername.value   = f.bk_name.value;
-                        f.buyeremail.value  = f.bk_email.value;
-                        f.buyertel.value    = f.bk_hp.value;
-
-
-                        var total_price = $("input[name=price]").val();
-                        var bk_hp = $("input[name=bk_hp]").val();
-                        var bk_email = $("input[name=bk_email]").val();
-                        var bk_name = $("input[name=bk_name]").val();
-
-
-                        if(f.gopaymethod.value != "무통장") {
-
-                            // 주문 정보 임시저장
-                            var order_data = $(f).serialize();
-                            var save_result = "";
-                            $.ajax({
-                                type: "POST",
-                                data: order_data,
-                                url: "https://cmtour.co.kr/plugin/wz.bookingD.prm/gender/pg.pay_data.php",
-                                cache: false,
-                                async: false,
-                                success: function(data) {
-                                    save_result = data;
-                                }
-                            });
-
-                            if(save_result) {
-                                alert(save_result);
-                                return false;
-                            }
-
-                        }
-
-                        var IMP = window.IMP; // 생략가능
-                        IMP.init('imp45925224'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-
-                        IMP.request_pay({
-                            pg : 'inicis', // version 1.1.0부터 지원.
-                            pay_method : paymentCode,
-                            merchant_uid : '1240407010528352',
-                            name : '신라역사투어',
-                            amount : $('#pg_tot_price').val(),
-                            buyer_email : bk_email,
-                            buyer_name : bk_name,
-                            buyer_tel : bk_hp,
-                            buyer_addr : '',
-                            buyer_postcode : '',
-                            m_redirect_url : 'https://cmtour.co.kr/plugin/wz.bookingD.prm/gender/import/pg_mobile_return.php'
-                        }, function(rsp) {
-                            if ( rsp.success ) {
-
-
-                                console.log(rsp);
-                                console.log(rsp.imp_uid);
-
-                                // jQuery로 HTTP 요청
-                                jQuery.ajax({
-                                    url: "https://cmtour.co.kr/plugin/wz.bookingD.prm/gender/import/return.php", // 가맹점 서버
-                                    method: "GET",
-                                    headers: { "Content-Type": "application/json" },
-                                    data: {
-                                        "imp_uid": rsp.imp_uid,
-                                        "merchant_uid": rsp.merchant_uid
-                                    }
-                                }).done(function (data) {
-                                    // 가맹점 서버 결제 API 성공시 로직
-                                    console.log(data);
-
-                                    if(data == "S"){
-
-                                        f.card_name.value = rsp.card_name;
-
-                                        f.action = "https://cmtour.co.kr/plugin/wz.bookingD.prm/step.2.update.php";
-                                        f.target = "_self";
-                                        f.submit();
-
-                                    }else{
-                                        alert("결제에 문제가 있습니다.");
-                                        return false;
-                                    }
-
-                                });
-
-                            } else {
-                                var msg = '결제에 실패하였습니다.';
-                                msg += rsp.error_msg;
-                                alert(msg);
-                            }
-                            //alert(msg);
-                        });
-
-
-                    }
-
-
-
-                    function pg_pay2(f) {
-
-
-
-                        var payment = $(":input:radio[name=bk_payment]:checked").val();
-                        switch(payment)
-                        {
-                            case "계좌이체":
-                                paymentCode = "trans";
-                                break;
-                            case "가상계좌":
-                                paymentCode = "vbank";
-                                break;
-                            case "휴대폰":
-                                paymentCode = "phone";
-                                break;
-                            case "신용카드":
-                            case "카카오페이":
-                                paymentCode = "Card";
-                                f.acceptmethod.value = f.acceptmethod.value.replace(":useescrow", "");
-                                break;
-                            case "간편결제":
-                                paymentCode = "Kpay";
-                                break;
-                            default:
-                                paymentCode = "무통장";
-                                break;
-                        }
-
-                        f.good_mny.value  = f.reserv_price.value;
-
-                        f.price.value       = f.good_mny.value;
-                        f.buyername.value   = f.bk_name.value;
-                        f.buyeremail.value  = f.bk_email.value;
-                        f.buyertel.value    = f.bk_hp.value;
-
-
-                        var total_price = $("input[name=price]").val();
-                        var bk_hp = $("input[name=bk_hp]").val();
-                        var bk_email = $("input[name=bk_email]").val();
-                        var bk_name = $("input[name=bk_name]").val();
-
-
-                        if(f.gopaymethod.value != "무통장") {
-
-                            // 주문 정보 임시저장
-                            var order_data = $(f).serialize();
-                            var save_result = "";
-                            $.ajax({
-                                type: "POST",
-                                data: order_data,
-                                url: "https://cmtour.co.kr/plugin/wz.bookingD.prm/gender/pg.pay_data.php",
-                                cache: false,
-                                async: false,
-                                success: function(data) {
-                                    save_result = data;
-                                }
-                            });
-
-                            if(save_result) {
-                                alert(save_result);
-                                return false;
-                            }
-
-                        }
-
-                        var IMP = window.IMP; // 생략가능
-                        IMP.init('imp45925224'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-
-                        IMP.request_pay({
-                            pg : 'kakaopay', // version 1.1.0부터 지원.
-                            pay_method : paymentCode,
-                            merchant_uid : '1240407010528352',
-                            name : '신라역사투어',
-                            amount : $('#pg_tot_price').val(),
-                            buyer_email : bk_email,
-                            buyer_name : bk_name,
-                            buyer_tel : bk_hp,
-                            buyer_addr : '',
-                            buyer_postcode : '',
-                            m_redirect_url : 'https://cmtour.co.kr/plugin/wz.bookingD.prm/gender/import/pg_mobile_return.php'
-                        }, function(rsp) {
-                            if ( rsp.success ) {
-
-
-                                console.log(rsp);
-                                console.log(rsp.imp_uid);
-
-                                // jQuery로 HTTP 요청
-                                jQuery.ajax({
-                                    url: "https://cmtour.co.kr/plugin/wz.bookingD.prm/gender/import/return.php", // 가맹점 서버
-                                    method: "GET",
-                                    headers: { "Content-Type": "application/json" },
-                                    data: {
-                                        "imp_uid": rsp.imp_uid,
-                                        "merchant_uid": rsp.merchant_uid
-                                    }
-                                }).done(function (data) {
-                                    // 가맹점 서버 결제 API 성공시 로직
-                                    console.log(data);
-
-                                    if(data == "S"){
-
-                                        f.card_name.value = rsp.card_name;
-
-                                        f.action = "https://cmtour.co.kr/plugin/wz.bookingD.prm/step.2.update.php";
-                                        f.target = "_self";
-                                        f.submit();
-
-                                    }else{
-                                        alert("결제에 문제가 있습니다.");
-                                        return false;
-                                    }
-
-                                });
-
-                            } else {
-                                var msg = '결제에 실패하였습니다.';
-                                msg += rsp.error_msg;
-                                alert(msg);
-                            }
-                            //alert(msg);
-                        });
-
-
-                    }
-
-
-                    function pg_pay3(f) {
-                        f.good_mny.value  = f.reserv_price.value;
-
-                        f.price.value       = f.good_mny.value;
-                        f.buyername.value   = f.bk_name.value;
-                        f.buyeremail.value  = f.bk_email.value;
-                        f.buyertel.value    = f.bk_hp.value;
-
-
-                        var total_price = $("input[name=price]").val();
-                        var bk_hp = $("input[name=bk_hp]").val();
-                        var bk_email = $("input[name=bk_email]").val();
-                        var bk_name = $("input[name=bk_name]").val();
-
-
-                        if(f.gopaymethod.value != "무통장") {
-
-                            // 주문 정보 임시저장
-                            var order_data = $(f).serialize();
-                            var save_result = "";
-                            $.ajax({
-                                type: "POST",
-                                data: order_data,
-                                url: "https://cmtour.co.kr/plugin/wz.bookingD.prm/gender/pg.pay_data.php",
-                                cache: false,
-                                async: false,
-                                success: function(data) {
-                                    save_result = data;
-                                }
-                            });
-
-                            if(save_result) {
-                                alert(save_result);
-                                return false;
-                            }
-
-                        }
-
-                        var IMP = window.IMP; // 생략가능
-                        IMP.init('imp45925224'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-
-                        IMP.request_pay({
-                            pg : 'naverpay',
-                            merchant_uid : 'merchant_1240407010528352', //상점에서 관리하시는 고유 주문번호를 전달
-                            name : '신라역사투어',
-                            amount : total_price,
-                            //tax_free : 0, //면세공급가액(누락되면 0원으로 처리)
-                            buyer_email : bk_email,
-                            buyer_name : bk_name,
-                            buyer_tel : bk_hp, //누락되면 이니시스 결제창에서 오류
-                            buyer_addr : '',
-                            buyer_postcode : '',
-                            naverUseCfm : f.sch_day.value,
-                            naverPopupMode : true, //리디렉션모드 vs 팝업모드
-                            naverProducts : [{ //상품정보(필수전달사항) 네이버페이 매뉴얼의 productItems 파라메터와 동일합니다.
-                                "categoryType": "TRAVEL",
-                                "categoryId": "DOMESTIC",
-                                "uid": "imp45925224",
-                                "name": "신라역사투어",
-                                "payReferrer": "cmtour",
-                                "count": f.total_pcnt.value
-                            }]
-                        },function(rsp) {
-                            if ( rsp.success ) {
-
-                                console.log(rsp);
-                                console.log(rsp.imp_uid);
-
-                                f.card_name.value = rsp.apply_num;
-
-                                f.action = "https://cmtour.co.kr/plugin/wz.bookingD.prm/step.2.update.php";
-                                f.target = "_self";
-                                f.submit();
-                                window.close();
-
-                            } else {
-                                var msg = '결제에 실패하였습니다.';
-                                msg += rsp.error_msg;
-                                alert(msg);
-                            }
-                            //alert(msg);
-                        });
-                    }
-
-
-
-                </script>
 
 
 
@@ -552,28 +188,6 @@
                                 </thead>
 
                             </table>
-                        </div>
-                    </div>
-
-
-                    <!-- <div class="mobile_view" style="text-align: center; margin-bottom: 20px;">◀◀ 좌우로 움직여서 합계금액을 확인하세요 ▶▶</div>-->
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="panel panel-default">
-                                <div class="panel-heading"><strong><i class="fa fa-user fa-lg"></i> 할인안내</strong></div>
-
-                                <div class="panel-body form-horizontal">
-
-                                    <div class="form-group form-group-sm">
-                                        <label class="col-sm-2 control-label" for="bk_name">할인안내</label>
-                                        <div class="col-sm-10">
-                                            <small class="text-dotum">장애인,국가유공자<br>
-                                                장애인 (1~6급), 국가유공자(당사자만 해당)되며 주간프로그램의 경우 신분증 지참 시 입장료는 면제됩니다. 투어요금과는 무관합니다.</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
 
@@ -762,385 +376,17 @@
                                 <button type="button" class="btn btn-primary" onclick="location.href='../bbs/board.php?bo_table=booking&cp_code=&mode=step1&sch_day=2024-04-10';"><i class="fa fa-chevron-left fa-sm"></i> 이전단계</button>
                             </div>
                             <div class="btn-group" role="group">
-                                <button type="button" id="submit_next" data-loading-text="Loading..." autocomplete="off" class="btn btn-success" onclick="getNext();"><i class="fa fa-check"></i> 예약하기</button>
+                                <button type="button" id="submit_next" data-loading-text="Loading..." autocomplete="off" class="btn btn-success" onclick="requestPay()"><i class="fa fa-check"></i> 예약하기</button>
+                                
+    
                             </div>
                         </div>
 
-                        <div id="display_pay_process" style="display:none;">
-                            결제가 진행중입니다...
-                        </div>
-
-
-
-                        <input type="hidden" name="card_name"    value="">
-
-
-                        <input type="hidden" name="good_mny"    value="">
-
-
-                        <input type="hidden" name="version"     value="1.0" >
-                        <input type="hidden" name="mid"         value="">
-                        <input type="hidden" name="oid"         value="1240407010528352">
-                        <input type="hidden" name="goodname"    value="신라역사투어">
-                        <input type="hidden" name="price"       value="">
-                        <input type="hidden" name="buyername"   value="">
-                        <input type="hidden" name="buyeremail"  value="">
-                        <input type="hidden" name="parentemail" value="">
-                        <input type="hidden" name="buyertel"    value="">
-                        <input type="hidden" name="recvname"    value="">
-                        <input type="hidden" name="recvtel"     value="">
-                        <input type="hidden" name="recvaddr"    value="">
-                        <input type="hidden" name="recvpostnum" value="">
-
-                        <!-- 기타설정 -->
-                        <input type="hidden" name="currency"    value="WON">
-
-                        <!-- 결제방법 -->
-                        <input type="hidden" name="gopaymethod" value="">
-
-                        <!--
-                        SKIN : 플러그인 스킨 칼라 변경 기능 - 6가지 칼라(ORIGINAL, GREEN, ORANGE, BLUE, KAKKI, GRAY)
-                        HPP : 컨텐츠 또는 실물 결제 여부에 따라 HPP(1)과 HPP(2)중 선택 적용(HPP(1):컨텐츠, HPP(2):실물).
-                        Card(0): 신용카드 지불시에 이니시스 대표 가맹점인 경우에 필수적으로 세팅 필요 ( 자체 가맹점인 경우에는 카드사의 계약에 따라 설정) - 자세한 내용은 메뉴얼  참조.
-                        OCB : OK CASH BAG 가맹점으로 신용카드 결제시에 OK CASH BAG 적립을 적용하시기 원하시면 "OCB" 세팅 필요 그 외에 경우에는 삭제해야 정상적인 결제 이루어짐.
-                        no_receipt : 은행계좌이체시 현금영수증 발행여부 체크박스 비활성화 (현금영수증 발급 계약이 되어 있어야 사용가능)
-                        -->
-                        <input type="hidden" name="acceptmethod" value="">
-
-                        <!--
-                        플러그인 좌측 상단 상점 로고 이미지 사용
-                        이미지의 크기 : 90 X 34 pixels
-                        플러그인 좌측 상단에 상점 로고 이미지를 사용하실 수 있으며,
-                        주석을 풀고 이미지가 있는 URL을 입력하시면 플러그인 상단 부분에 상점 이미지를 삽입할수 있습니다.
-                        -->
-                        <!--input type="hidden" name="ini_logoimage_url"  value="http://[사용할 이미지주소]"-->
-
-                        <!--
-                        좌측 결제메뉴 위치에 이미지 추가
-                        이미지의 크기 : 단일 결제 수단 - 91 X 148 pixels, 신용카드/ISP/계좌이체/가상계좌 - 91 X 96 pixels
-                        좌측 결제메뉴 위치에 미미지를 추가하시 위해서는 담당 영업대표에게 사용여부 계약을 하신 후
-                        주석을 풀고 이미지가 있는 URL을 입력하시면 플러그인 좌측 결제메뉴 부분에 이미지를 삽입할수 있습니다.
-                        -->
-                        <!--input type="hidden" name="ini_menuarea_url" value="http://[사용할 이미지주소]"-->
-
-                        <!--
-                        플러그인에 의해서 값이 채워지거나, 플러그인이 참조하는 필드들
-                        삭제/수정 불가
-                        -->
-                        <input type="hidden" name="timestamp"   value="">
-                        <input type="hidden" name="signature"   value="">
-                        <input type="hidden" name="returnUrl"   value="">
-                        <input type="hidden" name="mKey"        value="">
-                        <input type="hidden" name="charset"     value="UTF-8">
-                        <input type="hidden" name="payViewType" value="overlay">
-                        <input type="hidden" name="closeUrl"    value="">
-                        <input type="hidden" name="popupUrl"    value="">
-                        <input type="hidden" name="nointerest"  value="">
-                        <input type="hidden" name="quotabase"   value="">
-
                     </div>
-
                 </form>
-
-                <script type="text/javascript">
-                    <!--
-                    $(function() {
-
-                        // 인원선택
-                        $("select[name='rm_cnt[]']").on('change', function() {
-                            calculate_order();        });
-                        $("select[name='rm_cnt_teenager[]']").on('change', function() {
-                            calculate_order();        });
-                        $("select[name='rm_cnt_child[]']").on('change', function() {
-                            calculate_order();        });
-
-                        // 옵션 선택
-                        $(document).on('change', '.cal_option_cnt', function() {
-                            calculate_order();        });
-
-                        $('.payment_type').on('click', function() {
-                            var payment = $(':input:radio[name=bk_payment]:checked').val();
-                            if (payment == '무통장') {
-                                $('#bk_deposit_name').val( $('#bk_name').val() );
-                                $('#bank_info_box').show();
-                                $('#naver_info_box').hide();
-                            } else if (payment == '네이버페이') {
-                                $('#bank_info_box').hide();
-                                $('#naver_info_box').show();
-                            }
-                            else {
-                                $('#bank_info_box').hide();
-                                $('#naver_info_box').hide();
-                            }
-                        });
-
-                        calculate_order();    });
-
-                    function calculate_order() {
-
-                        var z = y = x = 0;
-                        var total_price = 0;
-                        var total_p_cnt = 0;
-
-                        $("select[name='rm_cnt[]']").each(
-                            function(){
-                                var cnt             = parseInt($(this).val());
-                                var price           = parseInt($(this).attr('data-price'));
-                                var price_type      = $(this).attr('data-price-type');
-
-                                if (price_type == '인당') {
-                                    price = price * cnt;
-                                }
-                                total_price += price;
-                                $('#time-total-'+z).html(number_format(price+""));
-
-                                total_p_cnt += cnt;
-                                z++;
-                            }
-                        )
-
-                        $("select[name='rm_cnt_teenager[]']").each(
-                            function(){
-                                var cnt             = parseInt($(this).val());
-                                var price           = parseInt($(this).attr('data-price'));
-                                var price_type      = $(this).attr('data-price-type');
-
-                                if (price_type == '인당') {
-                                    price = price * cnt;
-                                }
-                                total_price += price;
-                                $('#time-total-teenager-'+y).html(number_format(price+""));
-
-                                total_p_cnt += cnt;
-                                y++;
-                            }
-                        )
-
-                        $("select[name='rm_cnt_child[]']").each(
-                            function(){
-                                var cnt             = parseInt($(this).val());
-                                var price           = parseInt($(this).attr('data-price'));
-                                var price_type      = $(this).attr('data-price-type');
-
-                                if (price_type == '인당') {
-                                    price = price * cnt;
-                                }
-                                total_price += price;
-                                $('#time-total-child-'+x).html(number_format(price+""));
-
-                                total_p_cnt += cnt;
-                                x++;
-                            }
-                        )
-
-                        $('#all-total').html(number_format(total_price+""));
-
-                        var cnt_option = price_option = 0;
-                        i = 0;
-                        $('input[name="opt[]"]').each(
-                            function(){
-                                i = this.value;
-                                cnt_option   = parseInt($('#rmo_cnt_'+i).val()); // 선택갯수
-                                price_option += parseInt($('#rmo_cnt_'+i).attr('data-price')) * cnt_option;
-                            }
-                        );
-                        $('#option_tot_price').html(number_format(price_option+""));
-                        total_price += price_option;
-
-                        $('#pg-price-all').html(number_format(total_price+""));
-
-                        // 예약금처리
-                        var reserv_price = Math.round((total_price / 100) * 100);
-                        $('#pg_tot_price').val(total_price);
-                        $('#reserv_price').val(reserv_price);
-                        $('#org_bk_price').val(reserv_price);
-                        $('#od_tot_price').html(number_format(reserv_price+""));
-
-                        // 총 인원수
-                        $('#total_pcnt').val(total_p_cnt);
-                    }
-
-                    function getNext() {
-                        var f = document.forms.wzfrm;
-
-                        var rm_cnt = $("input[name='rmt_ix[]']").length;
-                        if (rm_cnt < 1) {
-                            alert("예약정보가 존재하지 않습니다.");
-                            return;
-                        }
-                        if (!f.bk_name.value) {
-                            alert("예약자명을 입력해주세요.");
-                            f.bk_name.focus();
-                            return;
-                        }
-                        if (!f.bk_hp.value) {
-                            alert("핸드폰번호를 입력해주세요.");
-                            f.bk_hp.focus();
-                            return;
-                        }
-
-                        var payment = '무통장';
-
-                        var _bk_payment = f.bk_payment.value;
-                        if (_bk_payment == '무통장') {
-                            if (!f.bk_deposit_name.value) {
-                                alert("입금자명을 입력해주세요.");
-                                f.bk_deposit_name.focus();
-                                return;
-                            }
-                            var bk_bank_account = document.getElementById("bk_bank_account");
-                            if (bk_bank_account) {
-                                if (f.bk_bank_account.options[f.bk_bank_account.selectedIndex].value == '') {
-                                    alert("계좌번호를 선택해주세요.");
-                                    f.bk_bank_account.focus();
-                                    return;
-                                }
-                            }
-                        }
-
-                        payment = $(":input:radio[name=bk_payment]:checked").val();
-                        if (!payment) {
-                            alert("결제방식을 선택해주세요.");
-                            return;
-                        }
-
-
-                        if (f.agree1.checked == false) {
-                            alert("이용규정에 동의 후 예약이 가능합니다.");
-                            f.agree1.focus();
-                            return;
-                        }
-                        if (f.agree2.checked == false) {
-                            alert("개인정보 활용에 동의 후 예약이 가능합니다.");
-                            f.agree2.focus();
-                            return;
-                        }
-
-                        // 내용 저장
-                        var formData = new FormData(f);
-
-                        $.ajax({
-                            cache : false,
-                            url : "/plugin/wz.bookingD.prm/step.2.update.cart.php", // 요기에
-                            processData: false,
-                            contentType: false,
-                            type : 'POST',
-                            data : formData,
-                            success : function(data) {
-                                var jsonObj = JSON.parse(data);
-                            }, // success
-
-                            error : function(xhr, status) {
-                                alert(xhr + " : " + status);
-                            }
-                        }); // $.ajax */    }
-
-                        if (payment == '무통장') {
-                            if (confirm("예약하시겠습니까?")) {
-                                f.action = "https://cmtour.co.kr/plugin/wz.bookingD.prm/step.2.update.php";
-                                f.target = "_self";
-                                f.submit();
-                            }
-                        } else if (payment == '카카오페이') {
-                            pg_pay2(f);
-                        } else if (payment == '네이버페이') {
-                            //alert(f.total_pcnt.value);
-                            pg_pay3(f);
-                        }
-                        else {
-                            pg_pay(f);
-                        }
-
-                    }
-
-
-                    // 카카오페이결제 추가
-                    function getNext2() {
-                        var f = document.forms.wzfrm;
-
-                        var rm_cnt = $("input[name='rmt_ix[]']").length;
-                        if (rm_cnt < 1) {
-                            alert("예약정보가 존재하지 않습니다.");
-                            return;
-                        }
-                        if (!f.bk_name.value) {
-                            alert("예약자명을 입력해주세요.");
-                            f.bk_name.focus();
-                            return;
-                        }
-                        if (!f.bk_hp.value) {
-                            alert("핸드폰번호를 입력해주세요.");
-                            f.bk_hp.focus();
-                            return;
-                        }
-
-                        var payment = '무통장';
-
-                        var _bk_payment = f.bk_payment.value;
-                        if (_bk_payment == '무통장') {
-                            if (!f.bk_deposit_name.value) {
-                                alert("입금자명을 입력해주세요.");
-                                f.bk_deposit_name.focus();
-                                return;
-                            }
-                            var bk_bank_account = document.getElementById("bk_bank_account");
-                            if (bk_bank_account) {
-                                if (f.bk_bank_account.options[f.bk_bank_account.selectedIndex].value == '') {
-                                    alert("계좌번호를 선택해주세요.");
-                                    f.bk_bank_account.focus();
-                                    return;
-                                }
-                            }
-                        }
-
-                        payment = $(":input:radio[name=bk_payment]:checked").val();
-                        if (!payment) {
-                            alert("결제방식을 선택해주세요.");
-                            return;
-                        }
-
-
-                        if (f.agree1.checked == false) {
-                            alert("이용규정에 동의 후 예약이 가능합니다.");
-                            f.agree1.focus();
-                            return;
-                        }
-                        if (f.agree2.checked == false) {
-                            alert("개인정보 활용에 동의 후 예약이 가능합니다.");
-                            f.agree2.focus();
-                            return;
-                        }
-
-                        if (payment == '무통장') {
-                            if (confirm("예약하시겠습니까?")) {
-                                f.action = "https://cmtour.co.kr/plugin/wz.bookingD.prm/step.2.update.php";
-                                f.target = "_self";
-                                f.submit();
-                            }
-                        }
-                        else {
-                            pg_pay2(f);
-                        }
-
-                    }
-
-                    function getCart() {
-                        alert('로그인 후 사용 가능합니다.');    }
-
-                    //-->
-                </script>
-
                 <div class="clearfix" style="height:10px;"></div>
-
             </div>
-
         </div>
-
-        <script type="text/javascript">
-            <!--
-            Object.defineProperty(console, '_commandLineAPI', { get : function() { throw '콘솔을 사용할 수 없습니다.' } });
-            //-->
-        </script>
     </div>
 </section>
 
@@ -1158,6 +404,21 @@
 <%--스크롤_애니메이션_리셋--%>
 <script src="../front_util/js/wow.min.js"></script>
 <script> new WOW().init(); </script>
+<script>
+function requestPay() {
+  PortOne.requestPayment({
+    storeId: "store-78210a12-d8bc-46bd-8b0a-ce0679096a79",
+    paymentId: "testlw4mxlva",
+    orderName: "알빠노-동해안투어",
+    totalAmount: 71000,
+    currency: "KRW",
+    channelKey: "channel-key-c2db6c5c-a0f4-402e-a176-5ccdfd775929",
+    payMethod: "CARD",
+    card: {},
+    redirectUrl: "https://sdk-playground.portone.io/",
+  });
+}
+</script>
 </body>
 </html>
 
