@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -14,6 +15,52 @@
     <script src="https://cdn.portone.io/v2/browser-sdk.js"></script>
 
     <%@ include file="common_head.jsp" %>
+    
+    <script>
+        function calculateTotalFee() {
+            var baseFee = 25000;
+            var selectedAdultCount = parseInt(document.getElementById("rm_cnt_0").value);
+
+            var totalFee = baseFee * selectedAdultCount;
+            document.getElementById("time-total-0").innerText = totalFee.toLocaleString();
+            document.getElementById("all-total").innerText = totalFee.toLocaleString();
+            document.getElementById("pg-price-all").innerText = totalFee.toLocaleString();
+            document.getElementById("base").innerText = baseFee.toLocaleString();
+            
+            return totalFee;
+        }
+
+        window.onload = function() {
+            calculateTotalFee();
+        };
+
+        function confirmAgree() {
+            var agree1Checked = $('#agree1').is(':checked');
+            var agree2Checked = $('#agree2').is(':checked');
+
+            if (!agree1Checked) {
+                alert('예약 환불 규정에 동의가 필요합니다.');
+            } else if (!agree2Checked) {
+                alert('개인 정보 활용 동의가 필요합니다.');
+            } else {
+                requestPay();
+            }
+        }
+
+        function requestPay() {
+            PortOne.requestPayment({
+                storeId: "store-78210a12-d8bc-46bd-8b0a-ce0679096a79",
+                paymentId: "testlw4mxlva",
+                orderName: "알빠노-동해안투어",
+                totalAmount: calculateTotalFee(),
+                currency: "KRW",
+                channelKey: "channel-key-c2db6c5c-a0f4-402e-a176-5ccdfd775929",
+                payMethod: "CARD",
+                card: {},
+                redirectUrl: "https://sdk-playground.portone.io/",
+            });
+        }
+    </script>
 </head>
 
 <body>
@@ -22,7 +69,7 @@
 
 <section id="sub_visual">
     <div class="backgroundimg">
-        <div class="visual_area" style="background:url('https://cmtour.co.kr/theme/cmtour/html/image/sub_visual02.jpg') no-repeat top center;"></div>
+        <div class="visual_area" style="background:url('../front_util/images/sub_visual02.jpg') no-repeat top center;"></div>
     </div>
 </section>
 
@@ -35,24 +82,23 @@
                     <li>
                         <span>투어예약</span>
                         <ul>
-                            <li><a href="/theme/cmtour/html/business/new_01.php" target="_self">관광지</a></li>
-                            <li><a href="/bbs/board.php?bo_table=booking" target="_self">맛집</a></li>
-                            <li><a href="/theme/cmtour/html/business/map_info_01.php" target="_self">투어예약</a></li>
-                            <li><a href="/bbs/board.php?bo_table=notice" target="_self">고객센터</a></li>
-
+                            <li><a href="list_spot.jsp" target="_self">관광지</a></li>
+                            <li><a href="list_restaurant.jsp" target="_self">맛집</a></li>
+                            <li><a href="booking.jsp" target="_self">투어예약</a></li>
+                            <li><a href="main_notice.jsp?bo_table=notice" target="_self">고객센터</a></li>
                         </ul>
                     </li>
                 </ul>
                 <ul class="dep2">
                     <li>
-                        <span>결제하기</span>
+                        <span>투어예약</span>
                         <ul>
-                            <li><a href="/bbs/board.php?bo_table=booking" target="_self">맛집</a></li>
-
+                            <li><a href="tour_course.jsp" target="_self">투어코스</a></li>
+                            <li><a href="booking.jsp" target="_self">투어예약</a></li>
+                            <li><a href="list_reservation.jsp" target="_self">예약확인</a></li>
                         </ul>
                     </li>
                 </ul>
-
             </div>
         </div>
     </div>
@@ -60,59 +106,23 @@
     <div id="sub_tit">
         <div class="path">
             <li><a href="index_user.jsp"><span class="ic-home"><i></i></span></a></li>
-            <li></li>					<li>맛집</li>
+            <li></li><li>결제</li>
         </div>
-        <div class="title">맛집</div>
+        <div class="title">결제</div>
         <p class="normal_txt">	</p>
     </div>
 
     <div class="scontents">
-
-
         <div class="bg_vline"></div>
         <p class="eng"><em></em> 결제하기</p>
         <p class="stitle"></p>
 
-        <script type="text/javascript"> var cp_code = ''; </script>
-
         <div class="wetoz">
-
             <div class="col-md-12">
-
-
-                <script language="javascript" type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js" charset="UTF-8"></script>
-
-
-
-
-                <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
-                <script>
-                    jQuery(function($){
-                        $.datepicker.regional["ko"] = {
-                            closeText: "닫기",
-                            prevText: "이전달",
-                            nextText: "다음달",
-                            currentText: "오늘",
-                            monthNames: ["1월(JAN)","2월(FEB)","3월(MAR)","4월(APR)","5월(MAY)","6월(JUN)", "7월(JUL)","8월(AUG)","9월(SEP)","10월(OCT)","11월(NOV)","12월(DEC)"],
-                            monthNamesShort: ["1월","2월","3월","4월","5월","6월", "7월","8월","9월","10월","11월","12월"],
-                            dayNames: ["일","월","화","수","목","금","토"],
-                            dayNamesShort: ["일","월","화","수","목","금","토"],
-                            dayNamesMin: ["일","월","화","수","목","금","토"],
-                            weekHeader: "Wk",
-                            dateFormat: "yymmdd",
-                            firstDay: 0,
-                            isRTL: false,
-                            showMonthAfterYear: true,
-                            yearSuffix: ""
-                        };
-                        $.datepicker.setDefaults($.datepicker.regional["ko"]);
-                    });
-                </script>
-
                 <div class="navi-wrap">
                     <ul class="nav nav-tabs">
-                        <li role="presentation" class="active"><a href="https://cmtour.co.kr/bbs/board.php?bo_table=booking&cp_code=">실시간예약</a></li>
-                        <li role="presentation" class=""><a href="https://cmtour.co.kr/bbs/board.php?bo_table=booking&cp_code=&mode=orderlist">예약확인/취소</a></li>
+                        <li role="presentation" class="active"><a href="booking.jsp">실시간예약</a></li>
+                        <li role="presentation" class=""><a href="list_reservation.jsp">예약확인/취소</a></li>
                     </ul>
                     <p class="button-list">
                     </p>
@@ -120,76 +130,51 @@
 
                 <div class="clearfix" style="height:10px;"></div>
                 <form method="post" name="wzfrm" id="wzfrm" autocomplete="off">
-                    <input type="hidden" name="mode" id="mode" value="step3" />
-                    <input type="hidden" name="rm_ix" id="rm_ix" value="3" />
-                    <input type="hidden" name="sch_day" id="sch_day" value="2024-04-10" />
-                    <input type="hidden" name="bo_table" id="bo_table" value="booking" />
-                    <input type="hidden" name="od_id" id="od_id" value="1240407010528352" />
-                    <input type="hidden" name="cp_code" id="cp_code" value="" />
-                    <input type="hidden" name="card_name" id="card_name" value="" />
-
                     <div class="panel panel-default">
-
                         <div class="panel-heading"><strong><i class="fa fa-calculator fa-lg"></i> 이용서비스정보</strong>  </div>
                         <div class="table-responsive">
                             <table class="table form-group form-group-sm table-bordered font-color-gray">
                                 <thead>
                                 <tr>
                                     <th scope="col">예약서비스</th>
-                                    <th scope="col">시간/장소</th>
+                                    <th scope="col">일자</th>
                                     <th scope="col">인원</th>
                                     <th scope="col">요금</th>
                                     <th scope="col">합계</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <input type="hidden" name="rmt_ix[]"     value="70" />
-                                <input type="hidden" name="rm_time[]" id="rm_time_0" value="08:56" />
-                                <input type="hidden" name="rm_place[]" id="rm_place_0" value="The-K 경주호텔" />
-                                <input type="hidden" name="total_pcnt" id="total_pcnt" value="">
 
                                 <tr>
-                                    <td data-title="예약서비스">신라역사투어<br>24/04/10(수)</td>
-                                    <td data-title="예약시간/장소">08시56분<br>The-K 경주호텔</td>
+                                    <td data-title="예약서비스">동해안투어</td>
+                                    <td data-title="일자">24/04/10(수)</td>
                                     <td data-title="이용인원">
-                                        성인
-                                        <select name="rm_cnt[]" id="rm_cnt_0" data-price="25000" data-price-type="인당" class="form-control" style="width:40px;">
-                                            <option value="1" >1</option><option value="2" >2</option><option value="3" >3</option><option value="4" >4</option><option value="5" >5</option><option value="6" >6</option><option value="7" >7</option><option value="8" >8</option><option value="9" >9</option><option value="10" >10</option><option value="11" >11</option><option value="12" >12</option><option value="13" >13</option><option value="14" >14</option><option value="15" >15</option><option value="16" >16</option><option value="17" >17</option><option value="18" >18</option><option value="19" >19</option><option value="20" >20</option><option value="21" >21</option><option value="22" >22</option><option value="23" >23</option><option value="24" >24</option><option value="25" >25</option><option value="26" >26</option><option value="27" >27</option><option value="28" >28</option><option value="29" >29</option><option value="30" >30</option>                        </select>
-
-                                        청소년
-                                        <select name="rm_cnt_teenager[]" id="rm_cnt_teenager_0" data-price="23000" data-price-type="인당" class="form-control" style="width:40px;">
-                                            <option value="0" selected>0</option><option value="1" >1</option><option value="2" >2</option><option value="3" >3</option><option value="4" >4</option><option value="5" >5</option><option value="6" >6</option><option value="7" >7</option><option value="8" >8</option><option value="9" >9</option><option value="10" >10</option><option value="11" >11</option><option value="12" >12</option><option value="13" >13</option><option value="14" >14</option><option value="15" >15</option><option value="16" >16</option><option value="17" >17</option><option value="18" >18</option><option value="19" >19</option><option value="20" >20</option><option value="21" >21</option><option value="22" >22</option><option value="23" >23</option><option value="24" >24</option><option value="25" >25</option><option value="26" >26</option><option value="27" >27</option><option value="28" >28</option><option value="29" >29</option><option value="30" >30</option>                        </select>
-
-                                        어린이
-                                        <select name="rm_cnt_child[]" id="rm_cnt_child_0" data-price="23000" data-price-type="인당" class="form-control" style="width:40px;">
-                                            <option value="0" selected>0</option><option value="1" >1</option><option value="2" >2</option><option value="3" >3</option><option value="4" >4</option><option value="5" >5</option><option value="6" >6</option><option value="7" >7</option><option value="8" >8</option><option value="9" >9</option><option value="10" >10</option><option value="11" >11</option><option value="12" >12</option><option value="13" >13</option><option value="14" >14</option><option value="15" >15</option><option value="16" >16</option><option value="17" >17</option><option value="18" >18</option><option value="19" >19</option><option value="20" >20</option><option value="21" >21</option><option value="22" >22</option><option value="23" >23</option><option value="24" >24</option><option value="25" >25</option><option value="26" >26</option><option value="27" >27</option><option value="28" >28</option><option value="29" >29</option><option value="30" >30</option>                        </select>
-                                    </td>
-
-                                    <td data-title="요금">
-                                        성인<br>
-                                        25,000<br>
-                                        청소년<br>
-                                        23,000<br>
-                                        어린이<br>
-                                        23,000                    </td>
-                                    <td data-title="합계">
-                                        <span id="time-total-0">25,000</span>원<br>
-                                        <span id="time-total-teenager-0">23,000</span>원<br>
-                                        <span id="time-total-child-0">23,000</span>원
-                                    </td>
-                                </tr>
-                                </tbody>
-
-                                <thead>
-                                <tr>
-                                    <th colspan="4">합계</th>
-                                    <th><span id="all-total">71,000</span>원</th>
-                                </tr>
-                                </thead>
-
-                            </table>
-                        </div>
-                    </div>
+									    성인
+									    <select name="rm_cnt[]" id="rm_cnt_0" class="form-control" style="width:40px;" onchange="calculateTotalFee()">
+									        <c:forEach var="i" begin="1" end="5">
+									            <option value="${i}">${i}</option>
+									        </c:forEach>
+									    </select>
+									</td>
+		                            <td data-title="요금">
+		                                <c:set var="baseFee" value="25000" />
+		                                <span id="base"><c:out value="${baseFee}" /></span>원<br>
+		                            </td>
+		                            <td data-title="합계">
+									    <c:set var="baseFee" value="25000" />
+									    <span id="time-total-0"><c:out value="${baseFee}" /></span>원<br>
+									</td>
+		                        </tr>
+		                    </tbody>
+							<thead>
+							<tr>
+							    <th colspan="4">합계</th>
+							    <th><span id="all-total"><c:out value="${baseFee}" /></span>원</th>
+							</tr>
+							</thead>
+		                </table>
+		            </div>
+		        </div>
 
                     <div class="row">
                         <div class="col-md-12">
@@ -202,12 +187,10 @@
                                         <label class="col-sm-2 control-label" for="bk_name">예약자명</label>
                                         <div class="col-sm-10">
                                             <div class="form-inline">
-                                                <div id="helpblock_bk_name" class="help-block"><small class="text-dotum">실명으로 입력해주세요</small></div>
                                                 <div class="input-group">
                                                     <input type="text" name="bk_name" value="" id="bk_name" required class="form-control" maxlength="20" aria-describedby="helpblock_bk_name">
                                                     <span class="fa fa-check form-control-feedback"></span>
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
@@ -219,8 +202,7 @@
                                                 <div class="input-group">
                                                     <input type="number" name="bk_hp" value="" id="bk_hp" required class="form-control" maxlength="20">
                                                     <span class="fa fa-phone form-control-feedback"></span>
-                                                </div> <span>번호만 입력해주세요. 예) 01012345678 <br>
-                                    입력한 번호로 알림톡이 전송됩니다. </span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -236,28 +218,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="form-group has-feedback form-group-sm">
-                                        <label class="col-sm-2 control-label" for="bk_memo">요청사항(선택)</label>
-                                        <div class="col-sm-10">
-                                            <div class="form-inline">
-                                                <textarea name="bk_memo" id="bk_memo" class="form-control" cols="50" rows="5" placeholder="예약자와 탑승자가 다를 경우 성함과 연락처를 꼭 기입해주세요"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="form-group form-group-sm">
-                                        <label class="col-sm-2 control-label" for="bk_email">비밀번호</label>
-                                        <div class="col-sm-10">
-                                            <div class="form-inline">
-                                                <div class="input-group">
-                                                    <input type="password" name="bk_password" id="bk_password" value="" required class="form-control password" size="35" maxlength="100">
-                                                    <span class="fa fa-envelope form-control-feedback"></span>
-                                                </div> 예약조회와 취소시에 비밀번호를 조회합니다.
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -270,47 +230,16 @@
                         <div class="panel-body form-horizontal">
                             <div class="form-group form-group-sm">
                                 <label class="col-xs-4 col-sm-2 control-label">총이용금액</label>
-                                <label class="col-xs-8 col-sm-2 control-label">
-                                    <span id="pg-price-all" class="price_red">71,000</span> 원
+                                <label class="col-xs-8 col-sm-2 control-label" style="text-align:left">
+                                    <span id="pg-price-all" class="price_red"><c:out value="${baseFee}" /></span> 원
                                 </label>
-                            </div>
-                            <div class="form-group form-group-sm">
-                                <label class="col-xs-4 col-sm-2 control-label"><strong>예약금</strong></label>
-                                <label class="col-xs-8 col-sm-2 control-label">
-                                    <input type="hidden" name="pg_tot_price" id="pg_tot_price" value="" />
-                                    <input type="hidden" name="reserv_price" id="reserv_price" value="" />
-                                    <input type="hidden" name="org_bk_price" id="org_bk_price" value="" />
-                                    <strong><span id="od_tot_price" class="price_red">0</span> 원</strong>
-                                </label>
-                                <div class="col-sm-7">
-                                    <label class="control-label text-muted font-12">(결제/입금이 완료되어야 최종 예약이 완료됩니다.)</label>
-                                </div>
                             </div>
 
                             <div class="form-group form-group-sm">
                                 <label class="col-xs-4 col-sm-2 control-label">결제방법</label>
                                 <div class="col-xs-8 col-sm-10 radio-line">
-                                    <label><input type="radio" name="bk_payment" id="bk_payment_bank" class="payment_type" value="무통장" checked=checked /> 무통장입금</label><label><input type="radio" name="bk_payment" id="bk_payment_card" class="payment_type" value="신용카드" /> 신용카드</label><label><input type="radio" name="bk_payment" id="bk_payment_kakao" class="payment_type" value="카카오페이" /> 카카오페이</label>            </div>
-                            </div>
-
-                            <div id="bank_info_box" style="display:">
-                                <div class="form-group form-group-sm">
-                                    <label class="col-xs-4 col-sm-2 control-label" for="od_bank_account">입금계좌</label>
-                                    <div class="col-xs-8 col-sm-4">
-                                        <select name="bk_bank_account" id="bk_bank_account" class="form-control">
-                                            <option value="카카오뱅크 3333-05-7297403 알빠노관광">카카오뱅크 3333-05-7297403 알빠노관광</option>
-                                        </select>
-                                    </div>
+                                    <label><input type="radio" name="bk_payment" id="bk_payment_card" class="payment_type" value="신용카드" checked=checked/> 신용카드</label>
                                 </div>
-
-                                <div class="form-group form-group-sm">
-                                    <label class="col-xs-4 col-sm-2 control-label" for="od_deposit_name">입금자명</label>
-                                    <div class="col-xs-8 col-sm-2">
-                                        <input type="text" name="bk_deposit_name" id="bk_deposit_name" class="form-control" value="" placeholder="입금자명" maxlength="20">
-                                    </div>
-                                </div>
-
-
                             </div>
 
                         </div>
@@ -340,7 +269,6 @@
                                 <div>&nbsp; -&nbsp;이후 환불불가<span style="white-space:pre">						</span></div>
                                 <div>&nbsp; - 천재지변으로 운행불가 : 100%</div>
                                 <div>&nbsp; - 카드결제 : 카드승인취소</div>
-                                <div>&nbsp; - 무통장입금 : 환불 받을 계좌번호 고객센터로 전달, 환불 진행</div>
                             </div>
                         </div>
                         <div class="panel-footer">
@@ -349,7 +277,9 @@
                     </div>
 
                     <div class="panel panel-default">
-                        <div class="panel-heading"><strong><i class="fa fa-file-text-o fa-lg"></i> 개인정보 활용 동의</strong></div>
+                        <div class="panel-heading">
+                        	<strong><i class="fa fa-file-text-o fa-lg"></i> 개인정보 활용 동의</strong>
+                        </div>
                         <div class="panel-body">
 
                             귀하의 소중한 개인정보는 개인정보보호법의 관련 규정에 의하여 예약 및 조회 등 아래의 목적으로 수집 및 이용됩니다.
@@ -376,9 +306,7 @@
                                 <button type="button" class="btn btn-primary" onclick="location.href='../bbs/board.php?bo_table=booking&cp_code=&mode=step1&sch_day=2024-04-10';"><i class="fa fa-chevron-left fa-sm"></i> 이전단계</button>
                             </div>
                             <div class="btn-group" role="group">
-                                <button type="button" id="submit_next" data-loading-text="Loading..." autocomplete="off" class="btn btn-success" onclick="requestPay()"><i class="fa fa-check"></i> 예약하기</button>
-                                
-    
+                                <button type="button" id="submit_next" data-loading-text="Loading..." autocomplete="off" class="btn btn-success" onclick="confirmAgree()"><i class="fa fa-check"></i> 예약하기</button>
                             </div>
                         </div>
 
@@ -404,21 +332,5 @@
 <%--스크롤_애니메이션_리셋--%>
 <script src="../front_util/js/wow.min.js"></script>
 <script> new WOW().init(); </script>
-<script>
-function requestPay() {
-  PortOne.requestPayment({
-    storeId: "store-78210a12-d8bc-46bd-8b0a-ce0679096a79",
-    paymentId: "testlw4mxlva",
-    orderName: "알빠노-동해안투어",
-    totalAmount: 71000,
-    currency: "KRW",
-    channelKey: "channel-key-c2db6c5c-a0f4-402e-a176-5ccdfd775929",
-    payMethod: "CARD",
-    card: {},
-    redirectUrl: "https://sdk-playground.portone.io/",
-  });
-}
-</script>
 </body>
 </html>
-
