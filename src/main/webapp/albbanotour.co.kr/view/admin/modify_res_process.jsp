@@ -73,7 +73,6 @@ if(!flag){
 	rVO.setIntro(intro);
 	rVO.setLongitude(longitude);
 	rVO.setLatitude(latitude);
-out.print(rVO);
 RestaurantManagementDAO rDAO = RestaurantManagementDAO.getInstance();
 rDAO.updateRes(rVO);
 }else{
