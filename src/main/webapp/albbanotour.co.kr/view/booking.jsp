@@ -5,10 +5,16 @@
   Time: 오후 04:24
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page import="java.util.Locale"%>
+<%@ page import="java.time.format.TextStyle"%>
+<%@ page import="java.time.DayOfWeek"%>
 <%@ page import="dao.TourDAO" %>
 <%@ page import="vo.CourseManagementVO" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.time.LocalDate" %>
+<%@ page import="java.util.Calendar" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -17,6 +23,19 @@
     List<CourseManagementVO> tourList = new ArrayList<>();
     tourList = tourDAO.selectAllTourList();
     pageContext.setAttribute("tourList", tourList);
+    
+    LocalDate currentDate = LocalDate.now();
+    int currentYear = currentDate.getYear();
+    int currentMonth = currentDate.getMonthValue();
+    int today = currentDate.getDayOfMonth();
+    
+    DayOfWeek week = currentDate.getDayOfWeek();
+    
+    pageContext.setAttribute("currentYear", currentYear);
+    pageContext.setAttribute("currentMonth", currentMonth);
+    pageContext.setAttribute("today", today);
+    pageContext.setAttribute("week", week);
+    
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -75,9 +94,9 @@
                     <li>
                         <span>투어예약</span>
                         <ul>
-                            <li><a href="tour_course.html" target="_self">투어코스</a></li>
-                            <li><a href="review_spot.jsp" target="_self">투어예약</a></li>
-                            <li><a href="review_spot.jsp" target="_self">예약확인</a></li>
+                            <li><a href="tour_course.jsp" target="_self">투어코스</a></li>
+                            <li><a href="booking.jsp" target="_self">투어예약</a></li>
+                            <li><a href="list_reservation.jsp" target="_self">예약확인</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -146,73 +165,54 @@
                                 <div class="list">
                                     <div id="wrap-calendar" class="wrap-calendar">
                                         <nav>
-                                            <ul class="pager">
-                                                <li><a href="javascript:_wzSetCanlendar('2024','3');"><i
-                                                        class="fa fa-chevron-left" aria-hidden="true"></i></a></li>
-                                                <li><strong class="ym-title"><span class="text-number">2024</span><span
-                                                        class="text-hangul">.</span> <span class="text-number">04</span></strong>
-                                                </li>
-                                                <li><a href="javascript:_wzSetCanlendar('2024','5');"><i
-                                                        class="fa fa-chevron-right" aria-hidden="true"></i></a></li>
-                                            </ul>
+                                        <ul class="pager">
+    										<li>
+    											<a href="javascript:_wzSetCanlendar('${currentYear}','<%= (currentMonth - 1) %>');">
+    											<i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+    										</li>
+    										<li>
+    											<strong class="ym-title">
+    											<span class="text-number"><c:out value="${currentYear}" /></span>
+    											<span class="text-hangul">.</span> 
+    											<span class="text-number"><%= String.format("%02d", currentMonth) %></span>
+    											</strong>
+    										</li>
+    										<li>
+    											<a href="javascript:_wzSetCanlendar('${currentYear}','<%= (currentMonth + 1) %>');">
+    											<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+    										</li>
+    									</ul>
                                         </nav>
+                                        
+										<div class="daylist hidden-xs hidden-sm">
+										    <c:set var="currentDate" value="<%= LocalDate.now() %>" />
+										    <c:forEach begin="${today}" end="${currentDate.lengthOfMonth()}" varStatus="day">
+										        <c:set var="date" value="${currentDate.withDayOfMonth(day.index)}" />
+										        <c:set var="korWeek" value="${date.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.KOREAN)}" />
+										        
+										        <c:choose>
+										            <c:when test="${korWeek eq '토'}">
+										                <a href="#none" class="dayli live">
+										                    <span class="txweek box-sat">${korWeek}</span>
+										                    <span class="txday box-sat">${day.index}</span>
+										                </a>
+										            </c:when>
+										            <c:when test="${korWeek eq '일'}">
+										                <a href="#none" class="dayli live">
+										                    <span class="txweek box-sun">${korWeek}</span>
+										                    <span class="txday box-sun">${day.index}</span>
+										                </a>
+										            </c:when>
+										            <c:otherwise>
+										                <a href="#none" class="dayli live">
+										                    <span class="txweek">${korWeek}</span>
+										                    <span class="txday">${day.index}</span>
+										                </a>
+										            </c:otherwise>
+										        </c:choose>
+										    </c:forEach>
+										</div>
 
-                                        <div class="daylist hidden-xs hidden-sm">
-                                            <a href="#none" class="dayli"><span class="txweek closed">일</span> <span
-                                                    class="txday closed">07</span></a>
-                                            <a href="#none" class="dayli"><span class="txweek closed">월</span> <span
-                                                    class="txday closed">08</span></a>
-                                            <a href="#none" class="dayli live" data-date="2024-04-09"><span
-                                                    class="txweek ">화</span> <span class="txday ">09</span></a>
-                                            <a href="#none" class="dayli"><span class="txweek closed">수</span> <span
-                                                    class="txday closed">10</span></a>
-                                            <a href="#none" class="dayli live active" data-date="2024-04-11"><span
-                                                    class="txweek ">목</span> <span class="txday ">11</span></a>
-                                            <a href="#none" class="dayli"><span class="txweek closed">금</span> <span
-                                                    class="txday closed">12</span></a>
-                                            <a href="#none" class="dayli live" data-date="2024-04-13"><span
-                                                    class="txweek box-sat">토</span> <span
-                                                    class="txday box-sat">13</span></a>
-                                            <a href="#none" class="dayli live" data-date="2024-04-14"><span
-                                                    class="txweek box-sun">일</span> <span
-                                                    class="txday box-sun">14</span></a>
-                                            <a href="#none" class="dayli"><span class="txweek closed">월</span> <span
-                                                    class="txday closed">15</span></a>
-                                            <a href="#none" class="dayli live" data-date="2024-04-16"><span
-                                                    class="txweek ">화</span> <span class="txday ">16</span></a>
-                                            <a href="#none" class="dayli"><span class="txweek closed">수</span> <span
-                                                    class="txday closed">17</span></a>
-                                            <a href="#none" class="dayli live" data-date="2024-04-18"><span
-                                                    class="txweek ">목</span> <span class="txday ">18</span></a>
-                                            <a href="#none" class="dayli"><span class="txweek closed">금</span> <span
-                                                    class="txday closed">19</span></a>
-                                            <a href="#none" class="dayli live" data-date="2024-04-20"><span
-                                                    class="txweek box-sat">토</span> <span
-                                                    class="txday box-sat">20</span></a>
-                                            <a href="#none" class="dayli live" data-date="2024-04-21"><span
-                                                    class="txweek box-sun">일</span> <span
-                                                    class="txday box-sun">21</span></a>
-                                            <a href="#none" class="dayli"><span class="txweek closed">월</span> <span
-                                                    class="txday closed">22</span></a>
-                                            <a href="#none" class="dayli live" data-date="2024-04-23"><span
-                                                    class="txweek ">화</span> <span class="txday ">23</span></a>
-                                            <a href="#none" class="dayli"><span class="txweek closed">수</span> <span
-                                                    class="txday closed">24</span></a>
-                                            <a href="#none" class="dayli live" data-date="2024-04-25"><span
-                                                    class="txweek ">목</span> <span class="txday ">25</span></a>
-                                            <a href="#none" class="dayli"><span class="txweek closed">금</span> <span
-                                                    class="txday closed">26</span></a>
-                                            <a href="#none" class="dayli live" data-date="2024-04-27"><span
-                                                    class="txweek box-sat">토</span> <span
-                                                    class="txday box-sat">27</span></a>
-                                            <a href="#none" class="dayli live" data-date="2024-04-28"><span
-                                                    class="txweek box-sun">일</span> <span
-                                                    class="txday box-sun">28</span></a>
-                                            <a href="#none" class="dayli"><span class="txweek closed">월</span> <span
-                                                    class="txday closed">29</span></a>
-                                            <a href="#none" class="dayli live" data-date="2024-04-30"><span
-                                                    class="txweek ">화</span> <span class="txday ">30</span></a>
-                                        </div>
 
                                         <div class="bx-calendar">
                                             <table class="table table-bordered tbl-canlendar hidden-md hidden-lg">
@@ -354,18 +354,6 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="bxframe fm-time">
-                                <div class="head">03. 시간</div>
-                                <div class="list">
-                                    <div id="wrap-time" class="wrap-time">
-                                        <div class="btn-time"><a href="#none" class="timeli live" data-rmt-ix="1"
-                                                                 data-time="09:00" data-place="경주역"><span
-                                                class="remainc">( 60 / 60 )</span><span class="txtms">09시00분</span><span
-                                                class="txtms left-padding30">경주역</span></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
                         </tr>
                         </tbody>
                     </table>
@@ -406,7 +394,7 @@
                 <div class="panel panel-default">
                     <ul class="list-group">
                         <li class="list-group-item"><i class="fa fa-chevron-right fa-sm" aria-hidden="true"></i> 이용서비스
-                            선택 후 날짜와 시간을 선택해주세요.
+                            선택 후 날짜를 선택해주세요.
                         </li>
                         <li class="list-group-item"><i class="fa fa-chevron-right fa-sm" aria-hidden="true"></i> 예약 전
                             반드시 주의사항을 숙지하시기 바랍니다.
@@ -556,9 +544,7 @@
                 </script>
 
                 <div class="clearfix" style="height:10px;"></div>
-
             </div>
-
         </div>
 
         <script type="text/javascript">
