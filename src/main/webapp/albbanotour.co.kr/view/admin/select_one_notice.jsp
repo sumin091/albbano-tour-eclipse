@@ -23,7 +23,7 @@
 
 <style type="text/css">
 	textarea{width: 600px; height: 300px; }
-</style>;
+</style>
 <script type="text/javascript">
 	function submitForm(doc_No){
 		var form= document.createElement('form');
@@ -35,9 +35,25 @@
 		input.name='doc_No';
 		input.value=doc_No;
 		
-		form.appendChile(input);
+		form.appendChild(input);
 		document.body.appendChild(form);
 		form.submit();
+	}
+	
+	function submitDelete(doc_No){
+		var form=document.createElement('form');
+		form.method='POST';
+		form.action="deleteNotice.jsp";
+		
+		var input= document.createElement('input');
+		input.type='hidden';
+		input.name='doc_No';
+		input.value=doc_No;
+		
+		form.appendChild(input);
+		document.body.appendChild(form);
+		form.submit();
+		
 	}
 </script>
 </head>
@@ -74,6 +90,8 @@ pageContext.setAttribute("ntVO", ntVO );
 </table>
 </div>
 </form>
-<input type="button" value="공지사항 수정" onclick="submitForm('${ntVO.doc_No}')"/>
+<input type="button" value="수정" onclick="submitForm('${ntVO.doc_No}')"/>
+<input type ="button" value ="삭제" onclick="submitDelete('${ntVO.doc_No}')"/>
+<input type ="button" value ="목록" onclick="history.back()"/>
 </body>
 </html>
