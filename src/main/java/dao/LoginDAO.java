@@ -48,9 +48,9 @@ public class LoginDAO {
 			
 			loginCon=rs.next();//true-조회결과 있음, false-조회결과 없음
 			
-			System.out.println("====== " +loginCon);
+			//System.out.println("====== " +loginCon);
 		}catch(Exception ex) {
-			System.out.println("Exception" + ex);
+			//System.out.println("Exception" + ex);
 		}finally {
 			dbCon.closeCon(rs, pstmt, con);
 		}
