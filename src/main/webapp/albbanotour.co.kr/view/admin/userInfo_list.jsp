@@ -145,7 +145,7 @@ try{
 	<form action="userInfo_list.jsp" name="frmBoard" id="frmBoard">
 		<select name="field" id="field">
 			<option value="0"${ param.field eq 0?"selected='selected'":"" }>아이디</option>
-			<option value="1"${ param.field eq 1?"selected='selected'":"" }>이메일</option>
+			<%-- <option value="1"${ param.field eq 1?"selected='selected'":"" }>이메일</option> --%>
 		</select>
 		<input type="text" name="keyword" id="keyword" value="${ param.keyword }" style="width: 230px"/>
 		<input type="button" value="검색" id="btnSearch" class="btn btn-info btn-sm"/>
