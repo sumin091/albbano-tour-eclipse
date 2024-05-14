@@ -66,7 +66,7 @@ $(function(){
 
 
 </head>
-his<body>
+<body>
 	<div id="wrap">
 		<!-- <div id="header"></div> -->
 		<div id="NoticeContent">
@@ -85,7 +85,7 @@ his<body>
 				<tr>
 					<td>내용</td>
 					<td>
-					<textarea id="content" name="content"></textarea>
+					<textarea id="content" name="doc_Cont"></textarea>
 					</td>
 				</tr>
 				<!-- <tr>
