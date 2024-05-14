@@ -16,7 +16,7 @@ LoginDAO loginDAO = LoginDAO.getInstance();
 	/* if(request.getParameter("password")!=null) */
 		password = request.getParameter("mb_password");
 	
-	System.out.println("-----------------"+id+", "+password+" ");
+	//System.out.println("-----------------"+id+", "+password+" ");
 	if(loginDAO.loginRegister(id, password)){
 		session.setAttribute("idKey",id);
 %>
