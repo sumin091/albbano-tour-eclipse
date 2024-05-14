@@ -52,12 +52,13 @@ $(function(){
 <body>
 <% request.setCharacterEncoding("UTF-8"); 
 String docno= request.getParameter("doc_No");
+//out.println(docno);
 NoticeDAO ntDAO= NoticeDAO.getInstance();
 NoticeVO ntVO= ntDAO.selectOne(docno);
 pageContext.setAttribute("ntVO", ntVO);
 %>
 <form action="updateNotice_process.jsp" method="post">
-<div>
+ <div>
 	<table>
 	<thead>
 	<tr>
@@ -69,14 +70,20 @@ pageContext.setAttribute("ntVO", ntVO);
 	</thead>
 	<tbody>
 	<tr>
-		<td><input type="text" name="title" value="${ntVO.title }"/></td>
-		<td><input type="text" name="content" value="${ntVO.doc_Cont }"/></td>
+		<td>
+		<input type="hidden" value="<%= docno %>" name="doc_No"/>
+		<input type="text" name="title" value="${ntVO.title }"/></td>
+		<td><input type="text" name="doc_Cont" value="${ntVO.doc_Cont }"/></td>
 		<td><input type="text" name="id" value="${ntVO.id}"/></td>
 		<td><input type="text" name="cnt" value="1525"/></td>
 	</tr>
 	</tbody>
 	</table>
-</div>
+</div> 
+
+
+
+
 <input type="submit" value="공지사항 수정"/>
 </form>
 </body>

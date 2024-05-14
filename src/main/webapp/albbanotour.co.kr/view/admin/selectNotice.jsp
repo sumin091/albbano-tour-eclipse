@@ -35,7 +35,7 @@
 		var input= document.createElement('input');
 		input.type='hidden';
 		input.name='doc_No';
-		input.value=docNo;
+		input.value=doc_No;
 		
 		form.appendChild(input);
 		document.body.appendChild(form);

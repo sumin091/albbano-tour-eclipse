@@ -1,6 +1,4 @@
-<%@page import="java.sql.SQLException"%>
 <%@page import="dao.NoticeDAO"%>
-<%@page import="vo.NoticeVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     info=""%>
@@ -28,33 +26,18 @@
 <script type="text/javascript">
 	$(function(){
 		
-	});
-	
+	});//ready
 </script>
 </head>
 <body>
 <div>
-<%request.setCharacterEncoding("UTF-8");%>
+<%
+String docno =request.getParameter("doc_No");
+NoticeDAO ntDAO = NoticeDAO.getInstance();
+ntDAO.deleteNotice(docno);
 
-<%-- <c:catch var="e"> --%>
-<jsp:useBean id="ntVO" class="vo.NoticeVO" scope="page"/>
-<jsp:setProperty property="*" name="ntVO"/>
-
-<% 
-try{
-pageContext.setAttribute("NoticeVO", ntVO);
-NoticeDAO ntDAO=NoticeDAO.getInstance();
-String maxValue=ntDAO.selectMaxNotice(); 
-ntVO.setDoc_No(maxValue);
-ntDAO.insertNotice(ntVO);
-}catch(SQLException e){
-	e.printStackTrace();
-}
 %>
-<%-- </c:catch>
-<c:if test="${not empty e}">	
-글 작성에 실패했습니다.
-</c:if> --%>
+	
 </div>
 </body>
 </html>

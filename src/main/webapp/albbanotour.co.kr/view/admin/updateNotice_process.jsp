@@ -1,3 +1,6 @@
+<%@page import="vo.NoticeVO"%>
+<%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
+<%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@page import="dao.NoticeDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
@@ -31,15 +34,20 @@
 </head>
 <body>
 <div>
+ 
 <%
 request.setCharacterEncoding("UTF-8");
-%>	
+%>
 <jsp:useBean id="ntVO" class="vo.NoticeVO" scope="page"/>
 <jsp:setProperty property="*" name="ntVO"/>
+
 <%
-pageContext.setAttribute("ntVO", ntVO);
+/* String docno= request.getParameter("doc_No");
+ntVO.setDoc_No(docno); */
 NoticeDAO ntDAO= NoticeDAO.getInstance();
-ntDAO.updateNotice(ntVO);
+int cnt=ntDAO.updateNotice(ntVO);
+//pageContext.setAttribute("ntVO", ntVO);
+//System.out.println("----------"+cnt);
 %>
 </div>
 </body>
