@@ -7,6 +7,18 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<%
+String login_id = (String)session.getAttribute("idKey");
+	if(login_id == null){ %>
+	
+	<script>
+	alert("로그인이 필요한 페이지 입니다.");
+	location.href = "login.jsp";
+	</script>
+	
+	<% }%>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
