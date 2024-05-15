@@ -61,7 +61,7 @@
                     <li>
                         <span>맛집</span>
                         <ul>
-                            <li><a href="tour_course.jsp" target="_self">관광지</a></li>
+                            <li><a href="list_spot.jsp" target="_self">관광지</a></li>
                             <li><a href="list_restaurant.jsp" target="_self">맛집</a></li>
                             <li><a href="booking.jsp" target="_self">투어예약</a>
                             </li>
@@ -87,11 +87,11 @@
     <div id="sub_tit">
         <div class="path">
             <li><a href="index_user.jsp"><span class="ic-home"><i></i></span></a></li>
-            <li>고객센터</li>
+            <li>맛집</li>
             <li></li>
-            <li>공지사항</li>
+            <li>맛집리스트</li>
         </div>
-        <div class="title">고객센터</div>
+        <div class="title">맛집리스트</div>
         <p class="normal_txt"></p>
     </div>
 

@@ -89,9 +89,9 @@ pageContext.setAttribute("code", code);
                     <li>
                         <span>투어코스</span>
                         <ul>
-                            <li><a href="tour_course.html" target="_self">투어코스</a></li>
-                            <li><a href="review_spot.jsp" target="_self">투어예약</a></li>
-                            <li><a href="review_spot.jsp" target="_self">예약확인</a></li>
+                            <li><a href="tour_course.jsp" target="_self">투어코스</a></li>
+                            <li><a href="booking.jsp" target="_self">투어예약</a></li>
+                            <li><a href="list_reservation.jsp" target="_self">예약확인</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -103,10 +103,10 @@ pageContext.setAttribute("code", code);
     <div id="sub_tit">
         <div class="path">
             <li><a href="index_user.jsp"><span class="ic-home"><i></i></span></a></li>
-            <li>관광지</li>
+            <li>투어코스</li>
             <li>${ spt.spot_name }</li>
         </div>
-        <div class="title">관광지</div>
+        <div class="title">투어코스</div>
         <p class="normal_txt">
             홈페이지를 방문해주셔서 감사합니다.
         </p>

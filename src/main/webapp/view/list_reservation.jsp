@@ -83,10 +83,10 @@ To change this template use File | Settings | File Templates.
                     <li>
                         <span> 예약확인</span>
                         <ul>
-                            <li><a href="/theme/cmtour/html/business/new_01.php" target="_self">관광지</a></li>
-                            <li><a href="/bbs/board.php?bo_table=booking" target="_self">맛집</a></li>
-                            <li><a href="/theme/cmtour/html/business/map_info_01.php" target="_self">투어예약</a></li>
-                            <li><a href="/bbs/board.php?bo_table=notice" target="_self">고객센터</a></li>
+                            <li><a href="list_spot.jsp" target="_self">관광지</a></li>
+                            <li><a href="list_restaurant.jsp" target="_self">맛집</a></li>
+                            <li><a href="booking.jsp" target="_self">투어예약</a></li>
+                            <li><a href="main_notice.jsp?bo_table=notice" target="_self">고객센터</a></li>
 
                         </ul>
                     </li>
@@ -95,9 +95,9 @@ To change this template use File | Settings | File Templates.
                     <li>
                         <span> 예약확인</span>
                         <ul>
-                            <li><a href="/bbs/board.php?bo_table=booking" target="_self"> 예약확인</a></li>
-
-
+                            <li><a href="tour_course.html" target="_self">투어코스</a></li>
+                            <li><a href="booking.jsp" target="_self">투어예약</a></li>
+                            <li><a href="list_reservation.jsp" target="_self">예약확인</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -134,7 +134,7 @@ To change this template use File | Settings | File Templates.
                 <div class="navi-wrap">
                     <ul class="nav nav-tabs">
                         <li role="presentation" class=""><a
-                                href="https://cmtour.co.kr/bbs/board.php?bo_table=booking&cp_code=">실시간예약</a></li>
+                                href="https://cmtour.co.kr/bbs/board.php?bo_table=booking&cp_code=">예약</a></li>
                         <li role="presentation" class="active"><a
                                 href="https://cmtour.co.kr/bbs/board.php?bo_table=booking&cp_code=&mode=orderlist">예약확인/취소</a>
                         </li>
