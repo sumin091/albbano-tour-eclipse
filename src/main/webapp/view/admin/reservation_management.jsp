@@ -367,7 +367,7 @@
 																		<span class="_content_1e590_11"
 																			data-testid="dropdownItemContent"><span
 																			class="_text_1e590_24 _stretch_1e590_47"
-																			data-testid="dropdownItemText">이름</span></span>
+																			data-testid="dropdownItemText">ID</span></span>
 																	</div></span><span><div
 																		class="_dropdownItem_1e590_51 _dropdownItem-height--40_1e590_65    "
 																		role="checkbox" aria-checked="false"
@@ -431,7 +431,7 @@
 											</summary>
 											<div class="_filter-content_1b2ys_67" role="menu">
 												<div class="_filter-overlay_1b2ys_77"></div>
-												<div style="height:200px"
+												<div style="height:250px"
 													class="_detail-search-filter_1dfcu_1 _detail-filter_1b2ys_89"
 													data-testid="detail-search-filter">
 													<div class="_search-filter-container_1dfcu_8">
@@ -456,7 +456,27 @@
 																		<span class="_content_1e590_11"
 																		data-testid="dropdownItemContent"><span
 																			class="_text_1e590_24 _stretch_1e590_47"
-																			data-testid="dropdownItemText">전체</span></span></label></span><span><label
+																			data-testid="dropdownItemText">전체</span></span></label></span>
+																			<span><label
+																	class="_dropdownItem_1e590_51 _dropdownItem-height--40_1e590_65 _dropdownItem--selected_1e590_73   "
+																	role="checkbox" aria-checked="true"
+																	aria-disabled="false" data-testid="dropdownItem"><div
+																			class="_checkbox_xzle3_7 _checkbox_1e590_7"
+																			role="checkbox" aria-checked="true"
+																			aria-disabled="false"
+																			data-testid="dropdownItemCheckbox">
+																			<svg class="_icon_xzle3_36" width="20" height="20"
+																				viewBox="0 0 20 20" fill="none"
+																				xmlns="http://www.w3.org/2000/svg">
+																				<path d="M14 6L8.77778 13L6 9.36364"
+																					stroke="currentColor" stroke-width="1"
+																					stroke-linecap="round" stroke-linejoin="round"></path></svg>
+																		</div>
+																		<span class="_content_1e590_11"
+																		data-testid="dropdownItemContent"><span
+																			class="_text_1e590_24 _stretch_1e590_47"
+																			data-testid="dropdownItemText">결제예정</span></span></label></span>
+																			<span><label
 																	class="_dropdownItem_1e590_51 _dropdownItem-height--40_1e590_65 _dropdownItem--selected_1e590_73   "
 																	role="checkbox" aria-checked="true"
 																	aria-disabled="false" data-testid="dropdownItem"><div
@@ -534,13 +554,22 @@
 												class="_tag_vwbjt_7 _variant--number_vwbjt_26 _color--black_vwbjt_38 _fill--solid_vwbjt_38 "
 												data-testid="tag">5</span>
 										</button>
+										<button data-testid="tab-header" 
+											class="_tab-header_57ua2_4 _horizontal_57ua2_19 _tab-header_iuomt_4" 
+											aria-pressed="false" aria-live="polite" aria-busy="false">
+											<span 
+												class="_typography_1uzvq_4 _font--pretendard_1uzvq_9 _type--b2_1uzvq_36 _weight--bold_1uzvq_84 " 
+												data-testid="typography">결제예정</span>
+												<span class="_tag_vwbjt_7 _variant--number_vwbjt_26 _color--blue_vwbjt_56 _fill--solid_vwbjt_38 " 
+												data-testid="tag">0</span>
+										</button>
 										<button data-testid="tab-header"
 											class="_tab-header_57ua2_4 _horizontal_57ua2_19 _tab-header_iuomt_4"
 											aria-pressed="false" aria-live="polite" aria-busy="false">
 											<span
 												class="_typography_1uzvq_4 _font--pretendard_1uzvq_9 _type--b2_1uzvq_36 _weight--bold_1uzvq_84 "
-												data-testid="typography">결제완료</span><span
-												class="_tag_vwbjt_7 _variant--number_vwbjt_26 _color--green_vwbjt_83 _fill--solid_vwbjt_38 "
+												data-testid="typography">결제완료</span>
+												<span class="_tag_vwbjt_7 _variant--number_vwbjt_26 _color--green_vwbjt_83 _fill--solid_vwbjt_38 "
 												data-testid="tag">3</span>
 										</button>
 										<button data-testid="tab-header"
@@ -589,7 +618,7 @@
 										<th data-testid="buyer-column-header"
 											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--head--vertical--normal_1fpie_19 _font--pretendard_1fpie_24 _column-buyer_1lui6_26 _column_1lui6_4"><span
 											class="_typography_1uzvq_4 _font--pretendard_1uzvq_9 _type--b3_1uzvq_40 _weight--bold_1uzvq_84 "
-											data-testid="typography">고객이름</span></th>
+											data-testid="typography">고객ID</span></th>
 										<th data-testid="buyer-person-header"
 											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--head--vertical--normal_1fpie_19 _font--pretendard_1fpie_24 _column-buyer_1lui6_26 _column_1lui6_4"><span
 											class="_typography_1uzvq_4 _font--pretendard_1uzvq_9 _type--b3_1uzvq_40 _weight--bold_1uzvq_84 "

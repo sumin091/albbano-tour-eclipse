@@ -18,6 +18,18 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%
+String login_id = (String)session.getAttribute("idKey");
+	if(login_id == null){ %>
+	
+	<script>
+	alert("로그인이 필요한 페이지 입니다.");
+	location.href = "login.jsp";
+	</script>
+	
+<%  } %>
+
 <%
     TourDAO tourDAO = TourDAO.getInstance();
     List<CourseManagementVO> tourList = new ArrayList<>();
@@ -116,7 +128,6 @@
         currentMonthElement.textContent = (month < 10 ? '0' : '') + month;
     }
     
-    /** 다음단계 버튼 클릭 이벤트 */ 
     function nextStep(){
     	var courseName = $("#courseName").val();
     	var selectedDate = $("#selectedDate").val();
@@ -289,7 +300,6 @@
                             <div class="btn-group" role="group">
                                 <button type="button" class="btn btn-success" style="height: 80px;font-size: 24px" ;
                                         onclick="nextStep();">다음단계 
-                                        <!-- onclick="location.href='tour_pay.jsp'">다음단계  -->
                                         <i class="fa fa-chevron-right fa-sm"></i>
                                 </button>
                             </div>

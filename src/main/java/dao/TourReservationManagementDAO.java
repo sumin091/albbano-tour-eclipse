@@ -26,7 +26,7 @@ public class TourReservationManagementDAO {
         return instance;
     }
 	
-	public String selectMaxResvCode() throws SQLException {
+	public String createResvCode() throws SQLException {
         String prefix = "RESV_";
         String query = "SELECT MAX(RESV_CODE) AS RESV_CODE FROM RESERVATION";
         String code = "";
@@ -67,7 +67,7 @@ public class TourReservationManagementDAO {
 	    return count;
 	}
 	
-	public int updateTourReservation(TourReservationVO tourReservationVO) throws SQLException {
+	public int updateTourReservation(int resvFalg, String resvCode) throws SQLException {
 		int count = 0;
 		String updateQuery = "UPDATE RESERVATION SET RESV_FLAG = ? WHERE RESV_CODE = ?";
 		DbConnection dbConnection = DbConnection.getInstance();
@@ -75,12 +75,49 @@ public class TourReservationManagementDAO {
 		try (Connection connection = dbConnection.getConn("jdbc/abn");
 			PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
 
-			preparedStatement.setInt(1, tourReservationVO.getResv_flag());
-			preparedStatement.setString(2, tourReservationVO.getResv_code());
+			preparedStatement.setInt(1, resvFalg);
+			preparedStatement.setString(2, resvCode);
 
 			count = preparedStatement.executeUpdate();
 		}
 		
 		return count;
 	}
+	
+//	public String selectCourseName(String courseCode) throws SQLException {
+//	    String courseName = "";
+//	    String selectQuery = "SELECT CRS_NAME FROM COURSE WHERE CRS_CODE=?";
+//
+//	    DbConnection dbConnection = DbConnection.getInstance();
+//	    try (Connection connection = dbConnection.getConn("jdbc/abn");
+//	         PreparedStatement preparedStatement = connection.prepareStatement(selectQuery)) {
+//	        
+//	        preparedStatement.setString(1, courseCode);
+//	        try (ResultSet resultSet = preparedStatement.executeQuery()) {
+//	            if (resultSet.next()) {
+//	                courseName = resultSet.getString("CRS_NAME");
+//	            }
+//	        }
+//	    }
+//	    return courseName;
+//	}
+	
+	public String selectCourseCode(String courseName) throws SQLException {
+	    String courseCode = "";
+	    String selectQuery = "SELECT CRS_CODE FROM COURSE WHERE CRS_NAME=?";
+
+	    DbConnection dbConnection = DbConnection.getInstance();
+	    try (Connection connection = dbConnection.getConn("jdbc/abn");
+	         PreparedStatement preparedStatement = connection.prepareStatement(selectQuery)) {
+	        
+	        preparedStatement.setString(1, courseName);
+	        try (ResultSet resultSet = preparedStatement.executeQuery()) {
+	            if (resultSet.next()) {
+	            	courseCode = resultSet.getString("CRS_CODE");
+	            }
+	        }
+	    }
+	    return courseCode;
+	}
+
 }
