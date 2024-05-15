@@ -277,8 +277,9 @@
                         <div class="col-md-12 btn-group-justified" role="group">
                             <div class="btn-group" role="group">
                                 <button type="button" class="btn btn-success" style="height: 80px;font-size: 24px" ;
-                                        onclick="location.href='tour_pay.jsp'">다음단계 <i
-                                        class="fa fa-chevron-right fa-sm"></i></button>
+                                        onclick="location.href='tour_pay.jsp'">다음단계 
+                                        <i class="fa fa-chevron-right fa-sm"></i>
+                                </button>
                             </div>
                         </div>
                     </div>

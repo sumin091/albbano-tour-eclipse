@@ -52,7 +52,7 @@ public class TourReservationManagementDAO {
 	    DbConnection dbConnection = DbConnection.getInstance();
 	    
 	    try (Connection connection = dbConnection.getConn("jdbc/abn");
-	         PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
+	        PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
 	        
 	        preparedStatement.setString(1, tourReservationVO.getResv_code());
 	        preparedStatement.setString(2, tourReservationVO.getId());
