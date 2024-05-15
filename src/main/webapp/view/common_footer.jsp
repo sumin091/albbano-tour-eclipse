@@ -33,7 +33,7 @@
             </div>
 
             <div class="copy_logo">
-                <img src="../front_util/images/top_logo.png" alt="로고" title="로고">
+                <img src="http://127.0.0.1/front_util/images/top_logo.png" alt="로고" title="로고">
                 <p class="copy_cs">고객문의 <a href="tel:02-3483-4632">02-3483-4632</a></p>
             </div>
         </div>

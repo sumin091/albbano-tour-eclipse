@@ -15,7 +15,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>예약 관리 | 알빠노관광</title>
 
-<link rel="stylesheet" type="text/css" href="http://localhost/front_util/css/index.css">
+<link rel="stylesheet" type="text/css" href="http://127.0.0.1/front_util/css/index.css">
 
 <script src="https://cdn.channel.io/plugin/ch-plugin-web.js" async="" defer=""></script>
 </head>
@@ -160,7 +160,7 @@
 												</a></li>
 							<li role="none">
 								<a class="_menu-item_1nj6f_7 " role="menuitem" aria-current="page" tabindex="-1"
-								href="http://localhost/view/admin/reservation_management.jsp">
+								href="http://127.0.0.1/view/admin/reservation_management.jsp">
 									<span class="_left-addon_1nj6f_36">
 										<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 											<path
@@ -183,7 +183,7 @@
 							</li>
 							<li role="none"><a class="_menu-item_1nj6f_7 "
 								role="menuitem" aria-current="false" tabindex="-1"
-								href="http://localhost/view/admin/userInfo_list.jsp"><span class="_left-addon_1nj6f_36"><svg
+								href="http://127.0.0.1/view/admin/userInfo_list.jsp"><span class="_left-addon_1nj6f_36"><svg
 											width="20" height="20" viewBox="0 0 20 20" fill="none"
 											xmlns="http://www.w3.org/2000/svg">
 											<g clip-path="url(#clip0_7527_142503)">
@@ -218,13 +218,13 @@
 				</div>
 				<div class="_sidebar-bottom-container_txlxk_37">
 					<div>
-						<button type="button" class="_feedback-button_txlxk_48" style="align-items:center" onclick="window.open('http://localhost/view/index_user.jsp')">
+						<button type="button" class="_feedback-button_txlxk_48" style="align-items:center" onclick="window.open('http://127.0.0.1/view/index_user.jsp')">
 							<span class="_feedback-message_txlxk_66" style="font-size:14px">로그아웃</span>
 						</button>
 					</div>
 					<div style="margin-top:100px; text-align:right">
 						<a class="_outlink_txlxk_80"
-							href="http://localhost/view/index_user.jsp"
+							href="http://127.0.0.1/view/index_user.jsp"
 							rel="noreferrer" target="_blank" style="display:block; padding:6px; font-size:13px"><span>알빠노 관광</span><span>↗</span></a>
 					</div>
 					

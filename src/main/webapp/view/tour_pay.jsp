@@ -78,7 +78,7 @@ TourReservationManagementDAO tourReservationManagementDAO = TourReservationManag
                 channelKey: "channel-key-c2db6c5c-a0f4-402e-a176-5ccdfd775929",
                 payMethod: "CARD",
                 isTestChannel: true,
-                redirectUrl: "http://localhost/view/list_reservation.jsp",
+                redirectUrl: "http://127.0.0.1/view/list_reservation.jsp",
             });
         	
         	if (response.code != null) {
@@ -86,7 +86,7 @@ TourReservationManagementDAO tourReservationManagementDAO = TourReservationManag
         	}
         	
         	alert("결제가 성공적으로 완료되었습니다.");
-        	window.location.href = "http://localhost/view/list_reservation.jsp";
+        	window.location.href = "http://127.0.0.1/view/list_reservation.jsp";
         }
     </script>
 </head>
@@ -324,7 +324,7 @@ TourReservationManagementDAO tourReservationManagementDAO = TourReservationManag
 
                         <div id="display_pay_button" class="col-md-12 btn-group-justified" role="group">
                             <div class="btn-group" role="group">
-                                <button type="button" class="btn btn-primary" onclick="location.href='http://localhost/view/booking.jsp';"><i class="fa fa-chevron-left fa-sm"></i> 이전단계</button>
+                                <button type="button" class="btn btn-primary" onclick="location.href='http://127.0.0.1/view/booking.jsp';"><i class="fa fa-chevron-left fa-sm"></i> 이전단계</button>
                             </div>
                             <div class="btn-group" role="group">
                                 <button type="button" id="submit_next" data-loading-text="Loading..." autocomplete="off" class="btn btn-success" onclick="confirmAgree()"><i class="fa fa-check"></i> 예약하기</button>

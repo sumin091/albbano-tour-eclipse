@@ -127,8 +127,8 @@
 
     <%@include file="common_head.jsp" %>
 
-    <script type="text/javascript" src="../js/jquery.magnific-popup.min.js"></script>
-    <script type="text/javascript" src="../js/common-booking.js"></script>
+    <script type="text/javascript" src="http://127.0.0.1/front_util/js/jquery.magnific-popup.min.js"></script>
+    <script type="text/javascript" src="http://127.0.0.1/front_util/js/common-booking.js"></script>
 </head>
 
 <body>
@@ -142,7 +142,7 @@
 <section id="sub_visual">
     <div class="backgroundimg">
         <div class="visual_area"
-             style="background:url('../front_util/images/sub_visual02.jpg') no-repeat top center;">
+             style="background:url('http://127.0.0.1/front_util/images/sub_visual02.jpg') no-repeat top center;">
         </div>
     </div>
 </section>
