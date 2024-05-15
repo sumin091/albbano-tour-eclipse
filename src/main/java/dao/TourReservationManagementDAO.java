@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import util.DbConnection;
+import vo.SpotListVO;
 import vo.TourReservationVO;
 
 public class TourReservationManagementDAO {
@@ -47,12 +48,12 @@ public class TourReservationManagementDAO {
     }
 	
 	public int insertTourReservation(TourReservationVO tourReservationVO) throws SQLException {
-	    int cnt = 0;
+	    int count = 0;
 	    String insertQuery = "INSERT INTO RESERVATION VALUES (?,?,?,'N',?,?,1,SYSDATE)";
 	    DbConnection dbConnection = DbConnection.getInstance();
 	    
 	    try (Connection connection = dbConnection.getConn("jdbc/abn");
-	         PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
+	        PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
 	        
 	        preparedStatement.setString(1, tourReservationVO.getResv_code());
 	        preparedStatement.setString(2, tourReservationVO.getId());
@@ -60,9 +61,26 @@ public class TourReservationManagementDAO {
 	        preparedStatement.setInt(4, tourReservationVO.getFare());
 	        preparedStatement.setInt(5, tourReservationVO.getPerson());
 	        
-	        cnt = preparedStatement.executeUpdate();
+	        count = preparedStatement.executeUpdate();
 	    }
 	    
-	    return cnt;
+	    return count;
+	}
+	
+	public int updateTourReservation(TourReservationVO tourReservationVO) throws SQLException {
+		int count = 0;
+		String updateQuery = "UPDATE RESERVATION SET RESV_FLAG = ? WHERE RESV_CODE = ?";
+		DbConnection dbConnection = DbConnection.getInstance();
+		
+		try (Connection connection = dbConnection.getConn("jdbc/abn");
+			PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
+
+			preparedStatement.setInt(1, tourReservationVO.getResv_flag());
+			preparedStatement.setString(2, tourReservationVO.getResv_code());
+
+			count = preparedStatement.executeUpdate();
+		}
+		
+		return count;
 	}
 }

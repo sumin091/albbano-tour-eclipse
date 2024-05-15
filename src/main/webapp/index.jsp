@@ -11,6 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-<% response.sendRedirect("albbanotour.co.kr/view/index_user.jsp"); %>
+<% response.sendRedirect("view/index_user.jsp"); %>
 </body>
 </html>
