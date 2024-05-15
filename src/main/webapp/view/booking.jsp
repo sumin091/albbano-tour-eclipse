@@ -115,6 +115,14 @@
         currentYearElement.textContent = year;
         currentMonthElement.textContent = (month < 10 ? '0' : '') + month;
     }
+    
+    /** 다음단계 버튼 클릭 이벤트 */ 
+    function nextStep(){
+    	var courseName = $("#courseName").val();
+    	var selectedDate = $("#selectedDate").val();
+    	
+    	location.href='tour_pay.jsp?courseName=' + courseName + '&selectedDate=' + selectedDate;
+    }
 	</script>
 
     <%@include file="common_head.jsp" %>
@@ -127,6 +135,9 @@
 
 <%@ include file="common_m_header.jsp" %>
 <%@ include file="common_desktop_header.jsp" %>
+
+<input type="hidden" id="courseName">
+<input type="hidden" id="selectedDate">
 
 <section id="sub_visual">
     <div class="backgroundimg">
@@ -204,7 +215,7 @@
                                 <div class="head">01. 투어선택 ◀◀코스를 선택하세요▶▶</div>
                                 <div class="list">
                                     <c:forEach var="tour" items="${tourList}" varStatus="i">
-   										<a href="#" onclick="event.preventDefault()" class="roomli" data-rm-ix="${i.index}">
+   										<a href="#" onclick="$('#courseName').val('${tour.crsName}'); event.preventDefault()" class="roomli" data-rm-ix="${i.index}">
         									<div class="media-left">
             									<div class="room-photo-frame">
                 									<img src="../front_util/images/tour_booking.png" class="room-photo-main">
@@ -277,7 +288,8 @@
                         <div class="col-md-12 btn-group-justified" role="group">
                             <div class="btn-group" role="group">
                                 <button type="button" class="btn btn-success" style="height: 80px;font-size: 24px" ;
-                                        onclick="location.href='tour_pay.jsp'">다음단계 
+                                        onclick="nextStep();">다음단계 
+                                        <!-- onclick="location.href='tour_pay.jsp'">다음단계  -->
                                         <i class="fa fa-chevron-right fa-sm"></i>
                                 </button>
                             </div>

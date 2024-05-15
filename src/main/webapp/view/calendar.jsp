@@ -26,24 +26,25 @@
 %>
 
     <c:forEach begin="${day}" end="${daysInMonth}" varStatus="cal">
+    
         <c:set var="date" value="${currentDate.withDayOfMonth(cal.index)}" />
         <c:set var="korWeek" value="${date.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.KOREAN)}" />
         
         <c:choose>
             <c:when test="${korWeek eq '토'}">
-                <a href="#none" class="dayli live">
+                <a href="#none" class="dayli live" onclick="$('#selectedDate').val('${date}');">
                     <span class="txweek box-sat">${korWeek}</span>
                     <span class="txday box-sat">${cal.index}</span>
                 </a>
             </c:when>
             <c:when test="${korWeek eq '일'}">
-                <a href="#none" class="dayli live">
+                <a href="#none" class="dayli live" onclick="$('#selectedDate').val('${date}');">
                     <span class="txweek box-sun">${korWeek}</span>
                     <span class="txday box-sun">${cal.index}</span>
                 </a>
             </c:when>
             <c:otherwise>
-                <a href="#none" class="dayli live">
+                <a href="#none" class="dayli live" onclick="$('#selectedDate').val('${date}');">
                     <span class="txweek">${korWeek}</span>
                     <span class="txday">${cal.index}</span>
                 </a>

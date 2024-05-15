@@ -15,7 +15,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>예약 관리 | 알빠노관광</title>
 
-<link rel="stylesheet" type="text/css" href="http://localhost:8080/front_util/css/index.css">
+<link rel="stylesheet" type="text/css" href="http://localhost/front_util/css/index.css">
 
 <script src="https://cdn.channel.io/plugin/ch-plugin-web.js" async="" defer=""></script>
 </head>
@@ -160,7 +160,7 @@
 												</a></li>
 							<li role="none">
 								<a class="_menu-item_1nj6f_7 " role="menuitem" aria-current="page" tabindex="-1"
-								href="http://localhost:8080/view/admin/reservation_management.jsp">
+								href="http://localhost/view/admin/reservation_management.jsp">
 									<span class="_left-addon_1nj6f_36">
 										<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 											<path
@@ -183,7 +183,7 @@
 							</li>
 							<li role="none"><a class="_menu-item_1nj6f_7 "
 								role="menuitem" aria-current="false" tabindex="-1"
-								href="http://localhost:8080/view/admin/userInfo_list.jsp"><span class="_left-addon_1nj6f_36"><svg
+								href="http://localhost/view/admin/userInfo_list.jsp"><span class="_left-addon_1nj6f_36"><svg
 											width="20" height="20" viewBox="0 0 20 20" fill="none"
 											xmlns="http://www.w3.org/2000/svg">
 											<g clip-path="url(#clip0_7527_142503)">
@@ -218,13 +218,13 @@
 				</div>
 				<div class="_sidebar-bottom-container_txlxk_37">
 					<div>
-						<button type="button" class="_feedback-button_txlxk_48" style="align-items:center" onclick="window.open('http://localhost:8080/view/index_user.jsp')">
+						<button type="button" class="_feedback-button_txlxk_48" style="align-items:center" onclick="window.open('http://localhost/view/index_user.jsp')">
 							<span class="_feedback-message_txlxk_66" style="font-size:14px">로그아웃</span>
 						</button>
 					</div>
 					<div style="margin-top:100px; text-align:right">
 						<a class="_outlink_txlxk_80"
-							href="http://localhost:8080/view/index_user.jsp"
+							href="http://localhost/view/index_user.jsp"
 							rel="noreferrer" target="_blank" style="display:block; padding:6px; font-size:13px"><span>알빠노 관광</span><span>↗</span></a>
 					</div>
 					
@@ -590,13 +590,14 @@
 											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--head--vertical--normal_1fpie_19 _font--pretendard_1fpie_24 _column-buyer_1lui6_26 _column_1lui6_4"><span
 											class="_typography_1uzvq_4 _font--pretendard_1uzvq_9 _type--b3_1uzvq_40 _weight--bold_1uzvq_84 "
 											data-testid="typography">고객이름</span></th>
-										
-										
+										<th data-testid="buyer-person-header"
+											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--head--vertical--normal_1fpie_19 _font--pretendard_1fpie_24 _column-buyer_1lui6_26 _column_1lui6_4"><span
+											class="_typography_1uzvq_4 _font--pretendard_1uzvq_9 _type--b3_1uzvq_40 _weight--bold_1uzvq_84 "
+											data-testid="typography">인원</span></th>
 										<th data-testid="payment-amount-column-header"
 											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--head--vertical--normal_1fpie_19 _font--pretendard_1fpie_24 _column-amount_1lui6_36 _column_1lui6_4"><span
 											class="_typography_1uzvq_4 _font--pretendard_1uzvq_9 _type--b3_1uzvq_40 _weight--bold_1uzvq_84 "
 											data-testid="typography">결제금액</span></th>
-										
 										<th data-testid="event-time-column-header"
 											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--head--vertical--normal_1fpie_19 _font--pretendard_1fpie_24 _column-event-time_1lui6_43 _column-event-time-header_1lui6_47 _column_1lui6_4">
 											승인 시각</th>
@@ -609,6 +610,8 @@
 									class=" _payment-table-body_8ouzs_13">
 									<tr data-testid="date-row"
 										class="_tableRow_1tqkb_4 _table-direction--vertical_1tqkb_10   _date-row_8027u_4 _started-date-row_8ouzs_23 _payment-table-date-row_2hrxu_43">
+										<td data-testid="tableCell"
+											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _date-cell_8027u_10"></td>
 										<td data-testid="tableCell"
 											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _date-cell_8027u_10"></td>
 										<td data-testid="tableCell"
@@ -633,23 +636,32 @@
 										<td data-testid="iamport-merchant-id-column"
 											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-iamport-merchant-id_1lui6_19 _column_1lui6_4"><div
 												class="_container_1aijn_7">
-												<span>testlw4dm9xl1vas</span>
+												<span>RESV_00005</span>
 											</div></td>
 										<td data-testid="order-name-column"
 											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-order-name_1lui6_22 _column_1lui6_4"><span
-											class="_ellipsis-two-line_a7yez_1">알빠노-동해안투어</span></td>
+											class="_ellipsis-two-line_a7yez_1">알빠노-가출투어</span></td>
 										<td data-testid="buyer-column"
 											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-buyer_1lui6_26 _column_1lui6_4"><span
-											class="_ellipsis-two-line_a7yez_1" data-testid="buyer-info">-</span></td>
-										
+											class="_ellipsis-two-line_a7yez_1" data-testid="buyer-info">감자탕</span></td>
+										<td data-testid="buyer-person-column"
+											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-buyer_1lui6_26 _column_1lui6_4">
+											<div class="_wrapper_39jul_7">	
+												<span class="_container_t52sn_7" data-testid="amount-content">
+												<span class="_amount_t52sn_13 ">1</span>
+												<span class="_currency_t52sn_35">명</span>
+												</span>
+											</div>
+											</td>
 										<td data-testid="payment-amount-column"
-											class="_tableCell_1fpie_7 _align--right_1fpie_221 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-amount_1lui6_36 _column_1lui6_4"><div
-												class="_wrapper_39jul_7">
-												<span class="_container_t52sn_7"
-													data-testid="amount-content"><span
-													class="_amount_t52sn_13 ">100</span><span
-													class="_currency_t52sn_35">KRW</span></span>
-											</div></td>
+											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-amount_1lui6_36 _column_1lui6_4">
+											<div class="_wrapper_39jul_7">
+												<span class="_container_t52sn_7" data-testid="amount-content">
+												<span class="_amount_t52sn_13 ">100</span>
+												<span class="_currency_t52sn_35">KRW</span>
+												</span>
+											</div>
+										</td>
 										
 										<td data-testid="event-time-column"
 											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-event-time_1lui6_43 _column_1lui6_4"><span
@@ -668,23 +680,33 @@
 										<td data-testid="iamport-merchant-id-column"
 											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-iamport-merchant-id_1lui6_19 _column_1lui6_4"><div
 												class="_container_1aijn_7">
-												<span>testlw4dm9xlvas</span>
+												<span>RESV_00004</span>
 											</div></td>
 										<td data-testid="order-name-column"
 											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-order-name_1lui6_22 _column_1lui6_4"><span
-											class="_ellipsis-two-line_a7yez_1">알빠노-동해안투어</span></td>
+											class="_ellipsis-two-line_a7yez_1">알빠노-출가투어</span></td>
 										<td data-testid="buyer-column"
 											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-buyer_1lui6_26 _column_1lui6_4"><span
-											class="_ellipsis-two-line_a7yez_1" data-testid="buyer-info">-</span></td>
+											class="_ellipsis-two-line_a7yez_1" data-testid="buyer-info">참치스님</span></td>
 										
+										<td data-testid="buyer-person-column"
+											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-buyer_1lui6_26 _column_1lui6_4">
+											<div class="_wrapper_39jul_7">	
+												<span class="_container_t52sn_7" data-testid="amount-content">
+												<span class="_amount_t52sn_13 ">1</span>
+												<span class="_currency_t52sn_35">명</span>
+												</span>
+											</div>
+											</td>
 										<td data-testid="payment-amount-column"
-											class="_tableCell_1fpie_7 _align--right_1fpie_221 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-amount_1lui6_36 _column_1lui6_4"><div
-												class="_wrapper_39jul_7">
-												<span class="_container_t52sn_7"
-													data-testid="amount-content"><span
-													class="_amount_t52sn_13 ">100</span><span
-													class="_currency_t52sn_35">KRW</span></span>
-											</div></td>
+											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-amount_1lui6_36 _column_1lui6_4">
+											<div class="_wrapper_39jul_7">
+												<span class="_container_t52sn_7" data-testid="amount-content">
+												<span class="_amount_t52sn_13 ">100</span>
+												<span class="_currency_t52sn_35">KRW</span>
+												</span>
+											</div>
+										</td>
 										
 										<td data-testid="event-time-column"
 											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-event-time_1lui6_43 _column_1lui6_4"><span
@@ -704,23 +726,33 @@
 										<td data-testid="iamport-merchant-id-column"
 											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-iamport-merchant-id_1lui6_19 _column_1lui6_4"><div
 												class="_container_1aijn_7">
-												<span>testlw4m9xlvas</span>
+												<span>RESV_00003</span>
 											</div></td>
 										<td data-testid="order-name-column"
 											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-order-name_1lui6_22 _column_1lui6_4"><span
 											class="_ellipsis-two-line_a7yez_1">알빠노-동해안투어</span></td>
 										<td data-testid="buyer-column"
 											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-buyer_1lui6_26 _column_1lui6_4"><span
-											class="_ellipsis-two-line_a7yez_1" data-testid="buyer-info">-</span></td>
+											class="_ellipsis-two-line_a7yez_1" data-testid="buyer-info">제육볶음</span></td>
 										
+										<td data-testid="buyer-person-column"
+											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-buyer_1lui6_26 _column_1lui6_4">
+											<div class="_wrapper_39jul_7">	
+												<span class="_container_t52sn_7" data-testid="amount-content">
+												<span class="_amount_t52sn_13 ">1</span>
+												<span class="_currency_t52sn_35">명</span>
+												</span>
+											</div>
+											</td>
 										<td data-testid="payment-amount-column"
-											class="_tableCell_1fpie_7 _align--right_1fpie_221 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-amount_1lui6_36 _column_1lui6_4"><div
-												class="_wrapper_39jul_7">
-												<span class="_container_t52sn_7"
-													data-testid="amount-content"><span
-													class="_amount_t52sn_13 ">100</span><span
-													class="_currency_t52sn_35">KRW</span></span>
-											</div></td>
+											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-amount_1lui6_36 _column_1lui6_4">
+											<div class="_wrapper_39jul_7">
+												<span class="_container_t52sn_7" data-testid="amount-content">
+												<span class="_amount_t52sn_13 ">100</span>
+												<span class="_currency_t52sn_35">KRW</span>
+												</span>
+											</div>
+										</td>
 										
 										<td data-testid="event-time-column"
 											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-event-time_1lui6_43 _column_1lui6_4"><span
@@ -740,23 +772,33 @@
 										<td data-testid="iamport-merchant-id-column"
 											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-iamport-merchant-id_1lui6_19 _column_1lui6_4"><div
 												class="_container_1aijn_7">
-												<span>testlw4mxlvas</span>
+												<span>RESV_00002</span>
 											</div></td>
 										<td data-testid="order-name-column"
 											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-order-name_1lui6_22 _column_1lui6_4"><span
 											class="_ellipsis-two-line_a7yez_1">알빠노-동해안투어</span></td>
 										<td data-testid="buyer-column"
 											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-buyer_1lui6_26 _column_1lui6_4"><span
-											class="_ellipsis-two-line_a7yez_1" data-testid="buyer-info">-</span></td>
+											class="_ellipsis-two-line_a7yez_1" data-testid="buyer-info">김치찌개</span></td>
 										
+										<td data-testid="buyer-person-column"
+											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-buyer_1lui6_26 _column_1lui6_4">
+											<div class="_wrapper_39jul_7">	
+												<span class="_container_t52sn_7" data-testid="amount-content">
+												<span class="_amount_t52sn_13 ">1</span>
+												<span class="_currency_t52sn_35">명</span>
+												</span>
+											</div>
+											</td>
 										<td data-testid="payment-amount-column"
-											class="_tableCell_1fpie_7 _align--right_1fpie_221 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-amount_1lui6_36 _column_1lui6_4"><div
-												class="_wrapper_39jul_7">
-												<span class="_container_t52sn_7"
-													data-testid="amount-content"><span
-													class="_amount_t52sn_13 ">100</span><span
-													class="_currency_t52sn_35">KRW</span></span>
-											</div></td>
+											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-amount_1lui6_36 _column_1lui6_4">
+											<div class="_wrapper_39jul_7">
+												<span class="_container_t52sn_7" data-testid="amount-content">
+												<span class="_amount_t52sn_13 ">100</span>
+												<span class="_currency_t52sn_35">KRW</span>
+												</span>
+											</div>
+										</td>
 										
 										<td data-testid="event-time-column"
 											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-event-time_1lui6_43 _column_1lui6_4"><span
@@ -776,23 +818,33 @@
 										<td data-testid="iamport-merchant-id-column"
 											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-iamport-merchant-id_1lui6_19 _column_1lui6_4"><div
 												class="_container_1aijn_7">
-												<span>testlw4mxlva</span>
+												<span>RESV_00001</span>
 											</div></td>
 										<td data-testid="order-name-column"
 											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-order-name_1lui6_22 _column_1lui6_4"><span
 											class="_ellipsis-two-line_a7yez_1">알빠노-동해안투어</span></td>
 										<td data-testid="buyer-column"
 											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-buyer_1lui6_26 _column_1lui6_4"><span
-											class="_ellipsis-two-line_a7yez_1" data-testid="buyer-info">-</span></td>
+											class="_ellipsis-two-line_a7yez_1" data-testid="buyer-info">부대찌개</span></td>
 										
+										<td data-testid="buyer-person-column"
+											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-buyer_1lui6_26 _column_1lui6_4">
+											<div class="_wrapper_39jul_7">	
+												<span class="_container_t52sn_7" data-testid="amount-content">
+												<span class="_amount_t52sn_13 ">1</span>
+												<span class="_currency_t52sn_35">명</span>
+												</span>
+											</div>
+											</td>
 										<td data-testid="payment-amount-column"
-											class="_tableCell_1fpie_7 _align--right_1fpie_221 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-amount_1lui6_36 _column_1lui6_4"><div
-												class="_wrapper_39jul_7">
-												<span class="_container_t52sn_7"
-													data-testid="amount-content"><span
-													class="_amount_t52sn_13 ">100</span><span
-													class="_currency_t52sn_35">KRW</span></span>
-											</div></td>
+											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-amount_1lui6_36 _column_1lui6_4">
+											<div class="_wrapper_39jul_7">
+												<span class="_container_t52sn_7" data-testid="amount-content">
+												<span class="_amount_t52sn_13 ">100</span>
+												<span class="_currency_t52sn_35">KRW</span>
+												</span>
+											</div>
+										</td>
 										
 										<td data-testid="event-time-column"
 											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-event-time_1lui6_43 _column_1lui6_4"><span
@@ -801,7 +853,6 @@
 										<td data-testid="cancel-payment-column"
 											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24  _column_1lui6_4"><span
 											class="_cancel-text_1h0fb_7">취소</span></td>
-										
 									</tr>
 								</tbody>
 							</table>
@@ -817,6 +868,4 @@
 		<div
 			class="select-none pointer-events-none z-pop-over fixed top-0 left-0 w-screen h-screen"></div>
 	</div>
-
-
 </html>

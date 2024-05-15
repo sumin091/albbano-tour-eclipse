@@ -5,10 +5,11 @@
   Time: 오후 03:56
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page import="dao.TourReservationManagementDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<%
+<%-- <%
 String login_id = (String)session.getAttribute("idKey");
 	if(login_id == null){ %>
 	
@@ -17,8 +18,16 @@ String login_id = (String)session.getAttribute("idKey");
 	location.href = "login.jsp";
 	</script>
 	
-	<% }%>
+<%  } %>
 
+<%
+TourReservationManagementDAO tourReservationManagementDAO = TourReservationManagementDAO.getInstance();
+%> --%>
+
+<%
+	String courseName= (String)request.getParameter("courseName");
+	String selectedDate= (String)request.getParameter("selectedDate");
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -62,14 +71,14 @@ String login_id = (String)session.getAttribute("idKey");
         async function requestPay() {
         	const response = await PortOne.requestPayment({
                 storeId: "store-78210a12-d8bc-46bd-8b0a-ce0679096a79",
-                paymentId: "testlw4dm9xl1vas",
-                orderName: "알빠노-동해안투어",
+                paymentId: "testlw4dm9fxl1vas",
+                orderName: '<%= courseName %>',
                 totalAmount: calculateTotalFee(),
                 currency: "KRW",
                 channelKey: "channel-key-c2db6c5c-a0f4-402e-a176-5ccdfd775929",
                 payMethod: "CARD",
                 isTestChannel: true,
-                redirectUrl: "http://localhost:8080/albbano-tour/view/list_reservation.jsp",
+                redirectUrl: "http://localhost/view/list_reservation.jsp",
             });
         	
         	if (response.code != null) {
@@ -77,7 +86,7 @@ String login_id = (String)session.getAttribute("idKey");
         	}
         	
         	alert("결제가 성공적으로 완료되었습니다.");
-        	window.location.href = "http://localhost:8080/albbano-tour/view/list_reservation.jsp";
+        	window.location.href = "http://localhost/view/list_reservation.jsp";
         }
     </script>
 </head>
@@ -149,6 +158,9 @@ String login_id = (String)session.getAttribute("idKey");
 
                 <div class="clearfix" style="height:10px;"></div>
                 <form method="post" name="wzfrm" id="wzfrm" autocomplete="off">
+                	
+                	
+                    
                     <div class="panel panel-default">
                         <div class="panel-heading"><strong><i class="fa fa-calculator fa-lg"></i> 이용서비스정보</strong>  </div>
                         <div class="table-responsive">
@@ -165,8 +177,8 @@ String login_id = (String)session.getAttribute("idKey");
                                 <tbody>
 
                                 <tr>
-                                    <td data-title="예약서비스">동해안투어</td>
-                                    <td data-title="일자">24/04/10(수)</td>
+                                    <td data-title="예약서비스"><%= courseName %></td>
+                                    <td data-title="일자"><%=selectedDate %></td>
                                     <td data-title="이용인원">
 									    성인
 									    <select name="rm_cnt[]" id="rm_cnt_0" class="form-control" style="width:40px;" onchange="calculateTotalFee()">
@@ -207,7 +219,7 @@ String login_id = (String)session.getAttribute("idKey");
                                         <div class="col-sm-10">
                                             <div class="form-inline">
                                                 <div class="input-group">
-                                                    <input type="text" name="bk_name" value="" id="bk_name" required class="form-control" maxlength="20" aria-describedby="helpblock_bk_name">
+                                                    <input readonly type="text" name="bk_name" value="" id="bk_name" required class="form-control" maxlength="20" aria-describedby="helpblock_bk_name">
                                                     <span class="fa fa-check form-control-feedback"></span>
                                                 </div>
                                             </div>
@@ -219,7 +231,7 @@ String login_id = (String)session.getAttribute("idKey");
                                         <div class="col-sm-10">
                                             <div class="form-inline">
                                                 <div class="input-group">
-                                                    <input type="number" name="bk_hp" value="" id="bk_hp" required class="form-control" maxlength="20">
+                                                    <input readonly type="number" name="bk_hp" value="" id="bk_hp" required class="form-control" maxlength="20">
                                                     <span class="fa fa-phone form-control-feedback"></span>
                                                 </div>
                                             </div>
@@ -231,7 +243,7 @@ String login_id = (String)session.getAttribute("idKey");
                                         <div class="col-sm-10">
                                             <div class="form-inline">
                                                 <div class="input-group">
-                                                    <input type="email" name="bk_email" id="bk_email" value="" required class="form-control email" size="35" maxlength="100">
+                                                    <input readonly type="email" name="bk_email" id="bk_email" value="" required class="form-control email" size="35" maxlength="100">
                                                     <span class="fa fa-envelope form-control-feedback"></span>
                                                 </div>
                                             </div>
@@ -260,7 +272,6 @@ String login_id = (String)session.getAttribute("idKey");
                                     <label><input type="radio" name="bk_payment" id="bk_payment_card" class="payment_type" value="신용카드" checked=checked/> 신용카드</label>
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
@@ -277,17 +288,8 @@ String login_id = (String)session.getAttribute("idKey");
 
                             <div class="bs-callout bs-callout-warning">
                                 <h4>이용 안내</h4>
-                                <div>● 예약변경<span style="white-space: pre;">						</span>&nbsp;
-                                </div>
-                                <div>&nbsp; - 예약변경은 탑승일 하루전 16시까지 1회 변경가능(단, 원하시는코스가 만석일 경우 불가능)<span style="white-space:pre">						</span></div>
-                                <div>&nbsp; - 변경일 투어모객 미달 시, 취소나 환불 불가<span style="white-space:pre">						</span></div>
-                                <div><br></div>
-                                <div>● 예약취소 환불안내<span style="white-space:pre">						</span></div>
-                                <div>&nbsp; - 환불요청은 영업일 (09~18시) 기준으로 적용됩니다.<span style="white-space:pre">						</span></div>
-                                <div>&nbsp; - 투어 3일전까지 취소가능 : 100% 환불<span style="white-space:pre">						</span></div>
-                                <div>&nbsp; -&nbsp;이후 환불불가<span style="white-space:pre">						</span></div>
-                                <div>&nbsp; - 천재지변으로 운행불가 : 100%</div>
-                                <div>&nbsp; - 카드결제 : 카드승인취소</div>
+                                <div>● 예약취소<span style="white-space:pre">						</span></div>
+                                <div>&nbsp; - 천재지변으로 운행불가시 : 카드 승인 취소</div>
                             </div>
                         </div>
                         <div class="panel-footer">
@@ -322,7 +324,7 @@ String login_id = (String)session.getAttribute("idKey");
 
                         <div id="display_pay_button" class="col-md-12 btn-group-justified" role="group">
                             <div class="btn-group" role="group">
-                                <button type="button" class="btn btn-primary" onclick="location.href='../bbs/board.php?bo_table=booking&cp_code=&mode=step1&sch_day=2024-04-10';"><i class="fa fa-chevron-left fa-sm"></i> 이전단계</button>
+                                <button type="button" class="btn btn-primary" onclick="location.href='http://localhost/view/booking.jsp';"><i class="fa fa-chevron-left fa-sm"></i> 이전단계</button>
                             </div>
                             <div class="btn-group" role="group">
                                 <button type="button" id="submit_next" data-loading-text="Loading..." autocomplete="off" class="btn btn-success" onclick="confirmAgree()"><i class="fa fa-check"></i> 예약하기</button>
