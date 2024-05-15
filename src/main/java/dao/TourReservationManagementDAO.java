@@ -49,7 +49,7 @@ public class TourReservationManagementDAO {
 	
 	public int insertTourReservation(TourReservationVO tourReservationVO) throws SQLException {
 	    int count = 0;
-	    String insertQuery = "INSERT INTO RESERVATION VALUES (?,?,?,'N',?,?,1,SYSDATE)";
+	    String insertQuery = "INSERT INTO RESERVATION VALUES (?,?,?,'N',?,?,1,SYSDATE,?)";
 	    DbConnection dbConnection = DbConnection.getInstance();
 	    
 	    try (Connection connection = dbConnection.getConn("jdbc/abn");
@@ -60,6 +60,7 @@ public class TourReservationManagementDAO {
 	        preparedStatement.setString(3, tourReservationVO.getCrs_code());
 	        preparedStatement.setInt(4, tourReservationVO.getFare());
 	        preparedStatement.setInt(5, tourReservationVO.getPerson());
+	        preparedStatement.setDate(6, tourReservationVO.getTour_date());
 	        
 	        count = preparedStatement.executeUpdate();
 	    }

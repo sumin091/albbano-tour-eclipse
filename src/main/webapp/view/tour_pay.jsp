@@ -5,8 +5,10 @@
   Time: 오후 03:56
   To change this template use File | Settings | File Templates.
 --%>
-<%@page import="vo.TourReservationVO"%>
-<%@page import="dao.UserInfoManagementDAO"%>
+<%@ page import="java.time.LocalDate"%>
+<%@ page import="java.sql.Date"%>
+<%@ page import="vo.TourReservationVO"%>
+<%@ page import="dao.UserInfoManagementDAO"%>
 <%@ page import="vo.UserInfoVO"%>
 <%@ page import="dao.TourReservationManagementDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -25,6 +27,10 @@
 	String courseName= request.getParameter("courseName");
 	String selectedDate= request.getParameter("selectedDate");
 	
+	LocalDate localDate = LocalDate.parse(selectedDate);
+	Date tourDate = Date.valueOf(localDate);
+
+	
 	UserInfoManagementDAO userInfoManagementDAO = UserInfoManagementDAO.getInstance();
 	UserInfoVO userInfoVO = userInfoManagementDAO.selectInfo(login_id);
 	pageContext.setAttribute("userInfoVO",userInfoVO);
@@ -33,8 +39,8 @@
 	String resvCode = tourReservationManagementDAO.createResvCode();
 	String courseCode = tourReservationManagementDAO.selectCourseCode(courseName);
 	
-	 int selectedAdultCount = Integer.parseInt(request.getParameter("rm_cnt_0"));
-	 int totalFee = 25000 * selectedAdultCount;
+	int selectedAdultCount = Integer.parseInt(request.getParameter("rm_cnt_0"));
+	int totalFee = 25000 * selectedAdultCount;
 	
 	TourReservationVO tourReservationVO = new TourReservationVO();
 	tourReservationVO.setResv_code(resvCode);
@@ -43,6 +49,7 @@
 	tourReservationVO.setFare(totalFee);
 	tourReservationVO.setPerson(selectedAdultCount);
 	tourReservationVO.setResv_flag(0);
+	tourReservationVO.setTour_date(tourDate);
 	
 	int count = tourReservationManagementDAO.insertTourReservation(tourReservationVO);
 	pageContext.setAttribute("resvCode",resvCode);
