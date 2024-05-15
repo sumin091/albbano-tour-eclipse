@@ -69,7 +69,7 @@ String login_id = (String)session.getAttribute("idKey");
                 channelKey: "channel-key-c2db6c5c-a0f4-402e-a176-5ccdfd775929",
                 payMethod: "CARD",
                 isTestChannel: true,
-                redirectUrl: "http://localhost:8080/albbano-tour/albbanotour.co.kr/view/list_reservation.jsp",
+                redirectUrl: "http://localhost:8080/albbano-tour/view/list_reservation.jsp",
             });
         	
         	if (response.code != null) {
@@ -77,7 +77,7 @@ String login_id = (String)session.getAttribute("idKey");
         	}
         	
         	alert("결제가 성공적으로 완료되었습니다.");
-        	window.location.href = "http://localhost:8080/albbano-tour/albbanotour.co.kr/view/list_reservation.jsp";
+        	window.location.href = "http://localhost:8080/albbano-tour/view/list_reservation.jsp";
         }
     </script>
 </head>

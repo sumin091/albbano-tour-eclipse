@@ -113,7 +113,7 @@ To change this template use File | Settings | File Templates.
         <p class="stitle"></p>
 
 		<c:if test="${ empty uiVO }">
-			<c:redirect url="http://http://192.168.10.223/albbano-tour-eclipse/albbanotour.co.kr/view/index_user.jsp"/>
+			<c:redirect url="http://http://192.168.10.223/albbano-tour-eclipse/view/index_user.jsp"/>
 		</c:if>
 
 

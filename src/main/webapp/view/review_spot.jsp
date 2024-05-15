@@ -36,7 +36,7 @@ To change this template use File | Settings | File Templates.
 	String sptName = request.getParameter("spt_name");
 	String login_id = (String)session.getAttribute("idKey");
 	if( sptCode==null){
-      	response.sendRedirect("http://localhost/albbano-tour-eclipse/albbanotour.co.kr/view/list_spot.jsp");
+      	response.sendRedirect("http://localhost/albbano-tour-eclipse/view/list_spot.jsp");
       	return;
       }
 	

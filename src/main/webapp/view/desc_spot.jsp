@@ -12,7 +12,7 @@ To change this template use File | Settings | File Templates.
 String sptCode = request.getParameter("spot_code");
 
 if( sptCode==null){
- 	response.sendRedirect("http://localhost/albbano-tour-eclipse/albbanotour.co.kr/view/list_spot.jsp");
+ 	response.sendRedirect("http://localhost/albbano-tour-eclipse/view/list_spot.jsp");
  	return;
  }
 

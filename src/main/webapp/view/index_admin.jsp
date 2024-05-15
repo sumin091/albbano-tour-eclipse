@@ -12,107 +12,41 @@
 <meta charset="UTF-8">
 <link rel="icon" href="/favicon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>알빠노관광 관리자 메인</title>
+<title>관리자 메인 | 알빠노관광</title>
 
-<link rel="stylesheet" type="text/css"
-	href="http://localhost:8080/albbanotour.co.kr/front_util/css/index.css">
+<link rel="stylesheet" type="text/css" href="http://localhost:8080/front_util/css/index.css">
 
-<script type="module" crossorigin="" src="/assets/index-b574952f.js"></script>
-
-<script>
-	(function(w, d, s, l, i) {
-		w[l] = w[l] || [];
-		w[l].push({
-			'gtm.start' : new Date().getTime(),
-			event : 'gtm.js'
-		});
-		var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l='
-				+ l
-				: '';
-		j.async = true;
-		j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-		f.parentNode.insertBefore(j, f);
-	})(window, document, 'script', 'dataLayer', 'GTM-PMLQ2ZD');
-</script>
-<script>
-	window.dataLayer = window.dataLayer || [];
-	function gtag() {
-		dataLayer.push(arguments);
-	}
-	gtag('js', new Date());
-
-	gtag('config', 'G-1FZH1L727R', {
-		page_path : window.location.pathname,
-	});
-</script>
-<script src="https://cdn.channel.io/plugin/ch-plugin-web.js" async=""
-	defer=""></script>
+<script src="https://cdn.channel.io/plugin/ch-plugin-web.js" async="" defer=""></script>
 </head>
 <body class="" style="">
 	<div id="root">
 		<div class="flex">
 			<aside class="_sidebar_txlxk_7">
 				<div class="_sidebar-layout-container_txlxk_18">
-					<a class="_on-boarding-button_1srlb_7 _on-boarding-button_txlxk_32"
-						role="menuitem" aria-current="false" tabindex="0"
-						data-testid="on-boarding-button" data-trackid="onboarding-lnb-cta"
-						href="/onboarding">
+					<a class="_on-boarding-button_1srlb_7 _on-boarding-button_txlxk_32" role="menuitem" aria-current="false" tabindex="0" data-testid="on-boarding-button" data-trackid="onboarding-lnb-cta">
+						<img src="/favicon.png" style="width:20px"/>
 						<div class="_on-boarding-button-text_1srlb_26">알빠노 관광</div>
-						<svg width="32" height="32" viewBox="0 0 32 32" fill="none"
-							xmlns="http://www.w3.org/2000/svg">
-    <g clip-path="url(#clip0_6379_131543)">
-    <g filter="url(#filter0_d_6379_131543)">
-    <path fill-rule="evenodd" clip-rule="evenodd"
-								d="M14.9127 8.73849C15.8955 7.48028 18.3107 8.51506 17.907 10.0214L16.7319 14.4073C16.7918 14.4175 16.852 14.4307 16.9122 14.4468L19.9708 15.2663C21.0782 15.5631 21.6066 16.687 21.0024 17.4605L16.0123 23.8494C15.0296 25.1076 12.6144 24.0728 13.018 22.5665L14.1932 18.1806C14.1333 18.1703 14.0731 18.1572 14.0129 18.1411L10.9543 17.3215C9.84689 17.0248 9.31848 15.9009 9.92266 15.1273L14.9127 8.73849Z"
-								fill="white"></path>
-							<path fill-rule="evenodd" clip-rule="evenodd"
-								d="M14.9127 8.73849C15.8955 7.48028 18.3107 8.51506 17.907 10.0214L16.7319 14.4073C16.7918 14.4175 16.852 14.4307 16.9122 14.4468L19.9708 15.2663C21.0782 15.5631 21.6066 16.687 21.0024 17.4605L16.0123 23.8494C15.0296 25.1076 12.6144 24.0728 13.018 22.5665L14.1932 18.1806C14.1333 18.1703 14.0731 18.1572 14.0129 18.1411L10.9543 17.3215C9.84689 17.0248 9.31848 15.9009 9.92266 15.1273L14.9127 8.73849Z"
-								fill="url(#paint0_radial_6379_131543)"></path></g></g>
-    <defs>
-    <filter id="filter0_d_6379_131543" x="1.66992" y="4.17505"
-								width="27.5859" height="32.2377" filterUnits="userSpaceOnUse"
-								color-interpolation-filters="sRGB">
-    <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
-    <feColorMatrix in="SourceAlpha" type="matrix"
-								values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-								result="hardAlpha"></feColorMatrix>
-    <feOffset dy="4"></feOffset>
-    <feGaussianBlur stdDeviation="4"></feGaussianBlur>
-    <feComposite in2="hardAlpha" operator="out"></feComposite>
-    <feColorMatrix type="matrix"
-								values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.4 0"></feColorMatrix>
-    <feBlend mode="normal" in2="BackgroundImageFix"
-								result="effect1_dropShadow_6379_131543"></feBlend>
-    <feBlend mode="normal" in="SourceGraphic"
-								in2="effect1_dropShadow_6379_131543" result="shape"></feBlend>
-    </filter>
-    <radialGradient id="paint0_radial_6379_131543" cx="0" cy="0" r="1"
-								gradientUnits="userSpaceOnUse"
-								gradientTransform="translate(16.9631 27.9442) rotate(-84.8705) scale(24.031 27.3311)">
-    <stop stop-color="#FC6B2D"></stop>
-    <stop offset="1" stop-color="white" stop-opacity="0"></stop></radialGradient>
-    <clipPath id="clip0_6379_131543">
-							<rect width="32" height="32" fill="white"></rect></clipPath></defs></svg></a>
+					</a>
 					<nav class="_navigation-container_pupui_1">
 						<ul class="_menubar_g1ej3_1 " role="menubar">
-							<li role="none"><a class="_menu-item_1nj6f_7 "
-								role="menuitem" aria-current="page" tabindex="-1" href="/">
-									<span class="_left-addon_1nj6f_36"> <svg width="20"
-											height="20" viewBox="0 0 20 20" fill="none"
-											xmlns="http://www.w3.org/2000/svg">
-											<path
-												d="M5.00002 9.74062V16.2635C5.00002 16.4586 5.0814 16.6457 5.2263 16.7838C5.3712 16.9219 5.56777 16.9996 5.77288 17H7.80573C8.01083 16.9996 8.20741 16.9219 8.35231 16.7838C8.49721 16.6457 8.57859 16.4586 8.57859 16.2635V14.3881C8.57859 14.1928 8.66016 14.0055 8.80537 13.8673C8.95057 13.7292 9.14752 13.6516 9.35287 13.6516H10.6472C10.7494 13.6507 10.8509 13.6691 10.9457 13.7057C11.0404 13.7423 11.1266 13.7964 11.1993 13.8649C11.2719 13.9334 11.3296 14.0149 11.369 14.1047C11.4083 14.1945 11.4286 14.2908 11.4286 14.3881V16.258C11.4286 16.4531 11.51 16.6403 11.6549 16.7784C11.7998 16.9164 11.9963 16.9942 12.2014 16.9946H14.2286C14.4334 16.9938 14.6296 16.9159 14.7742 16.7779C14.9188 16.6398 15 16.4529 15 16.258V9.73518C15 9.5402 14.9186 9.3532 14.7736 9.21533C14.6287 9.07746 14.4321 9 14.2271 9H5.77145C5.66959 9.00018 5.56878 9.0195 5.4748 9.05687C5.38083 9.09423 5.29554 9.1489 5.22385 9.21773C5.15216 9.28656 5.09548 9.36818 5.05707 9.45792C5.01866 9.54765 4.99927 9.64373 5.00002 9.74062Z"
+							<li role="none">
+							<a class="_menu-item_1nj6f_7 " role="menuitem" aria-current="page" tabindex="-1" onclick="top.location='javascript:location.reload()'">
+									<span class="_left-addon_1nj6f_36"> 
+									<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M5.00002 9.74062V16.2635C5.00002 16.4586 5.0814 16.6457 5.2263 16.7838C5.3712 16.9219 5.56777 16.9996 5.77288 17H7.80573C8.01083 16.9996 8.20741 16.9219 8.35231 16.7838C8.49721 16.6457 8.57859 16.4586 8.57859 16.2635V14.3881C8.57859 14.1928 8.66016 14.0055 8.80537 13.8673C8.95057 13.7292 9.14752 13.6516 9.35287 13.6516H10.6472C10.7494 13.6507 10.8509 13.6691 10.9457 13.7057C11.0404 13.7423 11.1266 13.7964 11.1993 13.8649C11.2719 13.9334 11.3296 14.0149 11.369 14.1047C11.4083 14.1945 11.4286 14.2908 11.4286 14.3881V16.258C11.4286 16.4531 11.51 16.6403 11.6549 16.7784C11.7998 16.9164 11.9963 16.9942 12.2014 16.9946H14.2286C14.4334 16.9938 14.6296 16.9159 14.7742 16.7779C14.9188 16.6398 15 16.4529 15 16.258V9.73518C15 9.5402 14.9186 9.3532 14.7736 9.21533C14.6287 9.07746 14.4321 9 14.2271 9H5.77145C5.66959 9.00018 5.56878 9.0195 5.4748 9.05687C5.38083 9.09423 5.29554 9.1489 5.22385 9.21773C5.15216 9.28656 5.09548 9.36818 5.05707 9.45792C5.01866 9.54765 4.99927 9.64373 5.00002 9.74062Z"
 												fill="#FC6B2D"></path>
-											<path
-												d="M15.9953 11H4.00465C3.79856 10.9967 3.59825 10.9288 3.43012 10.8051C3.26198 10.6814 3.1339 10.5079 3.06274 10.3072C2.99158 10.1066 2.98067 9.88832 3.03146 9.68113C3.08224 9.47395 3.19234 9.28758 3.34725 9.14655L8.57587 4.54317C8.97337 4.19254 9.47817 4 10 4C10.5218 4 11.0266 4.19254 11.4241 4.54317L16.6528 9.14655C16.8077 9.28758 16.9178 9.47395 16.9685 9.68113C17.0193 9.88832 17.0084 10.1066 16.9373 10.3072C16.8661 10.5079 16.738 10.6814 16.5699 10.8051C16.4017 10.9288 16.2014 10.9967 15.9953 11Z"
+											<path d="M15.9953 11H4.00465C3.79856 10.9967 3.59825 10.9288 3.43012 10.8051C3.26198 10.6814 3.1339 10.5079 3.06274 10.3072C2.99158 10.1066 2.98067 9.88832 3.03146 9.68113C3.08224 9.47395 3.19234 9.28758 3.34725 9.14655L8.57587 4.54317C8.97337 4.19254 9.47817 4 10 4C10.5218 4 11.0266 4.19254 11.4241 4.54317L16.6528 9.14655C16.8077 9.28758 16.9178 9.47395 16.9685 9.68113C17.0193 9.88832 17.0084 10.1066 16.9373 10.3072C16.8661 10.5079 16.738 10.6814 16.5699 10.8051C16.4017 10.9288 16.2014 10.9967 15.9953 11Z"
 												fill="#FFE0D2"></path>
-											<path
-												d="M14.2286 9H5.77143C5.5667 9.00033 5.37049 9.07172 5.22586 9.19851C5.08123 9.3253 5 9.49711 5 9.67625V11H15V9.67625C15 9.49711 14.9188 9.3253 14.7741 9.19851C14.6295 9.07172 14.4333 9.00033 14.2286 9Z"
-												fill="#FFBB9D"></path></svg></span><span class="_title_1nj6f_41">홈</span>
-							</a></li>
-							<li role="none"><details class="_root_1w85s_7 ">
-									<summary class="_menu-button_1w85s_12" role="button"
-										aria-haspopup="menu">
+											<path d="M14.2286 9H5.77143C5.5667 9.00033 5.37049 9.07172 5.22586 9.19851C5.08123 9.3253 5 9.49711 5 9.67625V11H15V9.67625C15 9.49711 14.9188 9.3253 14.7741 9.19851C14.6295 9.07172 14.4333 9.00033 14.2286 9Z"
+												fill="#FFBB9D"></path>
+									</svg>
+									</span>
+									<span class="_title_1nj6f_41">홈</span>
+							</a>
+							</li>
+							<li role="none">
+							<details class="_root_1w85s_7 ">
+									<summary class="_menu-button_1w85s_12" role="button" aria-haspopup="menu">
 										<div class="flex items-center flex-shrink-0 gap-5px">
 											<div class="flex-grow-0 flex-shrink-0">
 												<svg width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -120,35 +54,34 @@
 													<path
 														d="M11.2139 15.7097L16.4969 13.2078C16.6449 13.1377 16.7704 13.0277 16.8592 12.8902C16.9481 12.7527 16.9968 12.5931 16.9998 12.4294C17.0029 12.2657 16.9602 12.1044 16.8765 11.9637C16.7928 11.823 16.6715 11.7084 16.5262 11.6329L11.1923 8.85645C10.8219 8.66382 10.4119 8.55955 9.99445 8.55179C9.577 8.54403 9.16341 8.63299 8.78607 8.81171L3.5031 11.3105C3.35511 11.3806 3.22962 11.4905 3.14076 11.628C3.0519 11.7656 3.0032 11.9252 3.00015 12.0889C2.99711 12.2526 3.03983 12.4139 3.12351 12.5546C3.2072 12.6953 3.32851 12.8099 3.4738 12.8854L8.80767 15.6618C9.17776 15.8553 9.58766 15.9603 10.0052 15.9686C10.4227 15.9769 10.8364 15.8882 11.2139 15.7097Z"
 														fill="#FC6B2D"></path>
-    <path
+    												<path
 														d="M11.2139 11.1597L16.4969 8.65778C16.6449 8.58774 16.7704 8.47777 16.8592 8.34025C16.9481 8.20274 16.9968 8.04314 16.9998 7.87944C17.0029 7.71574 16.9602 7.55444 16.8765 7.41371C16.7928 7.27298 16.6715 7.15842 16.5262 7.08292L11.1923 4.30647C10.8221 4.11326 10.4122 4.00853 9.99464 4.0005C9.57713 3.99247 9.16344 4.08136 8.78607 4.2602L3.5031 6.76054C3.35511 6.83058 3.22962 6.94056 3.14076 7.07807C3.0519 7.21559 3.0032 7.37519 3.00015 7.53889C2.99711 7.70259 3.03983 7.86389 3.12351 8.00462C3.2072 8.14534 3.32851 8.25991 3.4738 8.33541L8.80767 11.1119C9.17787 11.305 9.58773 11.4098 10.0052 11.4181C10.4226 11.4264 10.8363 11.3379 11.2139 11.1597Z"
 														fill="#FFE0D2"></path>
 													<path
 														d="M8.78246 8.80881L6.46875 9.90088L8.79788 11.1148C9.16832 11.3074 9.57831 11.4117 9.99577 11.4195C10.4132 11.4272 10.8268 11.3383 11.2041 11.1595L13.5179 10.0675L11.1887 8.85354C10.8183 8.66092 10.4083 8.55664 9.99084 8.54888C9.57338 8.54112 9.1598 8.63009 8.78246 8.80881Z"
 														fill="#FFBB9D">
-    </path>
-    </svg>
+													</path>
+												</svg>
 											</div>
 											<div class="flex justify-start items-center">관광지</div>
 										</div>
-										<svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-											xmlns="http://www.w3.org/2000/svg"
+										<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
 											class="_expanding-icon_1w85s_42">
 											<path
 												d="M9.911 12.902C9.71216 13.189 9.28784 13.189 9.089 12.902L5.54369 7.78474C5.31395 7.45313 5.55128 6.99999 5.95469 6.99999L13.0453 6.99999C13.4487 6.99999 13.6861 7.45313 13.4563 7.78474L9.911 12.902Z"
-												fill="currentColor"></path></svg>
+												fill="currentColor"></path>
+										</svg>
 									</summary>
 									<ul class="_menu_1w85s_12" role="menu">
-										<li role="none"><a class="_sub-menu-item_m12r4_7 "
-											role="menuitem" aria-current="false" tabindex="-1"
+										<li role="none">
+										<a class="_sub-menu-item_m12r4_7 " role="menuitem" aria-current="page" tabindex="-1"
 											href="/payments">관광지 관리</a></li>
-										<li role="none"><a class="_sub-menu-item_m12r4_7 "
-											role="menuitem" aria-current="false" tabindex="-1"
+										<li role="none">
+										<a class="_sub-menu-item_m12r4_7 " role="menuitem" aria-current="false" tabindex="-1"
 											href="/payments/schedule">관광지 리뷰 관리</a></li>
-										<li role="none"><a class="_sub-menu-item_m12r4_7 "
-											href="https://classic-admin.iamport.kr/receipts"
-											role="menuitem" tabindex="-1" target="_blank"
-											rel="noreferrer">관광 코스 관리</a></li>
+										<li role="none">
+										<a class="_sub-menu-item_m12r4_7 " role="menuitem" aria-current="false" tabindex="-1" 
+											href="https://classic-admin.iamport.kr/receipts">관광 코스 관리</a></li>
 									</ul>
 								</details></li>
 							<li role="none"><details class="_root_1w85s_7 ">
@@ -224,25 +157,32 @@
 												fill="#FFE0D2"></path></g></svg></span> <span class="_title_1nj6f_41">1 : 1 문의</span>
 												<div class="_trailer-tag_rcz8n_7 ">New</div>
 												</a></li>
-							<li role="none"><a class="_menu-item_1nj6f_7 "
-								role="menuitem" aria-current="false" tabindex="-1"
-								href="/integration-v2/"><span class="_left-addon_1nj6f_36"><svg
-											width="20" height="20" viewBox="0 0 20 20" fill="none"
-											xmlns="http://www.w3.org/2000/svg">
+							<li role="none">
+								<a class="_menu-item_1nj6f_7 " role="menuitem" aria-current="false" tabindex="-1"
+								href="http://localhost:8080/view/admin/reservation_management.jsp">
+									<span class="_left-addon_1nj6f_36">
+										<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 											<path
 												d="M11.8496 6.56464L8.86073 9.55355C7.70795 10.7063 7.72192 12.5893 8.89194 13.7593C10.062 14.9294 11.9449 14.9433 13.0977 13.7905L16.0866 10.8016C17.2394 9.64885 17.2254 7.76586 16.0554 6.59584C14.8854 5.42583 13.0024 5.41186 11.8496 6.56464Z"
-												fill="#FC6B2D"></path>
-    <path
+												fill="#FC6B2D">
+												</path>
+    										<path
 												d="M6.53714 6.2082L3.54823 9.19712C2.39545 10.3499 2.40942 12.2329 3.57944 13.4029C4.74945 14.5729 6.63245 14.5869 7.78523 13.4341L10.7741 10.4452C11.9269 9.29242 11.9129 7.40943 10.7429 6.23941C9.57292 5.0694 7.68992 5.05542 6.53714 6.2082Z"
-												fill="#FFE0D2"></path>
-    <path
+												fill="#FFE0D2">
+												</path>
+    										<path
 												d="M8.86159 9.55063C8.43179 9.98044 8.1473 10.5345 8.04705 11.1371C7.94679 11.7397 8.03567 12.3613 8.30152 12.9169L10.7749 10.4435C11.2045 10.0135 11.4889 9.45943 11.5891 8.85691C11.6894 8.25438 11.6006 7.63284 11.335 7.07723L8.86159 9.55063Z"
-												fill="#FFBB9D"></path></svg></span><span class="_title_1nj6f_41">예약 관리</span>
-												<div class="_trailer-tag_rcz8n_7 ">New</div>
-												</a></li>
+												fill="#FFBB9D">
+												</path>
+										</svg>
+									</span>
+									<span class="_title_1nj6f_41">예약 관리</span>
+									<div class="_trailer-tag_rcz8n_7 ">New</div>
+								</a>
+							</li>
 							<li role="none"><a class="_menu-item_1nj6f_7 "
 								role="menuitem" aria-current="false" tabindex="-1"
-								href="/merchant/"><span class="_left-addon_1nj6f_36"><svg
+								href="http://localhost:8080/view/admin/userInfo_list.jsp"><span class="_left-addon_1nj6f_36"><svg
 											width="20" height="20" viewBox="0 0 20 20" fill="none"
 											xmlns="http://www.w3.org/2000/svg">
 											<g clip-path="url(#clip0_7527_142503)">
@@ -277,13 +217,13 @@
 				</div>
 				<div class="_sidebar-bottom-container_txlxk_37">
 					<div>
-						<button type="button" class="_feedback-button_txlxk_48" style="align-items:center" onclick="window.open('http://localhost:8080/albbano-tour/albbanotour.co.kr/view/index_user.jsp')">
+						<button type="button" class="_feedback-button_txlxk_48" style="align-items:center" onclick="window.open('http://localhost:8080/view/index_user.jsp')">
 							<span class="_feedback-message_txlxk_66" style="font-size:14px">로그아웃</span>
 						</button>
 					</div>
 					<div style="margin-top:100px; text-align:right">
 						<a class="_outlink_txlxk_80"
-							href="https://developers.portone.io/docs/ko/console/guide/readme"
+							href="http://localhost:8080/view/index_user.jsp"
 							rel="noreferrer" target="_blank" style="display:block; padding:6px; font-size:13px"><span>알빠노 관광</span><span>↗</span></a>
 					</div>
 					

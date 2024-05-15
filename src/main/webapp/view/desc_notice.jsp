@@ -168,7 +168,7 @@ pageContext.setAttribute("ntVO", ntVO);
                 </ul>
 
                 <ul class="bo_v_com">
-                    <li><a href="http://localhost/albbano-tour-eclipse/albbanotour.co.kr/view/main_notice.jsp?bo_table=notice" class="btn_b01 btn"><i class="fa fa-list"
+                    <li><a href="http://localhost/albbano-tour-eclipse/view/main_notice.jsp?bo_table=notice" class="btn_b01 btn"><i class="fa fa-list"
                                                                                                   aria-hidden="true"></i>
                         목록</a></li>
                 </ul>

@@ -11,7 +11,7 @@
 /*코스소개 */
 
 .course_box {
-    background: url(/albbanotour.co.kr/front_util/images/box_bg1.gif) repeat left top;
+    background: url(/front_util/images/box_bg1.gif) repeat left top;
     width: 100%;
     display: inline-block;
     vertical-align: top;
@@ -42,7 +42,7 @@
     width: 21px;
     height: 21px;
     border-radius: 11px;
-    background: #007beb url(/albbanotour.co.kr/front_util/images/h5.gif) no-repeat center;
+    background: #007beb url(/front_util/images/h5.gif) no-repeat center;
 }
 
 
@@ -53,7 +53,7 @@
 
 .box_wrap dt { color: #007beb; font-size: 17px; font-weight: 600;  margin:20px 0 10px; }
 .box_wrap dd ul {overflow:hidden;}
-.box_wrap dd li {float:left;width: 220px; padding: 0 10px 5px 20px; background: url('/albbanotour.co.kr/front_util/images/course_arrow.gif') no-repeat left center; letter-spacing: -1px;}
+.box_wrap dd li {float:left;width: 220px; padding: 0 10px 5px 20px; background: url('/front_util/images/course_arrow.gif') no-repeat left center; letter-spacing: -1px;}
 /*.box_wrap dd li:first-child { padding: 0 10px 5px 0; background: none; }*/
 .box_wrap dd li:first-child { background: none; }
 .box_wrap dd li span { display: inline-block; border: 2px solid #6F6F6F; width: 24px; line-height: 20px; text-align: center; border-radius: 12px; font-weight: 600; margin-right: 3px; }
