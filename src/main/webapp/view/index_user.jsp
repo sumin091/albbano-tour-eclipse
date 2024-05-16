@@ -53,7 +53,7 @@ pageContext.setAttribute("list", list);
                             <span><h2><a href="question.jsp">문의</a></h2></span></div>
                     </div>
                     <div class="backgroundimg5"
-                         style="background:url('../front_util/images/main_visual05.jpg') top center no-repeat;"></div>
+                         style="background:url('http://127.0.0.1/front_util/images/main_visual05.jpg') top center no-repeat;"></div>
                     <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
                 </div>
 
@@ -67,7 +67,7 @@ pageContext.setAttribute("list", list);
                             <span><h2><a href="question.jsp">문의</a></h2></span></div>
                     </div>
                     <div class="backgroundimg2"
-                         style="background:url('../front_util/images/main_visual02.jpg') top center no-repeat;"></div>
+                         style="background:url('http://127.0.0.1/front_util/images/main_visual02.jpg') top center no-repeat;"></div>
                     <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
                 </div>
 
@@ -81,7 +81,7 @@ pageContext.setAttribute("list", list);
                             <span><h2><a href="question.jsp">문의</a></h2></span></div>
                     </div>
                     <div class="backgroundimg1"
-                         style="background:url('../front_util/images/main_visual01.jpg') top center no-repeat;"></div>
+                         style="background:url('http://127.0.0.1/front_util/images/main_visual01.jpg') top center no-repeat;"></div>
                     <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
                 </div>
 
@@ -96,7 +96,7 @@ pageContext.setAttribute("list", list);
                             <span><h2><a href="question.jsp">문의</a></h2></span></div>
                     </div>
                     <div class="backgroundimg4"
-                         style="background:url('../front_util/images/main_visual04.jpg') top center no-repeat;"></div>
+                         style="background:url('http://127.0.0.1/front_util/images/main_visual04.jpg') top center no-repeat;"></div>
                     <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
                 </div>
                 <div class="swiper-slide swiper-lazy" data-swiper-autoplay="8000">
@@ -110,7 +110,7 @@ pageContext.setAttribute("list", list);
                             <span><h2><a href="question.jsp">문의</a></h2></span></div>
                     </div>
                     <div class="backgroundimg9"
-                         style="background:url('../front_util/images/main_visual09.jpg') top center no-repeat;"></div>
+                         style="background:url('http://127.0.0.1/front_util/images/main_visual09.jpg') top center no-repeat;"></div>
                     <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
                 </div>
 
@@ -120,36 +120,28 @@ pageContext.setAttribute("list", list);
             <div class="swiper-button-next"></div>
             <div class="swiper-button-prev"></div>
         </div>
-        <script src="../front_util/js/main.js"></script>
+        <script src="http://127.0.0.1/front_util/js/main.js"></script>
 
     </section>
 
     <section>
         <div class="con_title wow fadeInUp mobile_view">
-            <a href="booking.jsp?bo_table=booking">
-                <img src="../front_util/images/dm.jpg" alt="예약바로가기" width="100%"></a>
+            <a href="booking.jsp">
+                <img src="http://127.0.0.1/front_util/images/dm.jpg" alt="예약바로가기" width="100%"></a>
         </div>
     </section>
     <section>
         <div class="con_title wow fadeInUp mobile_view">
             <a href="tour_course.jsp">
-                <img src="../front_util/images/tour_btn.jpg" alt="관광지"
+                <img src="http://127.0.0.1/front_util/images/tour_btn.jpg" alt="관광지"
                      width="100%"></a>
         </div>
     </section>
 
     <section>
         <div class="con_title wow fadeInUp mobile_view">
-            <a href="theme/albbanotour/html/business/map_info_01.html">
-                <img src="../front_util/images/jangso_btn.jpg" alt="승차장소"
-                     width="100%"></a>
-        </div>
-    </section>
-
-    <section>
-        <div class="con_title wow fadeInUp mobile_view">
-            <a href="http://pf.kakao.com/_ukxghC">
-                <img src="../front_util/images/kakao.jpg" alt="카톡문의" width="100%"></a>
+            <a>
+                <img src="http://127.0.0.1/front_util/images/kakao.jpg" alt="카톡문의" width="100%"></a>
         </div>
     </section>
 
@@ -193,12 +185,12 @@ pageContext.setAttribute("list", list);
         </div>
     </section>
 
-    <script src="../front_util/js/g_slide.js"></script>
+    <script src="http://127.0.0.1/front_util/js/g_slide.js"></script>
 
     <section id="comm_wrap" class="clearfix">
         <div class="comm_area">
             <div class="cs_box" style="float:left; width:330px; height:250px; padding:30px; margin-right:20px; background:#9d0d0d no-repeat right bottom; background-size:cover; overflow:hidden; ">
-                <a href="tel:02-3483-4632">
+                <a>
                     <li>고객센터</li>
                     <li><strong>1588-1234</strong></li>
                     <li><p>02-3483-4632</p></li>
@@ -214,12 +206,12 @@ pageContext.setAttribute("list", list);
             <div class="notice_area">
                 <ul class="tab">
                     <li>공지사항</li>
-                    <a href="main_notice.jsp?bo_table=notice" class="more"><img
-                            src="../front_util/images/btn_more.png"></a>
+                    <a href="main_notice.jsp" class="more"><img
+                            src="http://127.0.0.1/front_util/images/btn_more.png"></a>
                 </ul>
                 <ul class="notice_list">
                     <li>
-                        <a href="view/notice06.html?bo_table=notice&amp;wr_id=41">
+                        <a href="main_notice.jsp">
                             <strong><em>30</em>2024.03</strong>
                             <p class="txt">
                                 <strong>승차장소 제한 안내 </strong>
@@ -229,7 +221,7 @@ pageContext.setAttribute("list", list);
                     </li>
 
                     <li>
-                        <a href="view/notice03.html?bo_table=notice&amp;wr_id=40">
+                        <a href="main_notice.jsp">
                             <strong><em>24</em>2024.02</strong>
                             <p class="txt">
                                 <strong>2월26일이부로 일부 승차장소 변경 … <span class="hot_icon">H<span
@@ -258,7 +250,7 @@ pageContext.setAttribute("list", list);
                     <li>
                         <dl>
                             <dd>
-                                <a href="qna.jsp?bo_table=qa">
+                                <a href="qna.jsp">
                                     <i class="fas fa-comments" aria-hidden="true"></i>
                                     <p>질문과답변</p>
                                 </a>
@@ -268,7 +260,7 @@ pageContext.setAttribute("list", list);
                     <li>
                         <dl>
                             <dd>
-                                <a href="main_notice.jsp?bo_table=notice">
+                                <a href="main_notice.jsp">
                                     <i class="fas fa-edit" aria-hidden="true"></i>
                                     <p>공지사항</p>
                                 </a>
@@ -290,7 +282,7 @@ pageContext.setAttribute("list", list);
                     <li>
                         <dl>
                             <dd>
-                                <a href="booking.jsp?bo_table=booking">
+                                <a href="booking.jsp">
                                     <i class="fas fa-users" aria-hidden="true"></i>
                                     <p>예약바로가기</p>
                                 </a>

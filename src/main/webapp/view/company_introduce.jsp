@@ -11,18 +11,7 @@
 
 <head>
     <title>회사소개 | 알빠노관광</title>
-    <script>
-        // 자바스크립트에서 사용하는 전역변수 선언
-        var g5_url = "index_user.jsp";
-        var g5_bbs_url = "index_user.jsp";
-        var g5_is_member = "";
-        var g5_is_admin = "";
-        var g5_is_mobile = "";
-        var g5_bo_table = "";
-        var g5_sca = "";
-        var g5_editor = "";
-        var g5_cookie_domain = "";
-    </script>
+
     <%@ include file="common_head.jsp" %>
 </head>
 
@@ -32,7 +21,7 @@
 
 <section id="sub_visual">
     <div class="backgroundimg">
-        <div class="visual_area" style="background:url('../front_util/images/sub_visual02.jpg') no-repeat top center;"></div>
+        <div class="visual_area" style="background:url('http://127.0.0.1/front_util/images/sub_visual02.jpg') no-repeat top center;"></div>
     </div>
 </section>
 
@@ -46,10 +35,10 @@
                     <li>
                         <span>알빠노관광</span>
                         <ul>
-                            <li><a href="tour_course.jsp" target="_self">관광지</a></li>
-                            <li><a href="booking.jsp?bo_table=booking" target="_self">맛집</a></li>
-                            <li><a href="../business/map_info_01.html" target="_self">투어예약</a></li>
-                            <li><a href="main_notice.jsp?bo_table=notice" target="_self">고객센터</a></li>
+                            <li><a href="list_spot.jsp" target="_self">관광지</a></li>
+                            <li><a href="list_restaurant.jsp" target="_self">맛집</a></li>
+                            <li><a href="booking.jsp" target="_self">투어예약</a></li>
+                            <li><a href="main_notice.jsp" target="_self">고객센터</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -80,7 +69,7 @@
         <p class="eng"><em>알빠노관광</em> 소개 </p>
         <p class="stitle">세계적인 역사도시 경주를 <br class="sview">한눈에 볼 수 있는 알빠노관광</p>
         <div class="company">
-            <div class="ceo_img"><img src="../front_util/images/01.png"></div>
+            <div class="ceo_img"><img src="http://127.0.0.1/front_util/images/01.png"></div>
             <div class="ceo_txt">
                 <h2>
                     안녕하십니까?<br>

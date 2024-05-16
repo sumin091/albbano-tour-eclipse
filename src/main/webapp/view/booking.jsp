@@ -57,7 +57,6 @@ String login_id = (String)session.getAttribute("idKey");
     window.onload = function() {
         loadCalendar(<%= currentYear %>, <%= currentMonth %>, <%= today %>);
     };
-
     
     function loadCalendar(year, month, day) {
         var xhttp = new XMLHttpRequest();
@@ -100,7 +99,6 @@ String login_id = (String)session.getAttribute("idKey");
         currentYearElement.textContent = year;
         currentMonthElement.textContent = (month < 10 ? '0' : '') + month;
     }
-
 
     function loadNextMonth() {
         var currentYearElement = document.getElementById('currentYear');
@@ -200,7 +198,6 @@ String login_id = (String)session.getAttribute("idKey");
             </div>
         </div>
     </div>
-    
     
     <div id="sub_tit">
         <div class="path">
