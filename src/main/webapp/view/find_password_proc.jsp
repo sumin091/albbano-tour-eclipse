@@ -1,3 +1,4 @@
+<%@page import="vo.UserInfoVO"%>
 <%@page import="dao.UserInfoManagementDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
@@ -13,6 +14,17 @@ String id = request.getParameter("id");
 UserInfoManagementDAO uiDAO = new UserInfoManagementDAO();
 String pass = uiDAO.searchPass(email, id);
 
+/* String chars="ABCDEFGHIJKLNMOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%&*";	
+
+	StringBuilder randomStr = new StringBuilder();
+	for(int i = 0; i < 10; i++) {
+		int randomIndex = (int)(Math.random() * chars.length());
+		randomStr.append(chars.charAt(randomIndex));
+	}//end for
+
+UserInfoVO uiVO = new UserInfoVO();
+uiVO.setPass(randomStr.toString());
+uiDAO.randomPass(uiVO); */
 %>
 
 <!DOCTYPE html>
@@ -47,10 +59,23 @@ String pass = uiDAO.searchPass(email, id);
 <form name="pwSearch" method="post">
 	<%
 		if(pass != null){
+			String chars="ABCDEFGHIJKLNMOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%&*";	
+
+		    StringBuilder randomStr = new StringBuilder();
+		    for(int i = 0; i < 10; i++) {
+		        int randomIndex = (int)(Math.random() * chars.length());
+		        randomStr.append(chars.charAt(randomIndex));
+		    }//end for	
+		 // 임시 비밀번호를 데이터베이스에 저장
+		    UserInfoVO uiVO = new UserInfoVO();
+		    uiVO.setId(id); // 아이디 설정
+		    uiVO.setPass(randomStr.toString()); // 임시 비밀번호 설정
+		    uiDAO.updatePassword(uiVO); // 비밀번호 업데이트
+		
 	%>
 	<div class="container">
 		<div class = "found-success">
-	      <h4>  회원님의 비밀번호는 <%=pass%> 입니다.</h4>  
+	      <h4>  회원님의 비밀번호는 <%=randomStr%> 입니다.</h4>  
 	      <%-- <div class ="id"><%=id%></div> --%>
 	     </div>
 	     <div class = "found-login">

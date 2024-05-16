@@ -37,7 +37,7 @@ String userId=(String)session.getAttribute("idKey");
 			//System.out.println("=======================33");	
 		%>
 		alert("회원정보 수정이 완료되었습니다.");
-		location.href="http://192.168.10.223/albbano-tour-eclipse/view/index_user.jsp";
+		location.href="index_user.jsp";
 		<%
 		}else{
 		%>
@@ -49,7 +49,7 @@ String userId=(String)session.getAttribute("idKey");
 	}catch(SQLException se){
 		se.printStackTrace();
 		%>
-		location.href="http://192.168.10.223/albbano-tour-eclipse/view/index_user.jsp";
+		location.href="index_user.jsp";
 	<%}//end catch
 	%>
 	
