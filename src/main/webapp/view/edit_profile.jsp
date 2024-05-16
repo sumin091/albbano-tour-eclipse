@@ -10,25 +10,11 @@ To change this template use File | Settings | File Templates.
 <%@page import="vo.UserInfoVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-
 <!doctype html>
 <html lang="ko">
 
 <head>
     <title>회원 정보 수정 | 경주시티투어</title>
-
-    <script>
-        // 자바스크립트에서 사용하는 전역변수 선언
-        var g5_url       = "index_user.jsp";
-        var g5_bbs_url   = "index_user.jsp";
-        var g5_is_member = "1";
-        var g5_is_admin  = "";
-        var g5_is_mobile = "";
-        var g5_bo_table  = "";
-        var g5_sca       = "";
-        var g5_editor    = "";
-        var g5_cookie_domain = "";
-    </script>
     <%@ include file="common_head.jsp" %>
   </head>
 <body>
@@ -50,7 +36,7 @@ To change this template use File | Settings | File Templates.
 <section id="sub_visual">
     <div class="backgroundimg">
         <div class="visual_area"
-             style="background:url('../front_util/images/sub_visual02.jpg') no-repeat top center;">
+             style="background:url('http://127.0.0.1/front_util/images/sub_visual02.jpg') no-repeat top center;">
         </div>
     </div>
 </section>
@@ -64,11 +50,10 @@ To change this template use File | Settings | File Templates.
                     <li>
                         <span>맴버쉽</span>
                         <ul>
-                            <li><a href="/theme/cmtour/html/business/new_01.php" target="_self">투어소개</a></li>
-                            <li><a href="/bbs/board.php?bo_table=booking" target="_self">예약/조회</a></li>
-                            <li><a href="/theme/cmtour/html/business/map_info_01.php" target="_self">투어예약</a></li>
-                            <li><a href="/bbs/board.php?bo_table=notice" target="_self">고객센터</a></li>
-
+                            <li><a href="list_spot.jsp" target="_self">관광지</a></li>
+                            <li><a href="list_restaurant.jsp" target="_self">맛집</a></li>
+                            <li><a href="booking.jsp" target="_self">투어예약</a></li>
+                            <li><a href="main_notice.jsp" target="_self">고객센터</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -76,22 +61,13 @@ To change this template use File | Settings | File Templates.
                     <li>
                         <span>회원 정보 수정</span>
                         <ul>
-                            <li><a href="https://cmtour.co.kr/bbs/logout.php" target="_self">로그아웃</a></li>
-
-                            <li><a href="https://cmtour.co.kr/bbs/member_confirm.php?url=https://cmtour.co.kr/bbs/register_form.php" target="_self">정보수정</a></li>
-
-                            <li><a href="https://cmtour.co.kr/bbs/content.php?co_id=privacy" target="_self">개인정보처리방침</a></li>
-
-                            <li><a href="https://cmtour.co.kr/bbs/content.php?co_id=provision" target="_self">이용약관</a></li>
-
-                            <li><a href="https://cmtour.co.kr/bbs/member_confirm.php?url=https://cmtour.co.kr/bbs/member_leave.php" target="_self">회원탈퇴</a></li>
-
-
-
+                            <li><a href="logout.jsp" target="_self">로그아웃</a></li>
+                            <li><a href="edit_profile.jsp" target="_self">정보수정</a></li>
+                            <li><a href="policy.jsp" target="_self">개인정보처리방침</a></li>
+                            <li><a href="service_terms.jsp" target="_self">이용약관</a></li>
                         </ul>
                     </li>
                 </ul>
-
             </div>
         </div>
     </div>
@@ -107,7 +83,6 @@ To change this template use File | Settings | File Templates.
 
     <div class="scontents">
 
-
         <div class="bg_vline"></div>
         <p class="eng"><em></em> 회원 정보 수정</p>
         <p class="stitle"></p>
@@ -115,7 +90,6 @@ To change this template use File | Settings | File Templates.
 		<c:if test="${ empty uiVO }">
 			<c:redirect url="http://http://192.168.10.223/albbano-tour-eclipse/view/index_user.jsp"/>
 		</c:if>
-
 
         <!-- 회원정보 입력/수정 시작 { -->
 

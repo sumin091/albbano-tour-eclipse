@@ -72,11 +72,11 @@ pageContext.setAttribute("sList", sList);
 											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--head--vertical--normal_1fpie_19 _font--pretendard_1fpie_24 _column-buyer_1lui6_26 _column_1lui6_4"><span
 											class="_typography_1uzvq_4 _font--pretendard_1uzvq_9 _type--b3_1uzvq_40 _weight--bold_1uzvq_84 "
 											data-testid="typography">관광지 설명</span></th>
-										<th style="width: 10% ; text-align: center;" data-testid="buyer-person-header"
+										<th style="width: 7% ; text-align: center;" data-testid="buyer-person-header"
 											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--head--vertical--normal_1fpie_19 _font--pretendard_1fpie_24 _column-buyer_1lui6_26 _column_1lui6_4"><span
 											class="_typography_1uzvq_4 _font--pretendard_1uzvq_9 _type--b3_1uzvq_40 _weight--bold_1uzvq_84 "
 											data-testid="typography">이미지</span></th>
-										<th style="width: 7%" data-testid="cancel-payment-column-header"
+										<th style="width: 10%" data-testid="cancel-payment-column-header"
 											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--head--vertical--normal_1fpie_19 _font--pretendard_1fpie_24 _column-cancel-payment_1lui6_50 _column_1lui6_4">
 											위치</th>
 										
@@ -85,7 +85,7 @@ pageContext.setAttribute("sList", sList);
 <tbody data-testid="tableBody"class=" _payment-table-body_8ouzs_13">
 <c:forEach var ="spt" items="${sList}" varStatus="i">
 <tr height="300px" data-testid="payment-info-row" class="_tableRow_1tqkb_4 _table-direction--vertical_1tqkb_10   _payment-table-row_8ouzs_17 ">
-	<td style="width: 50px" width="50px" data-testid="payment-status-column"
+	<td data-testid="payment-status-column"
 											class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-status_1lui6_10 _column_1lui6_4"><span
 											class="_tag_vwbjt_7 _variant--text-normal_vwbjt_13 _color--red_vwbjt_74 _fill--solid_vwbjt_38 "
 											data-testid="tag"><c:out value ="${ i.count }"/> </span></td>
@@ -115,14 +115,12 @@ pageContext.setAttribute("sList", sList);
 </c:forEach>
 </tbody>
 <tfoot>
-<tr>
-<a href ="insertSpot.jsp"> 관광지 추가</a>
-</tr>
 </tfoot>
 </table>
-</div>
-</div>
 <div>
+<a href ="insertSpot.jsp"> 관광지 추가</a>
+</div>
+</div>
 </div>
 </body>
 </html>

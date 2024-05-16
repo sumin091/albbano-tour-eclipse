@@ -9,7 +9,7 @@
 <!--모바일 시작 비로그인-->
 <div id="mobile_header">
     <div class="inner">
-        <h1><a href="index_user.jsp"><img src="../front_util/images/top_logo_m.png" alt="로고" title="로고"></a></h1>
+        <h1><a href="index_user.jsp"><img src="http://127.0.0.1/front_util/images/top_logo_m.png" alt="로고" title="로고"></a></h1>
         <ul class="m_gnb">
             <li class="category"><a href="#none" class="qbt" title="전체메뉴열기">
                 <i class="fa fa-outdent" aria-hidden="true"></i></a>
@@ -106,9 +106,9 @@
                     <div>고객센터<i class="fas fa-angle-down" aria-hidden="true"
                                 style="float:right; margin-right:10px; margin-top:12px;"></i></div>
                     <ul class="subnav">
-                        <li><a href="main_notice.jsp?bo_table=notice" target="_self">- 공지사항</a></li>
-                        <li><a href="faq.jsp?fm_id=1" target="_self">- 자주 묻는 질문</a></li>
-                        <li><a href="qna.jsp?bo_table=qa" target="_self">- 질문답변</a></li>
+                        <li><a href="main_notice.jsp" target="_self">- 공지사항</a></li>
+                        <li><a href="faq.jsp" target="_self">- 자주 묻는 질문</a></li>
+                        <li><a href="qna.jsp" target="_self">- 질문답변</a></li>
                         <li><a href="question.jsp" target="_self">- 1:1문의</a></li>
                     </ul>
                 </li>

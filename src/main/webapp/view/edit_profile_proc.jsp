@@ -13,11 +13,9 @@
 <title>Insert title here</title>
 <style type="text/css">
 	
-	
 </style>
 <% request.setCharacterEncoding("UTF-8");
 String userId=(String)session.getAttribute("idKey");
-
 
 %>
 <jsp:useBean id="uiVO" class="vo.UserInfoVO" scope="page"/>
@@ -52,9 +50,6 @@ String userId=(String)session.getAttribute("idKey");
 		location.href="index_user.jsp";
 	<%}//end catch
 	%>
-	
-	
-	
 	
 </script>
 </head>

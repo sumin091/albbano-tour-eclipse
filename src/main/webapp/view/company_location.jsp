@@ -11,18 +11,6 @@ To change this template use File | Settings | File Templates.
 
 <head>
     <title>오시는길 | 알빠노관광</title>
-    <script>
-        // 자바스크립트에서 사용하는 전역변수 선언
-        var g5_url = "../../../../index_user.jsp";
-        var g5_bbs_url = "../../../../bbs/index_user.jsp";
-        var g5_is_member = "";
-        var g5_is_admin = "";
-        var g5_is_mobile = "";
-        var g5_bo_table = "";
-        var g5_sca = "";
-        var g5_editor = "";
-        var g5_cookie_domain = "";
-    </script>
     <%@ include file="common_head.jsp" %>
 </head>
 <body>
@@ -33,7 +21,7 @@ To change this template use File | Settings | File Templates.
 <section id="sub_visual">
     <div class="backgroundimg">
         <div class="visual_area"
-             style="background:url('../front_util/images/sub_visual04.jpg') no-repeat top center;"></div>
+             style="background:url('http://127.0.0.1/front_util/images/sub_visual04.jpg') no-repeat top center;"></div>
     </div>
 </section>
 
@@ -47,10 +35,10 @@ To change this template use File | Settings | File Templates.
                     <li>
                         <span>알빠노관광</span>
                         <ul>
-                            <li><a href="tour_course.jsp" target="_self">관광지</a></li>
+                            <li><a href="list_spot.jsp" target="_self">관광지</a></li>
                             <li><a href="list_restaurant.jsp" target="_self">맛집</a></li>
                             <li><a href="booking.jsp" target="_self">투어예약</a></li>
-                            <li><a href="main_notice.jsp?bo_table=notice" target="_self">고객센터</a></li>
+                            <li><a href="main_notice.jsp" target="_self">고객센터</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -77,7 +65,7 @@ To change this template use File | Settings | File Templates.
         </p>
     </div>
 
-    <link href="../front_util/css/style.dt_ori.daontheme_ver2_.03.css" rel="stylesheet" type="text/css">
+    <link href="http://127.0.0.1/front_util/css/style.dt_ori.daontheme_ver2_.03.css" rel="stylesheet" type="text/css">
 
     <div class="scontents">
         <div class="bg_vline"></div>
@@ -90,18 +78,7 @@ To change this template use File | Settings | File Templates.
 
                 <div id="daumRoughmapContainer1569549801905"
                      class="root_daum_roughmap root_daum_roughmap_landing"></div>
-                <script charset="UTF-8" class="daum_roughmap_loader_script"
-                        src="../../dmaps.daum.net/map_js_init/roughmapLoader.js"></script>
-                <script charset="UTF-8">
-                    daum_width = ($(".g_map").width()); // 1.추가
-                    if (daum_width == "") daum_width = 360; // 2.추가
-                    new daum.roughmap.Lander({
-                        "timestamp": "1569549801905",
-                        "key": "v7cp",
-                        "mapWidth": daum_width, // 3.수정
-                        "mapHeight": "400"
-                    }).render();
-                </script>
+<img src="http://127.0.0.1/front_util/images/location.png"/>
             </div>
 
 
@@ -112,19 +89,15 @@ To change this template use File | Settings | File Templates.
                         <tbody>
                         <tr>
                             <th>주소</th>
-                            <td>경상북도 경주시 태종로 685번길 6</td>
+                            <td>대충 저기 어디...</td>
                         </tr>
                         <tr>
                             <th>전화</th>
                             <td>1588-1234, 02-3483-4632</td>
                         </tr>
                         <tr>
-                            <th>팩스</th>
-                            <td>054-743-6009</td>
-                        </tr>
-                        <tr>
                             <th>이메일</th>
-                            <td><a href="mailto:tour@cmtour.co.kr">tour@cmtour.co.kr</a></td>
+                            <td><a href="mailto:albbano@albbano.sist.co.kr">albbano@albbano.sist.co.kr</a></td>
                         </tr>
                         </tbody>
                     </table>

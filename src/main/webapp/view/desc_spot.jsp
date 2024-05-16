@@ -26,18 +26,6 @@ pageContext.setAttribute("sVO", sVO);
 <head>
     <title>관광지 상세 | 알빠노관광</title>
 
-    <script>
-        // 자바스크립트에서 사용하는 전역변수 선언
-        var g5_url = "../index.html";
-        var g5_bbs_url = "index.html";
-        var g5_is_member = "";
-        var g5_is_admin = "";
-        var g5_is_mobile = "";
-        var g5_bo_table = "gallery";
-        var g5_sca = "";
-        var g5_editor = "smarteditor2";
-        var g5_cookie_domain = "";
-    </script>
     <%@ include file="common_head.jsp" %>
 </head>
 
@@ -47,7 +35,7 @@ pageContext.setAttribute("sVO", sVO);
 
 <section id="sub_visual">
     <div class="backgroundimg">
-        <div class="visual_area" style="background:url('../front_util/images/sub_visual01.jpg') no-repeat top center;"></div>
+        <div class="visual_area" style="background:url('http://127.0.0.1/front_util/images/sub_visual01.jpg') no-repeat top center;"></div>
     </div>
 </section>
 
@@ -61,10 +49,10 @@ pageContext.setAttribute("sVO", sVO);
                     <li>
                         <span>관광지</span>
                         <ul>
-                            <li><a href="tour_course.jsp" target="_self">관광지</a></li>
-                            <li><a href="booking.jsp?bo_table=booking" target="_self">맛집</a></li>
-                            <li><a href="map_info_01.html" target="_self">투어예약</a></li>
-                            <li><a href="main_notice.jsp?bo_table=notice" target="_self">고객센터</a></li>
+                            <li><a href="list_spot.jsp" target="_self">관광지</a></li>
+                            <li><a href="list_restaurant.jsp" target="_self">맛집</a></li>
+                            <li><a href="booking.jsp" target="_self">투어예약</a></li>
+                            <li><a href="main_notice.jsp" target="_self">고객센터</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -72,7 +60,7 @@ pageContext.setAttribute("sVO", sVO);
                     <li>
                         <span>관광지 상세</span>
                         <ul>
-                            <li><a href="main_notice.jsp?bo_table=notice" target="_self">관광지 상세</a></li>
+                            <li><a href="list_spot.jsp" target="_self">관광지 상세</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -159,8 +147,6 @@ pageContext.setAttribute("sVO", sVO);
         marker.setMap(map);
     </script>
     </div>
-
-
 </section>
 
 <%--footer_jsp_적용_시작--%>
@@ -178,5 +164,4 @@ pageContext.setAttribute("sVO", sVO);
 <script> new WOW().init(); </script>
 
 </body>
-
 </html>

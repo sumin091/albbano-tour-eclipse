@@ -31,18 +31,6 @@ pageContext.setAttribute("rVO", rVO);
 
     <title>맛집상세정보 | 알빠노관광</title>
 
-    <script>
-        // 자바스크립트에서 사용하는 전역변수 선언
-        var g5_url = "../../../../index.html";
-        var g5_bbs_url = "../../../../bbs/index.html";
-        var g5_is_member = "";
-        var g5_is_admin = "";
-        var g5_is_mobile = "";
-        var g5_bo_table = "";
-        var g5_sca = "";
-        var g5_editor = "";
-        var g5_cookie_domain = "";
-    </script>
     <%@ include file="common_head.jsp" %>
 </head>
 
@@ -52,7 +40,7 @@ pageContext.setAttribute("rVO", rVO);
 
 <section id="sub_visual">
     <div class="backgroundimg">
-        <div class="visual_area" style="background:url('../front_util/images/sub_visual05.jpg') no-repeat top center;"></div>
+        <div class="visual_area" style="background:url('http://127.0.0.1/front_util/images/sub_visual05.jpg') no-repeat top center;"></div>
     </div>
 </section>
 
@@ -66,10 +54,10 @@ pageContext.setAttribute("rVO", rVO);
                     <li>
                         <span>맛집</span>
                         <ul>
-                            <li><a href="tour_course.jsp" target="_self">관광지</a></li>
-                            <li><a href="booking.jsp?bo_table=booking" target="_self">맛집</a></li>
-                            <li><a href="map_info_01.html" target="_self">투어예약</a></li>
-                            <li><a href="main_notice.jsp?bo_table=notice" target="_self">고객센터</a></li>
+                            <li><a href="list_spot.jsp" target="_self">관광지</a></li>
+                            <li><a href="list_restaurant.jsp" target="_self">맛집</a></li>
+                            <li><a href="booking.jsp" target="_self">투어예약</a></li>
+                            <li><a href="main_notice.jsp" target="_self">고객센터</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -77,18 +65,7 @@ pageContext.setAttribute("rVO", rVO);
                     <li>
                         <span>맛집 상세</span>
                         <ul>
-                            <li><a href="main_notice.jsp?bo_table=notice" target="_self">공지사항</a></li>
-
-
-                            <li><a href="faq.jsp?fm_id=1" target="_self">자주 묻는 질문</a></li>
-
-
-                            <li><a href="qna.jsp?bo_table=qa" target="_self">질문답변</a></li>
-
-
-                            <li><a href="question.jsp" target="_self">1:1문의</a></li>
-
-
+                            <li><a href="list_restaurant.jsp" target="_self">맛집 리스트</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -96,7 +73,6 @@ pageContext.setAttribute("rVO", rVO);
             </div>
         </div>
     </div>
-
 
     <div id="sub_tit">
         <div class="path">
@@ -137,7 +113,7 @@ pageContext.setAttribute("rVO", rVO);
     <p id="result" style="display: none"></p>
 
     <script type="text/javascript"
-            src="../../dapi.kakao.com/v2/maps/sdk04d1.json?appkey=80568f4d5363291c77cb0f4c34bfb5ff"></script>
+            src="http://127.0.0.1/dapi.kakao.com/v2/maps/sdk04d1.json?appkey=80568f4d5363291c77cb0f4c34bfb5ff"></script>
 
     <script>
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div
@@ -164,7 +140,7 @@ pageContext.setAttribute("rVO", rVO);
 
         });
 
-        var imageSrc = '../front_util/images/location_kakao2.png', // 마커이미지의 주소입니다
+        var imageSrc = 'http://127.0.0.1/front_util/images/location_kakao2.png', // 마커이미지의 주소입니다
             imageSize = new kakao.maps.Size(150, 83), // 마커이미지의 크기입니다
             imageOption = {offset: new kakao.maps.Point(65, 75)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 
@@ -200,5 +176,4 @@ pageContext.setAttribute("rVO", rVO);
 <script> new WOW().init(); </script>
 
 </body>
-
 </html>
