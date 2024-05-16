@@ -45,5 +45,5 @@
 </script>
 <!--폰트_리사이즈_스크립트_끝-->
 
-<script src="../front_util/js/wow.min.js"></script>
+<script src="http://127.0.0.1/front_util/js/wow.min.js"></script>
 

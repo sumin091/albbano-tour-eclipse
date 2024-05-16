@@ -25,8 +25,6 @@
     pageContext.setAttribute("day", day);
 %>
 
-
-
     <c:forEach begin="${day}" end="${daysInMonth}" varStatus="cal">
     
         <c:set var="date" value="${currentDate.withDayOfMonth(cal.index)}" />

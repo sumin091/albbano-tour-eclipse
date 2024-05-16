@@ -27,21 +27,21 @@
         </dd>
 
         <dd>
-            <a href="booking.jsp?bo_table=booking" alt="예약하기" title="예약하기">
+            <a href="booking.jsp" alt="예약하기" title="예약하기">
                 <i class="fas fa-calendar-check" aria-hidden="true"></i>
                 <p>예약바로가기</p>
             </a>
         </dd>
 
         <dd>
-            <a href="qna.jsp?bo_table=qa" alt="온라인문의" title="온라인문의">
+            <a href="qna.jsp" alt="온라인문의" title="온라인문의">
                 <i class="fas fa-question-circle" aria-hidden="true"></i>
                 <p>온라인문의</p>
             </a>
         </dd>
 
         <dd>
-            <a href="main_notice.jsp?bo_table=notice" alt="공지사항" title="공지사항">
+            <a href="main_notice.jsp" alt="공지사항" title="공지사항">
                 <i class="fas fa-volume-down" aria-hidden="true"></i>
                 <p>공지사항</p>
             </a>
