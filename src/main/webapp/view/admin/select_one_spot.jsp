@@ -64,30 +64,37 @@ SpotListVO sVO = sDAO.selectSpot(spotcode);
 pageContext.setAttribute("sVO", sVO);
 %>
 <form >
-<div>
-<table>
-<thead>
-<tr>
-	<th style="width:100px">코드</th>
-	<th style="width:100px">이름</th>
-	<th style="width:600px">설명</th>
-	<th style="width:100px">이미지이름</th>
-	<th style="width:100px">생성일</th>
-	<th style="width:100px">경도</th>
-	<th style="width:100px">위도</th>
-	<th style="width:100px">위치</th>
+<div id="wrap">
+<div id ="left" style="float: left">
+<jsp:include page ="design1.jsp"/>
+</div>
+<div class="_payment-table-container_2hrxu_23"data-testid="paymnet-history-table-container">
+	<table style="table-layout: fixed ;width: 100%" data-testid="table"class="_table_2bzgi_1 _fullWidth_2bzgi_5 _payment-table_8ouzs_4"
+								aria-live="polite" aria-busy="false">
+<thead data-testid="tableHead"class=" _payment-table-head_8ouzs_8">
+<tr data-testid="payment-info-row-header"class="_tableRow_1tqkb_4 _table-direction--vertical_1tqkb_10   _payment-info-row-header_8ouzs_29 _payment-table-header-row_2hrxu_38">
+<th style="width: 99%;" data-testid="payment-status-column-header"class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--head--vertical--normal_1fpie_19 _font--pretendard_1fpie_24 _column-status_1lui6_10 _column_1lui6_4"><span
+		class="_typography_1uzvq_4 _font--pretendard_1uzvq_9 _type--b3_1uzvq_40 _weight--bold_1uzvq_84 "
+		data-testid="typography">관광지 상세
+		</span></th>
 </tr>
 </thead>
 <tbody>
-<tr>
-	<td>${ sVO.spot_code }</td>
-	<td>${ sVO.spot_name } </td>
-	<td>${ sVO.spot_desc }</td>
-	<td>${ sVO.img_name }</td>
-	<td>${ sVO.create_date }</td>
-	<td>${ sVO.longitude }</td>
-	<td>${ sVO.latitude }</td>
-	<td>${ sVO.spt_loc }</td>
+<tr data-testid="payment-info-row" class="_tableRow_1tqkb_4 _table-direction--vertical_1tqkb_10   _payment-table-row_8ouzs_17 ">
+<td style="text-align: left" data-testid="iamport-merchant-id-column"class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-iamport-merchant-id_1lui6_19 _column_1lui6_4"><div class="_container_1aijn_7">
+	<span>관광지 코드 :${ sVO.spot_code }</span></div></td></tr>
+<tr data-testid="payment-info-row" class="_tableRow_1tqkb_4 _table-direction--vertical_1tqkb_10   _payment-table-row_8ouzs_17 ">
+<td  style="text-align: left"  data-testid="iamport-merchant-id-column"class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-iamport-merchant-id_1lui6_19 _column_1lui6_4"><div class="_container_1aijn_7">
+	<span>관광지 이름 :${ sVO.spot_name }</span></div></td></tr>
+<tr data-testid="payment-info-row" class="_tableRow_1tqkb_4 _table-direction--vertical_1tqkb_10   _payment-table-row_8ouzs_17 ">
+<td style="text-align: left"  data-testid="iamport-merchant-id-column"class="_tableCell_1fpie_7 _align--center_1fpie_217 _variant--body--vertical--normal_1fpie_104 _font--pretendard_1fpie_24 _column-iamport-merchant-id_1lui6_19 _column_1lui6_4"><div class="_container_1aijn_7">
+	<span>관광지 설명: ${ sVO.spot_desc }</span></div></td></tr>
+	<td></td>
+	<td></td>
+	<td>관광지 이미지 :${ sVO.img_name }</td>
+	<td>관광지 경도 : ${ sVO.longitude }</td>
+	<td>관광지 위도 : ${ sVO.latitude }</td>
+	<td>관광지 위치 : ${ sVO.spt_loc }</td>
 </tr>
 </table>
 </div>
