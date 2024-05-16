@@ -27,7 +27,7 @@
 	
 </style>
 <script type="text/javascript">
-	function submitForm(doc_No){
+	function submitForm(doc_No){ 
 		var form= document.createElement('form');
 		form.method='POST';
 		form.action='select_one_notice.jsp';
