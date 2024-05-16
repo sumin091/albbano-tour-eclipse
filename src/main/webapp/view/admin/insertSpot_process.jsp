@@ -74,6 +74,7 @@ SpotManagementDAO smDAO = SpotManagementDAO.getInstance();
 smDAO.insertSpot(SpotListVO);
 %>
 추가에 성공했습니다!<br>
+<c:redirect url="select_spot.jsp"/>
 <a href="insertSpot.jsp">명소 추가 화면으로 돌아가기</a><br>
 <a href="select_spot.jsp">명소 리스트 화면으로 돌아가기</a>
 <%
