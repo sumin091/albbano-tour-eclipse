@@ -199,6 +199,73 @@ public class UserInfoManagementDAO {
 		return pass;
 	}//searchPass
 	
+	
+	/**
+	 * 임시비번
+	 * @param uiVO
+	 * @return
+	 * @throws SQLException
+	 */
+	public int randomPass(UserInfoVO uiVO) throws SQLException{
+		int cnt = 0;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		DbConnection db = DbConnection.getInstance();
+		
+		try {
+			con=db.getConn("jdbc/abn");
+			
+			StringBuilder sql = new StringBuilder();
+			sql
+			.append("	update password	")
+			.append("	set password= ?	")
+			.append("	where id= ?		");
+			
+			pstmt = con.prepareStatement(sql.toString());
+			pstmt.setString(1, uiVO.getPass());
+			pstmt.setString(2, uiVO.getId());
+			
+			//if(rs.next()) {
+				cnt=pstmt.executeUpdate();
+			//}
+		}finally {
+			db.closeCon(null, pstmt, con);
+		}
+		return cnt;
+	}
+	
+	/**
+	 * 비밀번호 업데이트(임시비번 생성 후)
+	 * @param uiVO 업데이트할 사용자 정보
+	 * @return 업데이트된 행 수
+	 * @throws SQLException
+	 */
+	public int updatePassword(UserInfoVO uiVO) throws SQLException {
+	    int cnt = 0;
+	    Connection con = null;
+	    PreparedStatement pstmt = null;
+	    
+	    DbConnection db = DbConnection.getInstance();
+	    
+	    try {
+	        con = db.getConn("jdbc/abn");
+	        
+	        String sql = "UPDATE password SET password = ? WHERE id = ?";
+	        pstmt = con.prepareStatement(sql);
+	        pstmt.setString(1, uiVO.getPass());
+	        pstmt.setString(2, uiVO.getId());
+	        
+	        cnt = pstmt.executeUpdate();
+	    } finally {
+	        db.closeCon(null, pstmt, con);
+	    }
+	    
+	    return cnt;
+	}
+	
+	
 	/**
 	 * 기존 회원정보 불러오기
 	 * @param userId
