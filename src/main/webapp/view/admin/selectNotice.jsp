@@ -46,7 +46,7 @@
 <body>
 <div>
 <%
-NoticeDAO ntDAO=NoticeDAO.getInstance();
+NoticeDAO ntDAO=NoticeDAO.getInstance(); 
 List<NoticeVO> list= new ArrayList<NoticeVO>();
 list=ntDAO.selectAll();
 pageContext.setAttribute("list", list);
