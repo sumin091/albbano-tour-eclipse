@@ -10,7 +10,7 @@ To change this template use File | Settings | File Templates.
 <%@page import="java.util.List"%>
 <%@page import="dao.TourReservationDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
 <%String login_id = (String)session.getAttribute("idKey");
@@ -167,24 +167,16 @@ To change this template use File | Settings | File Templates.
                                 </c:if>
                                 
                                 <c:if test="${not empty list }">
-                            	<c:forEach var="list" items="${ list }" varStatus="i">
-                           		 <td >
-                                	  <c:out value="${list.resv_code }"/>
-                                </td >	  
-                                 <td >
-                                	  <%=login_id %>
-                            	</td >
-                            	 <td >
-                                	   <c:out value="${list.create_date }"/>
-                            	</td >
-                            	 <td >
-                                	   <c:out value="${list.fare }"/>원
-                            	</td >
-                            	 <td >
-                                	   <c:out value="${list.resv_flag }"/>
-                            	</td >
-                            
-                           		 </c:forEach>
+
+                           		<c:forEach var="item" items="${list}" varStatus="i">
+                           		<tr>
+								        <td><c:out value="${item.resv_code}"/></td>
+								        <td><%=login_id %></td>
+								        <td><c:out value="${item.create_date}"/></td>
+								        <td><c:out value="${item.fare}"/>원</td>
+								        <td><c:out value="${item.resv_flag}"/></td>
+								        </tr>
+								</c:forEach>
                                 </c:if>
                             
                             

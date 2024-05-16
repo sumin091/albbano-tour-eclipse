@@ -49,22 +49,26 @@ public class TourReservationManagementDAO {
 	
 	public int insertTourReservation(TourReservationVO tourReservationVO) throws SQLException {
 	    int count = 0;
-	    String insertQuery = "INSERT INTO RESERVATION VALUES (?,?,?,'N',?,?,1,SYSDATE,?)";
+	    String insertQuery = "INSERT INTO RESERVATION VALUES (?,?,?,?,?,?,0,SYSDATE,'N')";
 	    DbConnection dbConnection = DbConnection.getInstance();
 	    
-	    try (Connection connection = dbConnection.getConn("jdbc/abn");
-	        PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
-	        
-	        preparedStatement.setString(1, tourReservationVO.getResv_code());
-	        preparedStatement.setString(2, tourReservationVO.getId());
-	        preparedStatement.setString(3, tourReservationVO.getCrs_code());
-	        preparedStatement.setInt(4, tourReservationVO.getFare());
-	        preparedStatement.setInt(5, tourReservationVO.getPerson());
-	        preparedStatement.setDate(6, tourReservationVO.getTour_date());
-	        
-	        count = preparedStatement.executeUpdate();
+	    java.sql.Date sqlTourDate = new java.sql.Date(tourReservationVO.getTour_date().getTime());
+
+	    if (!isDuplicateReservation(tourReservationVO.getId(), tourReservationVO.getCrs_code(), sqlTourDate)) {
+	        try (Connection connection = dbConnection.getConn("jdbc/abn");
+	             PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
+
+	            preparedStatement.setString(1, tourReservationVO.getResv_code());
+	            preparedStatement.setString(2, tourReservationVO.getId());
+	            preparedStatement.setString(3, tourReservationVO.getCrs_code());
+	            preparedStatement.setInt(4, tourReservationVO.getFare());
+	            preparedStatement.setInt(6, tourReservationVO.getPerson());
+	            preparedStatement.setDate(5, sqlTourDate);
+
+	            count = preparedStatement.executeUpdate();
+	        }
 	    }
-	    
+
 	    return count;
 	}
 	
@@ -85,24 +89,6 @@ public class TourReservationManagementDAO {
 		return count;
 	}
 	
-//	public String selectCourseName(String courseCode) throws SQLException {
-//	    String courseName = "";
-//	    String selectQuery = "SELECT CRS_NAME FROM COURSE WHERE CRS_CODE=?";
-//
-//	    DbConnection dbConnection = DbConnection.getInstance();
-//	    try (Connection connection = dbConnection.getConn("jdbc/abn");
-//	         PreparedStatement preparedStatement = connection.prepareStatement(selectQuery)) {
-//	        
-//	        preparedStatement.setString(1, courseCode);
-//	        try (ResultSet resultSet = preparedStatement.executeQuery()) {
-//	            if (resultSet.next()) {
-//	                courseName = resultSet.getString("CRS_NAME");
-//	            }
-//	        }
-//	    }
-//	    return courseName;
-//	}
-	
 	public String selectCourseCode(String courseName) throws SQLException {
 	    String courseCode = "";
 	    String selectQuery = "SELECT CRS_CODE FROM COURSE WHERE CRS_NAME=?";
@@ -119,6 +105,27 @@ public class TourReservationManagementDAO {
 	        }
 	    }
 	    return courseCode;
+	}
+	
+	public boolean isDuplicateReservation(String userId, String courseCode, Date tourDate) throws SQLException {
+	    boolean isDuplicate = false;
+	    String query = "SELECT COUNT(*) FROM RESERVATION WHERE ID = ? AND CRS_CODE = ? AND TOUR_DATE = ?";
+	    
+	    DbConnection dbConnection = DbConnection.getInstance();
+	    try (Connection connection = dbConnection.getConn("jdbc/abn");
+	         PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+	        
+	        preparedStatement.setString(1, userId);
+	        preparedStatement.setString(2, courseCode);
+	        preparedStatement.setDate(3, tourDate);
+	        
+	        try (ResultSet resultSet = preparedStatement.executeQuery()) {
+	            if (resultSet.next() && resultSet.getInt(1) > 0) {
+	                isDuplicate = true;
+	            }
+	        }
+	    }
+	    return isDuplicate;
 	}
 
 }
