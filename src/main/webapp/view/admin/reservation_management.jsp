@@ -76,13 +76,13 @@
 									<ul class="_menu_1w85s_12" role="menu">
 										<li role="none">
 										<a class="_sub-menu-item_m12r4_7 " role="menuitem" aria-current="false" tabindex="-1"
-											href="/payments">관광지 관리</a></li>
+											href="select_spot.jsp">관광지 관리</a></li>
 										<li role="none">
 										<a class="_sub-menu-item_m12r4_7 " role="menuitem" aria-current="false" tabindex="-1"
 											href="/payments/schedule">관광지 리뷰 관리</a></li>
 										<li role="none">
 										<a class="_sub-menu-item_m12r4_7 " role="menuitem" aria-current="false" tabindex="-1" 
-											href="https://classic-admin.iamport.kr/receipts">관광 코스 관리</a></li>
+											href="select_curs.jsp">관광 코스 관리</a></li>
 									</ul>
 								</details></li>
 							<li role="none"><details class="_root_1w85s_7 ">
@@ -114,14 +114,14 @@
 									<ul class="_menu_1w85s_12" role="menu">
 										<li role="none"><a class="_sub-menu-item_m12r4_7 "
 											role="menuitem" aria-current="false" tabindex="-1"
-											href="/reconciliation/summary">맛집 관리</a></li>
+											href="select_res.jsp">맛집 관리</a></li>
 										<li role="none"><a class="_sub-menu-item_m12r4_7 "
 											role="menuitem" aria-current="false" tabindex="-1"
 											href="/reconciliation/list">맛집 리뷰 관리</a></li>
 									</ul>
 								</details></li>
 							<li role="none">
-							<a class="_menu-item_1nj6f_7 " role="menuitem" aria-current="false" tabindex="-1" href="/platform/trailer/">
+							<a class="_menu-item_1nj6f_7 " role="menuitem" aria-current="false" tabindex="-1" href="selectNotice.jsp">
 								<span class="_left-addon_1nj6f_36">
 								<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
     										<path d="M7.38708 8.47561L6.33317 17.1863C6.31469 17.3411 6.34729 17.4977 6.42617 17.6331C6.50505 17.7684 6.62606 17.8753 6.77141 17.9381C6.91676 18.0009 7.07879 18.0163 7.23369 17.9819C7.38859 17.9476 7.5282 17.8654 7.632 17.7474L10.829 14.1127L15.2209 9.19345C15.3137 9.08987 15.3747 8.96255 15.3967 8.82629C15.4188 8.69002 15.401 8.55042 15.3454 8.4237C15.2898 8.29698 15.1987 8.18836 15.0827 8.11047C14.9668 8.03258 14.8306 7.98861 14.6902 7.98369L8.24059 7.7523C8.03201 7.74633 7.82871 7.81727 7.67074 7.95114C7.51276 8.08502 7.41156 8.27212 7.38708 8.47561Z"
@@ -137,7 +137,7 @@
 								</a></li>
 							<li role="none"><a class="_menu-item_1nj6f_7 "
 								role="menuitem" aria-current="false" tabindex="-1"
-								href="/analytics/trailer/"><span
+								href="qna.jsp"><span
 									class="_left-addon_1nj6f_36"><svg width="20" height="20"
 											viewBox="0 0 20 20" fill="none"
 											xmlns="http://www.w3.org/2000/svg">
@@ -156,7 +156,6 @@
 											<path
 												d="M5.72338 13.0964C5.57271 13.096 5.42517 13.0534 5.29743 12.9735C5.16969 12.8936 5.06684 12.7795 5.0005 12.6443C4.93416 12.509 4.90697 12.3579 4.922 12.2079C4.93703 12.058 4.99369 11.9153 5.08557 11.7959L8.52976 7.34145C8.60443 7.24478 8.70009 7.16634 8.80951 7.11205C8.91894 7.05776 9.03926 7.02904 9.16141 7.02805C9.28356 7.02706 9.40433 7.05384 9.51462 7.10635C9.6249 7.15886 9.72182 7.23574 9.79805 7.33118L12.2643 10.4235L16.009 6.10101C16.0766 6.01504 16.161 5.94371 16.257 5.89136C16.353 5.83902 16.4587 5.80674 16.5675 5.79651C16.6764 5.78627 16.7862 5.79829 16.8903 5.83183C16.9944 5.86536 17.0906 5.91972 17.173 5.99159C17.2554 6.06346 17.3224 6.15134 17.3698 6.2499C17.4172 6.34845 17.444 6.45561 17.4487 6.56487C17.4534 6.67413 17.4358 6.78319 17.397 6.88544C17.3582 6.98769 17.299 7.08097 17.2231 7.15963L12.8478 12.2138C12.7718 12.3009 12.6781 12.3709 12.5729 12.4189C12.4677 12.467 12.3535 12.492 12.2379 12.4923H12.2217C12.1033 12.4896 11.9868 12.4608 11.8807 12.4081C11.7745 12.3554 11.6812 12.2801 11.6074 12.1874L9.17783 9.14052L6.36266 12.7827C6.28716 12.8803 6.19028 12.9594 6.07946 13.0138C5.96864 13.0682 5.84683 13.0964 5.72338 13.0964Z"
 												fill="#FFE0D2"></path></g></svg></span> <span class="_title_1nj6f_41">1 : 1 문의</span>
-												<div class="_trailer-tag_rcz8n_7 ">New</div>
 												</a></li>
 							<li role="none">
 								<a class="_menu-item_1nj6f_7 " role="menuitem" aria-current="page" tabindex="-1"
