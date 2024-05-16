@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8"> 
 <title>Insert title here</title>
 <link rel="icon" href="http://192.168.10.225/jsp_prj/common/favicon.ico"/>
 <!--bootstrap 시작-->
