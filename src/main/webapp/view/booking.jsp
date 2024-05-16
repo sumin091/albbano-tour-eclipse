@@ -134,6 +134,19 @@ String login_id = (String)session.getAttribute("idKey");
     	
     	location.href='tour_pay.jsp?courseName=' + courseName + '&selectedDate=' + selectedDate;
     }
+    
+    function setActive(element, courseName) {
+        $('.roomli').removeClass('active');
+        $(element).addClass('active');
+        $('#courseName').val(courseName);
+    }
+
+    function setActiveDay(element, date) {
+        $('.dayli.live').removeClass('active');
+        $(element).addClass('active');
+        $('#selectedDate').val(date);
+    }
+
 	</script>
 
     <%@include file="common_head.jsp" %>
@@ -223,25 +236,25 @@ String login_id = (String)session.getAttribute("idKey");
                         <tbody>
                         <tr>
                             <td class="bxframe fm-room">
-                                <div class="head">01. 투어선택 ◀◀코스를 선택하세요▶▶</div>
-                                <div class="list">
-                                    <c:forEach var="tour" items="${tourList}" varStatus="i">
-   										<a href="#" onclick="$('#courseName').val('${tour.crsName}'); event.preventDefault()" class="roomli" data-rm-ix="${i.index}">
-        									<div class="media-left">
-            									<div class="room-photo-frame">
-                									<img src="../front_util/images/tour_booking.png" class="room-photo-main">
-            									</div>
-        									</div>
-        									<div class="media-body info">
-            								<h4 class="media-heading" id="top-aligned-media">
-          								      <c:out value="${tour.crsName}" />
-         								    </h4>
-      							      			<div class="desc"></div>
-     							   			</div>
-  							  			</a>
-									</c:forEach>
-                                </div>
-                            </td>
+							    <div class="head">01. 투어선택 ◀◀코스를 선택하세요▶▶</div>
+							    <div class="list">
+							        <c:forEach var="tour" items="${tourList}" varStatus="i">
+							            <a href="#" onclick="setActive(this, '${tour.crsName}'); event.preventDefault()" class="roomli" data-rm-ix="${i.index}">
+							                <div class="media-left">
+							                    <div class="room-photo-frame">
+							                        <img src="../front_util/images/tour_booking.png" class="room-photo-main">
+							                    </div>
+							                </div>
+							                <div class="media-body info">
+							                    <h4 class="media-heading" id="top-aligned-media">
+							                        <c:out value="${tour.crsName}" />
+							                    </h4>
+							                    <div class="desc"></div>
+							                </div>
+							            </a>
+							        </c:forEach>
+							    </div>
+							</td>
                             
                             <td class="bxframe fm-day">
                                 <div class="head">02. 날짜</div>

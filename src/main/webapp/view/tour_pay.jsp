@@ -39,8 +39,19 @@
 	String resvCode = tourReservationManagementDAO.createResvCode();
 	String courseCode = tourReservationManagementDAO.selectCourseCode(courseName);
 	
-	int selectedAdultCount = Integer.parseInt(request.getParameter("rm_cnt_0"));
-	int totalFee = 25000 * selectedAdultCount;
+	 String rmCnt0Param = request.getParameter("rm_cnt_0");
+	    int selectedAdultCount = 1;
+	    if (rmCnt0Param != null && !rmCnt0Param.isEmpty()) {
+	        try {
+	            selectedAdultCount = Integer.parseInt(rmCnt0Param);
+	        } catch (NumberFormatException e) {
+	            selectedAdultCount = 1;
+	        }
+	    } else {
+	        selectedAdultCount = 1;
+	    }
+
+	    int totalFee = 25000 * selectedAdultCount;
 	
 	TourReservationVO tourReservationVO = new TourReservationVO();
 	tourReservationVO.setResv_code(resvCode);
@@ -51,7 +62,12 @@
 	tourReservationVO.setResv_flag(0);
 	tourReservationVO.setTour_date(tourDate);
 	
-	int count = tourReservationManagementDAO.insertTourReservation(tourReservationVO);
+    int count = 0;
+    
+    if ("POST".equalsIgnoreCase(request.getMethod())) {
+        count = tourReservationManagementDAO.insertTourReservation(tourReservationVO);
+    }
+    
 	pageContext.setAttribute("resvCode",resvCode);
 	pageContext.setAttribute("totalFee", totalFee);
 	
@@ -92,35 +108,40 @@
             } else if (!agree2Checked) {
                 alert('개인 정보 활용 동의가 필요합니다.');
             } else {
-                requestPay();
+                document.getElementById('resvfrm').submit();
             }
         }
 
         async function requestPay() {
-            const response = await PortOne.requestPayment({
-                storeId: "store-78210a12-d8bc-46bd-8b0a-ce0679096a79",
-                paymentId: '<%= resvCode %>',
-                orderName: '<%= courseName %>',
-                totalAmount: calculateTotalFee(),
-                currency: "KRW",
-                channelKey: "channel-key-c2db6c5c-a0f4-402e-a176-5ccdfd775929",
-                payMethod: "CARD",
-                isTestChannel: true,
-                redirectUrl: "http://127.0.0.1/view/list_reservation.jsp",
-            });
+            try {
+                const response = await PortOne.requestPayment({
+                    storeId: "store-78210a12-d8bc-46bd-8b0a-ce0679096a79",
+                    paymentId: '<%= resvCode %>',
+                    orderName: '<%= courseName %>',
+                    totalAmount: calculateTotalFee(),
+                    currency: "KRW",
+                    channelKey: "channel-key-c2db6c5c-a0f4-402e-a176-5ccdfd775929",
+                    payMethod: "CARD",
+                    isTestChannel: true,
+                    redirectUrl: "http://127.0.0.1/view/list_reservation.jsp",
+                });
 
-            if (response.code != null) {
-                await updateReservationFlag(2);
-                alert(response.message);
-                return;
-            }
+                if (response.code != null) {
+                    await updateReservationFlag(2);
+                    alert(response.message);
+                    return;
+                }
 
-            const updateSuccess = await updateReservationFlag(1);
-            if (updateSuccess) {
-                alert("결제가 성공적으로 완료되었습니다.");
-                window.location.href = "http://127.0.0.1/view/list_reservation.jsp";
-            } else {
-                alert("결제 후 예약 상태 업데이트에 실패했습니다.");
+                const updateSuccess = await updateReservationFlag(1);
+                if (updateSuccess) {
+                    alert("결제가 성공적으로 완료되었습니다.");
+                    window.location.href = "http://127.0.0.1/view/list_reservation.jsp";
+                } else {
+                    alert("결제 후 예약 상태 업데이트에 실패했습니다.");
+                }
+            } catch (error) {
+                console.error("결제 처리 중 오류 발생:", error);
+                alert("결제 처리 중 오류가 발생했습니다. 다시 시도해 주세요.");
             }
         }
 
@@ -381,7 +402,7 @@
                                 <button type="button" class="btn btn-primary" onclick="location.href='http://127.0.0.1/view/booking.jsp';"><i class="fa fa-chevron-left fa-sm"></i> 이전단계</button>
                             </div>
                             <div class="btn-group" role="group">
-                                <button type="button" id="submit_next" data-loading-text="Loading..." autocomplete="off" class="btn btn-success" onclick="confirmAgree()"><i class="fa fa-check"></i> 예약하기</button>
+                                <button type="button" id="submit_next" data-loading-text="Loading..." autocomplete="off" class="btn btn-success" onclick="confirmAgree(); requestPay()"><i class="fa fa-check"></i> 예약하기</button>
                             </div>
                         </div>
 
