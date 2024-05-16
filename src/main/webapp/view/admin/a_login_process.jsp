@@ -31,10 +31,10 @@ try{
 		*/
 		
 		//세션에 값 설정 
-		session.setAttribute("loginData", uiVO);
+		session.setAttribute("idKey", uiVO);
 		
 		pageContext.setAttribute("msg", "로그인 성공");
-		pageContext.setAttribute("url", "adminBoard.jsp");
+		pageContext.setAttribute("url", "http://localhost/view/index_admin.jsp");
 	}//end if
 }catch(Exception e){
 	pageContext.setAttribute("msg", "문제 발생 잠시 후 다시 시도해주세요.");
