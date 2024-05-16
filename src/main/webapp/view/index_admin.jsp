@@ -217,10 +217,13 @@
 				</div>
 				<div class="_sidebar-bottom-container_txlxk_37">
 					<div>
-						<button type="button" class="_feedback-button_txlxk_48" style="align-items:center" onclick="window.open('http://127.0.0.1/view/index_user.jsp')">
+			
+					
+						<button type="button" class="_feedback-button_txlxk_48" style="align-items:center" onclick="window.location.href='http://localhost/view/admin/a_logout.jsp'">
 							<span class="_feedback-message_txlxk_66" style="font-size:14px">로그아웃</span>
 						</button>
-					</div>
+					</div> 
+					
 					<div style="margin-top:100px; text-align:right">
 						<a class="_outlink_txlxk_80"
 							href="http://127.0.0.1/view/index_user.jsp"
