@@ -40,7 +40,7 @@
 	String courseCode = tourReservationManagementDAO.selectCourseCode(courseName);
 	
 	 String rmCnt0Param = request.getParameter("rm_cnt_0");
-	    int selectedAdultCount = 1;
+	    int selectedAdultCount = Integer.parseInt(request.getParameter("selectedAdultCount"));
 	    if (rmCnt0Param != null && !rmCnt0Param.isEmpty()) {
 	        try {
 	            selectedAdultCount = Integer.parseInt(rmCnt0Param);
@@ -77,6 +77,8 @@
 <head>
     <title>결제 | 알빠노관광</title>
 
+    <script src="https://cdn.portone.io/v2/browser-sdk.js"></script>
+
     <%@ include file="common_head.jsp" %>
     
     <script>
@@ -97,24 +99,6 @@
             calculateTotalFee();
         };
 
-        function nextStep(){
-            var courseName = $("#courseName").val();
-            var selectedDate = $("#selectedDate").val();
-            var selectedAdultCount = $("#rm_cnt_0").val();
-            
-            $.ajax({
-                type: "POST",
-                url: "your_form_submission_url",  // 실제 폼 데이터 전송 URL로 변경
-                data: $("#resvfrm").serialize(),
-                success: function(response){
-                    location.href='tour_pay2.jsp?courseName=' + courseName + '&selectedDate=' + selectedDate + '&selectedAdultCount=' + selectedAdultCount;
-                },
-                error: function(xhr, status, error){
-                    location.href='tour_pay2.jsp?courseName=' + courseName + '&selectedDate=' + selectedDate + '&selectedAdultCount=' + selectedAdultCount;
-                }
-            });
-        }
-
         function confirmAgree() {
             var agree1Checked = $('#agree1').is(':checked');
             var agree2Checked = $('#agree2').is(':checked');
@@ -124,16 +108,63 @@
             } else if (!agree2Checked) {
                 alert('개인 정보 활용 동의가 필요합니다.');
             } else {
-                nextStep();
+                requestPay();
+            }
+        }
+
+        async function requestPay() {
+                const response = await PortOne.requestPayment({
+                    storeId: "store-78210a12-d8bc-46bd-8b0a-ce0679096a79",
+                    paymentId: '<%= resvCode %>',
+                    orderName: '<%= courseName %>',
+                    totalAmount: calculateTotalFee(),
+                    currency: "KRW",
+                    channelKey: "channel-key-c2db6c5c-a0f4-402e-a176-5ccdfd775929",
+                    payMethod: "CARD",
+                    isTestChannel: true,
+                    redirectUrl: "http://127.0.0.1/view/list_reservation.jsp",
+                });
+
+                if (response.code != null) {
+                    await updateReservationFlag(2);
+                    alert(response.message);
+                    return;
+                }
+
+                const updateSuccess = await updateReservationFlag(1);
+                if (updateSuccess) {
+                    alert("결제가 성공적으로 완료되었습니다.");
+                    window.location.href = "http://127.0.0.1/view/list_reservation.jsp";
+                } else {
+                    alert("결제 후 예약 상태 업데이트에 실패했습니다.");
+                }
+        }
+
+        async function updateReservationFlag(flag) {
+            try {
+                const response = await fetch('updateReservationFlag.jsp', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: `flag=${flag}&resvCode=<%= resvCode %>`
+                });
+
+                if (response.ok) {
+                    const result = await response.text();
+                    return result === "success";
+                } else {
+                    return false;
+                }
+            } catch (error) {
+                console.error("서버 통신 오류:", error);
+                return false;
             }
         }
     </script>
 </head>
 
 <body>
-<input type="hidden" id="courseName" value="<%= courseName %>">
-<input type="hidden" id="selectedDate" value="<%= selectedDate %>">
-
 <%@ include file="common_m_header.jsp" %>
 <%@ include file="common_desktop_header.jsp" %>
 
@@ -199,7 +230,7 @@
                 </div>
 
                 <div class="clearfix" style="height:10px;"></div>
-                <form action="" method="post" name="resvfrm" id="resvfrm" autocomplete="off" onsubmit="event.preventDefault(); nextStep();">
+                <form action="" method="post" name="resvfrm" id="resvfrm" autocomplete="off">
                     <div class="panel panel-default">
                         <div class="panel-heading"><strong><i class="fa fa-calculator fa-lg"></i> 이용서비스정보</strong>  </div>
                         <div class="table-responsive">
@@ -332,7 +363,7 @@
                             </div>
                         </div>
                         <div class="panel-footer">
-                            <label><input type="checkbox" name="agree1" value="1" id="agree1" /> 상기의 내용을 숙지하고 예약 및 환불규정에 동의 합니다.</label>
+                            <label><input type="checkbox" name="agree1" value="1" id="agree1" checked=checked /> 상기의 내용을 숙지하고 예약 및 환불규정에 동의 합니다.</label>
                         </div>
                     </div>
 
@@ -355,7 +386,7 @@
 
                         </div>
                         <div class="panel-footer">
-                            <label><input type="checkbox" name="agree2" value="1" id="agree2" /> 개인정보 활용에 동의 합니다.</label>
+                            <label><input type="checkbox" name="agree2" value="1" id="agree2" checked=checked/> 개인정보 활용에 동의 합니다.</label>
                         </div>
                     </div>
 
@@ -366,7 +397,7 @@
                                 <button type="button" class="btn btn-primary" onclick="location.href='http://127.0.0.1/view/booking.jsp';"><i class="fa fa-chevron-left fa-sm"></i> 이전단계</button>
                             </div>
                             <div class="btn-group" role="group">
-                                <button type="submit" id="submit_next" data-loading-text="Loading..." autocomplete="off" class="btn btn-success" onclick="confirmAgree()"><i class="fa fa-check"></i> 예약요청</button>
+                                <button type="button" id="submit_next" data-loading-text="Loading..." autocomplete="off" class="btn btn-success" onclick="confirmAgree()"><i class="fa fa-check"></i> 예약확정</button>
                             </div>
                         </div>
 
