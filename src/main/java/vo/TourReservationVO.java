@@ -6,7 +6,7 @@ public class TourReservationVO {
 	
 	private String resv_code, id, crs_code, logic;
 	private int fare, person, resv_flag;
-	private Date create_date;
+	private Date create_date, tour_date;
 	
 	public TourReservationVO() {
 		
@@ -23,6 +23,28 @@ public class TourReservationVO {
 		this.person = person;
 		this.resv_flag = resv_flag;
 		this.create_date = create_date;
+	}
+	
+	public TourReservationVO(String resv_code, String id, String crs_code, String logic, int fare, int person,
+			int resv_flag, Date create_date, Date tour_date) {
+		super();
+		this.resv_code = resv_code;
+		this.id = id;
+		this.crs_code = crs_code;
+		this.logic = logic;
+		this.fare = fare;
+		this.person = person;
+		this.resv_flag = resv_flag;
+		this.create_date = create_date;
+		this.tour_date = tour_date;
+	}
+
+	public Date getTour_date() {
+		return tour_date;
+	}
+
+	public void setTour_date(Date tour_date) {
+		this.tour_date = tour_date;
 	}
 
 	public String getResv_code() {

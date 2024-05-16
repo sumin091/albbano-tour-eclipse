@@ -13,10 +13,10 @@ To change this template use File | Settings | File Templates.
 %>
 	<script>
 	alert("로그인 되었습니다.");
-	location.href = "login_ok.jsp";
+	location.href = "index_user.jsp";
 	</script>
 	
-<% } %>
+<% }%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -63,15 +63,21 @@ To change this template use File | Settings | File Templates.
                 <input type="password" name="mb_password" id="login_pw" required class="frm_input required" size="20"
                        maxLength="20" placeholder="PASSWORD">
                 <button type="submit" class="btn_submit">로그인</button>
-                <div id="login_info">
-                    
+				<div id="login_info">
+                    <!-- <div class="login_if_auto chk_box">
+                        <input type="checkbox" name="auto_login" id="login_auto_login" class="selec_chk">
+                        <label for="login_auto_login"><span></span> 로그인 기억하기 </label>
+                    </div> -->
                     <div class="login_if_lpl">
-                        <a href="find_id.jsp" >아이디찾기 </a>|
-                        <a href="find_password.jsp" >비밀번호찾기 </a>
+                        <!-- <a href="find_password.jsp" target="_blank" id="login_password_lost">비밀번호찾기 </a>
+                        <a href="find_id.jsp" target="_blank" id="login_id_lost">아이디찾기 </a> -->
+                        
+						<a href="find_id.jsp" style="margin-right: 10px;">아이디찾기</a>
+                        <a href="find_password.jsp">비밀번호찾기</a>
                     </div>
                 </div>
             </fieldset>
-            </form>
+        </form>
     </div>
 </div>
 

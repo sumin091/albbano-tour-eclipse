@@ -5,28 +5,56 @@
   Time: 오후 03:56
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page import="java.time.LocalDate"%>
+<%@ page import="java.sql.Date"%>
+<%@ page import="vo.TourReservationVO"%>
+<%@ page import="dao.UserInfoManagementDAO"%>
+<%@ page import="vo.UserInfoVO"%>
 <%@ page import="dao.TourReservationManagementDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
-<%-- <%
-String login_id = (String)session.getAttribute("idKey");
+<%
+	String login_id = (String)session.getAttribute("idKey");
 	if(login_id == null){ %>
-	
+		
 	<script>
 	alert("로그인이 필요한 페이지 입니다.");
 	location.href = "login.jsp";
 	</script>
+		
+<%  }
 	
-<%  } %>
+	String courseName= request.getParameter("courseName");
+	String selectedDate= request.getParameter("selectedDate");
+	
+	LocalDate localDate = LocalDate.parse(selectedDate);
+	Date tourDate = Date.valueOf(localDate);
 
-<%
-TourReservationManagementDAO tourReservationManagementDAO = TourReservationManagementDAO.getInstance();
-%> --%>
-
-<%
-	String courseName= (String)request.getParameter("courseName");
-	String selectedDate= (String)request.getParameter("selectedDate");
+	
+	UserInfoManagementDAO userInfoManagementDAO = UserInfoManagementDAO.getInstance();
+	UserInfoVO userInfoVO = userInfoManagementDAO.selectInfo(login_id);
+	pageContext.setAttribute("userInfoVO",userInfoVO);
+	
+	TourReservationManagementDAO tourReservationManagementDAO = TourReservationManagementDAO.getInstance();
+	String resvCode = tourReservationManagementDAO.createResvCode();
+	String courseCode = tourReservationManagementDAO.selectCourseCode(courseName);
+	
+	int selectedAdultCount = Integer.parseInt(request.getParameter("rm_cnt_0"));
+	int totalFee = 25000 * selectedAdultCount;
+	
+	TourReservationVO tourReservationVO = new TourReservationVO();
+	tourReservationVO.setResv_code(resvCode);
+	tourReservationVO.setId(login_id);
+	tourReservationVO.setCrs_code(courseCode);
+	tourReservationVO.setFare(totalFee);
+	tourReservationVO.setPerson(selectedAdultCount);
+	tourReservationVO.setResv_flag(0);
+	tourReservationVO.setTour_date(tourDate);
+	
+	int count = tourReservationManagementDAO.insertTourReservation(tourReservationVO);
+	pageContext.setAttribute("resvCode",resvCode);
+	pageContext.setAttribute("totalFee", totalFee);
+	
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -41,8 +69,8 @@ TourReservationManagementDAO tourReservationManagementDAO = TourReservationManag
         function calculateTotalFee() {
             var baseFee = 25000;
             var selectedAdultCount = parseInt(document.getElementById("rm_cnt_0").value);
-
             var totalFee = baseFee * selectedAdultCount;
+            
             document.getElementById("time-total-0").innerText = totalFee.toLocaleString();
             document.getElementById("all-total").innerText = totalFee.toLocaleString();
             document.getElementById("pg-price-all").innerText = totalFee.toLocaleString();
@@ -69,9 +97,9 @@ TourReservationManagementDAO tourReservationManagementDAO = TourReservationManag
         }
 
         async function requestPay() {
-        	const response = await PortOne.requestPayment({
+            const response = await PortOne.requestPayment({
                 storeId: "store-78210a12-d8bc-46bd-8b0a-ce0679096a79",
-                paymentId: "testlw4dm9fxl1vas",
+                paymentId: '<%= resvCode %>',
                 orderName: '<%= courseName %>',
                 totalAmount: calculateTotalFee(),
                 currency: "KRW",
@@ -80,13 +108,42 @@ TourReservationManagementDAO tourReservationManagementDAO = TourReservationManag
                 isTestChannel: true,
                 redirectUrl: "http://127.0.0.1/view/list_reservation.jsp",
             });
-        	
-        	if (response.code != null) {
-        		return alert(response.message);
-        	}
-        	
-        	alert("결제가 성공적으로 완료되었습니다.");
-        	window.location.href = "http://127.0.0.1/view/list_reservation.jsp";
+
+            if (response.code != null) {
+                await updateReservationFlag(2);
+                alert(response.message);
+                return;
+            }
+
+            const updateSuccess = await updateReservationFlag(1);
+            if (updateSuccess) {
+                alert("결제가 성공적으로 완료되었습니다.");
+                window.location.href = "http://127.0.0.1/view/list_reservation.jsp";
+            } else {
+                alert("결제 후 예약 상태 업데이트에 실패했습니다.");
+            }
+        }
+
+        async function updateReservationFlag(flag) {
+            try {
+                const response = await fetch('updateReservationFlag.jsp', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: `flag=${flag}&resvCode=<%= resvCode %>`
+                });
+
+                if (response.ok) {
+                    const result = await response.text();
+                    return result === "success";
+                } else {
+                    return false;
+                }
+            } catch (error) {
+                console.error("서버 통신 오류:", error);
+                return false;
+            }
         }
     </script>
 </head>
@@ -97,7 +154,7 @@ TourReservationManagementDAO tourReservationManagementDAO = TourReservationManag
 
 <section id="sub_visual">
     <div class="backgroundimg">
-        <div class="visual_area" style="background:url('../front_util/images/sub_visual02.jpg') no-repeat top center;"></div>
+        <div class="visual_area" style="background:url('http://127.0.0.1/front_util/images/sub_visual02.jpg') no-repeat top center;"></div>
     </div>
 </section>
 
@@ -157,10 +214,7 @@ TourReservationManagementDAO tourReservationManagementDAO = TourReservationManag
                 </div>
 
                 <div class="clearfix" style="height:10px;"></div>
-                <form method="post" name="wzfrm" id="wzfrm" autocomplete="off">
-                	
-                	
-                    
+                <form action="" method="post" name="resvfrm" id="resvfrm" autocomplete="off">
                     <div class="panel panel-default">
                         <div class="panel-heading"><strong><i class="fa fa-calculator fa-lg"></i> 이용서비스정보</strong>  </div>
                         <div class="table-responsive">
@@ -177,8 +231,8 @@ TourReservationManagementDAO tourReservationManagementDAO = TourReservationManag
                                 <tbody>
 
                                 <tr>
-                                    <td data-title="예약서비스"><%= courseName %></td>
-                                    <td data-title="일자"><%=selectedDate %></td>
+                                    <td data-title="코스명"><%= courseName %></td>
+                                    <td data-title="일자"><%= selectedDate %></td>
                                     <td data-title="이용인원">
 									    성인
 									    <select name="rm_cnt[]" id="rm_cnt_0" class="form-control" style="width:40px;" onchange="calculateTotalFee()">
@@ -219,7 +273,7 @@ TourReservationManagementDAO tourReservationManagementDAO = TourReservationManag
                                         <div class="col-sm-10">
                                             <div class="form-inline">
                                                 <div class="input-group">
-                                                    <input readonly type="text" name="bk_name" value="" id="bk_name" required class="form-control" maxlength="20" aria-describedby="helpblock_bk_name">
+                                                    <input readonly type="text" name="bk_name" value="${userInfoVO.name}" id="bk_name" required class="form-control" maxlength="20" aria-describedby="helpblock_bk_name">
                                                     <span class="fa fa-check form-control-feedback"></span>
                                                 </div>
                                             </div>
@@ -231,7 +285,7 @@ TourReservationManagementDAO tourReservationManagementDAO = TourReservationManag
                                         <div class="col-sm-10">
                                             <div class="form-inline">
                                                 <div class="input-group">
-                                                    <input readonly type="number" name="bk_hp" value="" id="bk_hp" required class="form-control" maxlength="20">
+                                                    <input readonly type="number" name="bk_hp" value="${userInfoVO.tel}" id="bk_hp" required class="form-control" maxlength="20">
                                                     <span class="fa fa-phone form-control-feedback"></span>
                                                 </div>
                                             </div>
@@ -243,7 +297,7 @@ TourReservationManagementDAO tourReservationManagementDAO = TourReservationManag
                                         <div class="col-sm-10">
                                             <div class="form-inline">
                                                 <div class="input-group">
-                                                    <input readonly type="email" name="bk_email" id="bk_email" value="" required class="form-control email" size="35" maxlength="100">
+                                                    <input readonly type="email" name="bk_email" id="bk_email" value="${userInfoVO.email}" required class="form-control email" size="35" maxlength="100">
                                                     <span class="fa fa-envelope form-control-feedback"></span>
                                                 </div>
                                             </div>
